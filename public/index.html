@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carrie Brad | The Editorial Blog on Marketing, Strategy &amp; Creative Living</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts: Playfair Display, Newsreader, Libre Baskerville, Montserrat, Italianno -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Italianno&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            paper: '#fbf9f5',
+            'paper-card': '#f5f1e8',
+            'paper-border': '#dfd8c7',
+            'ink-black': '#111111',
+            'ink-charcoal': '#2c2c2c',
+            'ink-muted': '#6b665c',
+            'news-red': '#942323',
+            'sand-bg': '#f4efe8',
+          },
+          fontFamily: {
+            headline: ['"Playfair Display"', 'Georgia', 'serif'],
+            masthead: ['"Playfair Display"', 'Cinzel', 'Georgia', 'serif'],
+            body: ['"Newsreader"', '"Libre Baskerville"', 'Georgia', 'serif'],
+            sans: ['"Montserrat"', 'system-ui', 'sans-serif'],
+            script: ['"Italianno"', 'cursive'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Rock-solid layout stability - no horizontal scrollbar jumps */
+    html {
+      overflow-y: scroll;
+      scrollbar-gutter: stable;
+      background-color: #fbf9f5;
+    }
+    body {
+      background-color: #fbf9f5;
+      color: #111111;
+      font-family: 'Newsreader', 'Libre Baskerville', Georgia, serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+    /* Newspaper double rules */
+    .border-double-thick {
+      border-top: 3px solid #111111;
+      border-bottom: 1px solid #111111;
+    }
+    
+    /* Authentic drop cap for lead blog post */
+    .drop-cap::first-letter {
+      float: left;
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 3.75rem;
+      line-height: 0.8;
+      padding-top: 4px;
+      padding-right: 8px;
+      font-weight: 700;
+      color: #111111;
+    }
+    
+    /* Vertical Category Tag along Left Edge of Thumbnail (from reference image) */
+    .vertical-category-tag {
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      text-orientation: mixed;
+    }
+
+    /* HiAnime-style Horizontal Carousel Utilities */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    /* Atmospheric Seamless Blend Features for Latest Blog Spotlight */
+    .spotlight-blend-image {
+      -webkit-mask-image: radial-gradient(ellipse 95% 92% at 50% 50%, rgba(0,0,0,1) 58%, rgba(0,0,0,0) 100%);
+      mask-image: radial-gradient(ellipse 95% 92% at 50% 50%, rgba(0,0,0,1) 58%, rgba(0,0,0,0) 100%);
+      border-radius: 1.5rem;
+    }
+  </style>
+</head>
+<body class="selection:bg-neutral-800 selection:text-white">
+
+  <!-- ======================================================== -->
+  <!-- 1. TOP EDITORIAL STRIP (Dateline, Edition & Socials)     -->
+  <!-- ======================================================== -->
+  <div class="w-full bg-[#f4f0e6] border-b border-paper-border text-[11px] font-sans font-medium text-ink-muted">
+    <div class="max-w-[1240px] mx-auto px-4 sm:px-6 py-1.5 flex flex-wrap items-center justify-between gap-2">
+      <!-- Left: Date & Blog Tagline -->
+      <div class="flex items-center space-x-3">
+        <span class="font-bold text-ink-black tracking-wider uppercase" id="current-date">FRIDAY, OCTOBER 23, 2026</span>
+        <span class="text-neutral-400">•</span>
+        <span class="font-bold text-news-red tracking-wider font-mono text-[10.5px]" id="current-time">07:28:45 PM</span>
+        <span class="text-neutral-400">•</span>
+        <span class="hidden sm:inline">THE EDITORIAL BLOG BY CARRIE BRAD</span>
+        <span class="text-neutral-400 hidden sm:inline">•</span>
+        <span class="hidden md:inline">VOL. 04 • ISSUE 42</span>
+      </div>
+
+      <!-- Center Motto -->
+      <div class="hidden lg:block italic font-body text-xs text-ink-charcoal tracking-wide">
+        "Weekly Dispatches on Digital Strategy, Creative Living &amp; High-Touch Copy"
+      </div>
+
+      <!-- Right: Social Links, Sanity Studio & Subscribe -->
+      <div class="flex items-center space-x-3 sm:space-x-4">
+        <a href="http://localhost:3000/studio" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 bg-black hover:bg-news-red text-white px-2.5 py-0.5 text-[9.5px] font-sans font-bold tracking-wider uppercase transition-colors" title="Launch Sanity CMS Studio">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+          SANITY STUDIO
+        </a>
+        <span class="text-neutral-400">•</span>
+        <a href="#newsletter" class="text-news-red hover:underline font-bold tracking-wider uppercase text-[10px]">
+          SUBSCRIBE TO THE MEMO
+        </a>
+        <span class="text-neutral-400">•</span>
+        <div class="flex items-center space-x-2 text-ink-black">
+          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="hover:text-news-red transition-colors" title="Instagram">
+            <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="hover:text-news-red transition-colors" title="Facebook">
+            <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M9 8H6v4h3v12h5V12h3.642L18 8h-4V6.333C14 5.374 14.556 5 15.658 5H18V0h-3.808C10.597 0 9 1.583 9 4.615V8z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- 2. THE EDITORIAL BLOG MASTHEAD (CARRIE BRAD)            -->
+  <!-- ======================================================== -->
+  <header class="w-full bg-paper border-b border-paper-border">
+    <div class="max-w-[1240px] mx-auto px-4 sm:px-6 py-6 sm:py-8">
+      
+      <!-- Top Subtitle Rule -->
+      <div class="flex items-center justify-between text-[9px] sm:text-[10px] font-sans font-bold tracking-[0.25em] uppercase text-ink-muted border-b border-paper-border pb-2 mb-3">
+        <div class="w-1/4 text-left hidden sm:block">FOUNDED MMXX</div>
+        <div class="w-full sm:w-2/4 text-center">A CURATED EDITORIAL BLOG ON MARKETING, COPYWRITING &amp; WELLNESS</div>
+        <div class="w-1/4 text-right hidden sm:block">WEEKLY CIRCULATION</div>
+      </div>
+
+      <!-- The Big Nameplate -->
+      <div class="text-center py-2">
+        <a href="index.html" class="inline-block group">
+          <h1 class="font-headline text-4xl sm:text-6xl md:text-7xl lg:text-[82px] font-black tracking-[-0.02em] uppercase text-ink-black leading-none group-hover:opacity-90 transition-opacity">
+            Carrie Brad
+          </h1>
+        </a>
+      </div>
+
+      <!-- Bottom Masthead Rule -->
+      <div class="border-t-2 border-b border-black py-1.5 mt-3 flex items-center justify-between text-[10px] sm:text-[11px] font-sans font-semibold tracking-[0.16em] uppercase text-ink-black">
+        <span>THE JOURNAL</span>
+        <span class="font-script text-2xl lowercase tracking-normal text-ink-charcoal font-normal -my-1">editorial notes &amp; strategy</span>
+        <span>AUTUMN EDITION • 2026</span>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ======================================================== -->
+  <!-- 3. ROCK-SOLID STATIONARY NAVBAR (Zero-Shaky, Rock-Solid) -->
+  <!-- ======================================================== -->
+  <nav id="main-header" class="w-full bg-paper/95 backdrop-blur-md border-b-2 border-black sticky top-0 z-50 shadow-sm">
+    <div class="max-w-[1240px] mx-auto px-4 sm:px-6 flex items-center justify-between h-14">
+      
+      <!-- Mini Brand Mark for Mobile -->
+      <div class="flex-shrink-0 md:hidden">
+        <a href="index.html" class="font-headline font-black text-lg tracking-tight uppercase text-ink-black">
+          CARRIE BRAD
+        </a>
+      </div>
+
+      <!-- Centered Desktop Menu - Fixed width & weight to prevent layout shifts -->
+      <div class="hidden md:flex items-center space-x-7 lg:space-x-9 text-[11px] font-sans font-bold tracking-[0.18em] uppercase">
+        <a href="index.html" class="py-1 text-news-red border-b-2 border-news-red">HOME</a>
+        <a href="services.html" class="py-1 text-ink-charcoal hover:text-news-red transition-colors">SERVICES</a>
+        <a href="portfolio.html" class="py-1 text-ink-charcoal hover:text-news-red transition-colors">PORTFOLIO</a>
+        <a href="blog.html" class="py-1 text-ink-charcoal hover:text-news-red transition-colors">BLOG</a>
+      </div>
+
+      <!-- Right Side: Black CONTACT Button + Search + Sanity Studio -->
+      <div class="flex items-center space-x-2 sm:space-x-4">
+        <!-- Sanity Studio Direct Link -->
+        <a href="http://localhost:3000/studio" target="_blank" rel="noopener noreferrer" class="hidden sm:inline-flex items-center gap-1.5 border border-black hover:bg-black hover:text-white text-ink-black text-[10px] sm:text-[11px] font-sans font-bold tracking-[0.16em] px-3 py-1.5 uppercase transition-colors" title="Manage posts in Sanity Studio">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+          CMS STUDIO
+        </a>
+
+        <!-- Quick Search -->
+        <button onclick="toggleSearchModal()" class="text-ink-charcoal hover:text-ink-black p-1.5 text-xs font-sans font-bold tracking-wider flex items-center gap-1.5" title="Search all blog posts">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+          <span class="hidden sm:inline text-[11px] font-bold uppercase tracking-wider">SEARCH</span>
+        </button>
+
+        <!-- Black Contact Button -->
+        <a href="contact.html" class="bg-black hover:bg-neutral-800 text-white text-[10px] sm:text-[11px] font-sans font-bold tracking-[0.18em] px-4 sm:px-5 py-2 uppercase transition-colors shadow-sm">
+          CONTACT
+        </a>
+
+        <!-- Mobile Menu Toggle -->
+        <button onclick="toggleMobileMenu()" class="md:hidden text-ink-black p-1 focus:outline-none" aria-label="Toggle navigation menu">
+          <svg id="hamburger-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+          <svg id="close-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Mobile Slide-down Menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-paper border-b-2 border-black px-6 py-4 space-y-3 font-sans text-xs font-bold tracking-[0.18em] uppercase">
+      <a href="index.html" class="block text-news-red">HOME</a>
+      <a href="services.html" class="block text-ink-charcoal hover:text-ink-black">SERVICES</a>
+      <a href="portfolio.html" class="block text-ink-charcoal hover:text-ink-black">PORTFOLIO</a>
+      <a href="blog.html" class="block text-ink-charcoal hover:text-ink-black">BLOG</a>
+      <a href="http://localhost:3000/studio" target="_blank" rel="noopener noreferrer" class="block text-news-red font-bold flex items-center justify-between">
+        <span>SANITY CMS STUDIO</span>
+        <span class="text-[9px] bg-neutral-200 text-black px-1.5 py-0.5 rounded font-mono">ADMIN ↗</span>
+      </a>
+      <a href="contact.html" class="block bg-black text-white text-center py-2 uppercase tracking-[0.18em]">CONTACT</a>
+    </div>
+  </nav>
+
+  <!-- ======================================================== -->
+  <!-- 4. LATEST BLOG: HIANIME SPOTLIGHT WITH BLEND FEATURE     -->
+  <!-- ======================================================== -->
+  <section class="relative w-full bg-[#0d0d0d] text-white border-b border-neutral-800 overflow-hidden py-12 sm:py-16 md:py-20"
+           onmouseenter="isSpotlightHovered = true"
+           onmouseleave="isSpotlightHovered = false">
+    <!-- Atmospheric background image that changes/fades with active slide -->
+    <div id="spotlight-bg" class="absolute inset-0 bg-cover bg-center opacity-30 filter blur-[2px] transition-all duration-700 pointer-events-none scale-105"
+         style="background-image: url('https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=1600&q=80');">
+    </div>
+    <!-- Deep gradient overlays for seamless atmospheric blend -->
+    <div class="absolute inset-0 bg-gradient-to-r from-[#0d0d0d] via-[#0d0d0d]/90 to-transparent pointer-events-none"></div>
+    <div class="absolute inset-0 bg-gradient-to-t from-[#0d0d0d] via-transparent to-[#0d0d0d]/80 pointer-events-none"></div>
+
+    <div class="relative z-10 max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
+        
+        <!-- Left Column: Spotlight Info & CTAs (HiAnime Spotlight UI) -->
+        <div class="lg:col-span-7 space-y-4 sm:space-y-6 text-left">
+          
+          <!-- Spotlight Badge & Chips (Fluid rounded pills, not boxy) -->
+          <div class="flex flex-wrap items-center gap-2 text-[10px] font-sans font-bold tracking-[0.2em] uppercase">
+            <span class="inline-flex items-center gap-1.5 bg-[#942323] text-white px-3.5 py-1 rounded-full shadow-md" id="spotlight-rank">
+              <span class="w-1.5 h-1.5 rounded-full bg-white animate-ping"></span>
+              #1 LATEST SPOTLIGHT
+            </span>
+            <span class="bg-white/10 text-neutral-200 border border-white/20 px-3 py-1 rounded-full backdrop-blur-sm" id="spotlight-cat">
+              BUSINESS / FINANCE
+            </span>
+            <span class="text-neutral-500 hidden sm:inline">•</span>
+            <span class="text-neutral-300 hidden sm:inline" id="spotlight-date">OCTOBER 23, 2026</span>
+            <span class="text-neutral-500 hidden sm:inline">•</span>
+            <span class="text-amber-400 font-semibold" id="spotlight-reads">★ 4.9 • 24.5K READS</span>
+          </div>
+
+          <!-- Headline -->
+          <h2 id="spotlight-title" class="font-headline font-bold text-2xl sm:text-4xl md:text-5xl text-white leading-[1.18] tracking-tight hover:text-amber-300 transition-colors cursor-pointer drop-shadow-sm" onclick="handleSpotlightClick()">
+            DREADING TAX SEASON? THESE STRATEGIES WILL HELP YOU PREPARE EARLY
+          </h2>
+
+          <!-- Excerpt -->
+          <p id="spotlight-excerpt" class="font-body text-xs sm:text-sm md:text-base text-neutral-300 leading-relaxed max-w-2xl line-clamp-3 sm:line-clamp-4 font-normal">
+            Tax season can be an overwhelmingly stressful time for independent business owners, especially if you're not prepared. Rather than scrambling for receipts in late spring, learn the proactive deductions and bookkeeping protocols high-earning founders use to stay compliant and protect margins.
+          </p>
+
+          <!-- Buttons & Slider Navigation -->
+          <div class="flex flex-wrap items-center justify-between gap-4 pt-2">
+            <!-- Action Buttons (Fluid rounded pills, not boxy) -->
+            <div class="flex items-center space-x-3">
+              <button onclick="handleSpotlightClick()" class="inline-flex items-center gap-2 bg-[#942323] hover:bg-red-700 text-white font-sans font-bold text-[11px] tracking-[0.2em] px-6 py-2.5 rounded-full uppercase transition-all shadow-lg hover:shadow-red-900/40 hover:-translate-y-0.5">
+                <span>📖 READ POST</span>
+              </button>
+              <button onclick="handleSpotlightClick()" class="inline-flex items-center gap-1.5 bg-white/10 hover:bg-white/20 text-neutral-200 border border-white/20 font-sans font-bold text-[10px] sm:text-[11px] tracking-[0.16em] px-5 py-2.5 rounded-full uppercase transition-all backdrop-blur-sm hover:-translate-y-0.5">
+                <span>🔖 QUICK PREVIEW</span>
+              </button>
+            </div>
+
+            <!-- HiAnime-style Slider Controls -->
+            <div class="flex items-center space-x-2 bg-black/40 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10">
+              <span class="text-neutral-400 font-mono text-xs font-bold px-1" id="spotlight-counter">01 / 03</span>
+              <button onclick="prevSpotlightSlide()" class="w-8 h-8 rounded-full bg-white/10 hover:bg-[#942323] border border-white/20 text-white flex items-center justify-center transition-all hover:scale-105" title="Previous Latest Post">
+                ❮
+              </button>
+              <button onclick="nextSpotlightSlide()" class="w-8 h-8 rounded-full bg-white/10 hover:bg-[#942323] border border-white/20 text-white flex items-center justify-center transition-all hover:scale-105" title="Next Latest Post">
+                ❯
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right Column: Blended Featured Artwork with Atmospheric Glow -->
+        <div class="lg:col-span-5 relative flex justify-center">
+          <div class="relative w-full max-w-md cursor-pointer group" onclick="handleSpotlightClick()">
+            
+            <!-- Atmospheric Ambient Glow behind Artwork -->
+            <div class="absolute -inset-4 bg-gradient-to-tr from-[#942323]/30 via-amber-500/20 to-transparent rounded-full filter blur-3xl pointer-events-none -z-10 group-hover:scale-110 transition-transform duration-700"></div>
+
+            <!-- Circular "READ THE LATEST" Badge (Showit reference) -->
+            <div class="absolute -top-3 -left-3 sm:-top-5 sm:-left-5 z-20 w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-[#141414] text-white shadow-[0_15px_35px_rgba(0,0,0,0.6)] flex items-center justify-center transform -rotate-12 border border-white/20 group-hover:scale-110 transition-transform select-none">
+              <div class="text-center font-sans tracking-[0.16em] text-[8.5px] sm:text-[10px] font-bold leading-tight uppercase p-1">
+                <div>READ</div>
+                <div class="py-0.5 text-news-red">THE</div>
+                <div>LATEST</div>
+              </div>
+            </div>
+
+            <!-- Spotlight Thumbnail Container with Radial Blend Mask -->
+            <div class="relative aspect-[16/11] sm:aspect-[4/3] spotlight-blend-image overflow-hidden shadow-2xl bg-neutral-900 border border-white/10">
+              <img id="spotlight-img" src="https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=1200&q=80" alt="Spotlight Blog Post" class="w-full h-full object-cover filter contrast-[1.05] group-hover:scale-108 transition-transform duration-700">
+              
+              <!-- Subtle inner gradients for edge blending -->
+              <div class="absolute inset-0 bg-gradient-to-t from-[#0d0d0d]/85 via-transparent to-transparent pointer-events-none"></div>
+              <div class="absolute inset-0 bg-gradient-to-r from-[#0d0d0d]/60 via-transparent to-transparent pointer-events-none"></div>
+
+              <!-- Bottom Glass Cutline -->
+              <div class="absolute bottom-3 inset-x-3 bg-black/65 backdrop-blur-md px-3.5 py-2 rounded-xl flex items-center justify-between text-[9.5px] font-sans text-neutral-200 uppercase tracking-wider border border-white/15">
+                <span id="spotlight-readtime">BY CARRIE BRAD • 6 MIN READ</span>
+                <span class="text-amber-400 font-bold flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                  READ DISPATCH →
+                </span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ======================================================== -->
+  <!-- 5. TRENDING SECTION: AUTO-SLIDING HIANIME-STYLE CAROUSEL -->
+  <!-- ======================================================== -->
+  <section class="w-full bg-[#f8f5ee] border-b border-[#e2dbcd] py-9 sm:py-12">
+    <div class="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Section Header with HiAnime-style Chevrons & Auto-slide Badge -->
+      <div class="flex items-center justify-between border-b border-[#d8cfbe] pb-3.5 mb-6">
+        
+        <div class="flex items-center space-x-3">
+          <span class="inline-flex items-center justify-center w-9 h-9 rounded-xl bg-black text-white text-base shadow-sm">🔥</span>
+          <div>
+            <h3 class="font-headline font-bold text-xl sm:text-2xl uppercase tracking-tight text-ink-black flex items-center gap-2">
+              TRENDING BLOGS
+              <span class="text-[9.5px] font-sans font-bold bg-[#942323] text-white px-2.5 py-0.5 rounded-full uppercase tracking-wider hidden sm:inline">
+                TOP RANKED
+              </span>
+              <span class="text-[9.5px] font-sans font-bold text-ink-muted border border-[#d6cebf] px-2 py-0.5 rounded-full uppercase tracking-wider hidden md:inline-flex items-center gap-1">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                AUTO-SLIDING
+              </span>
+            </h3>
+            <p class="font-sans text-[10px] sm:text-[11px] text-ink-muted uppercase tracking-[0.18em]">
+              THIS WEEK'S MOST DISCUSSED DISPATCHES ON SOCIAL &amp; MARKETING • PAUSES ON HOVER
+            </p>
+          </div>
+        </div>
+
+        <!-- Carousel Scroll Navigation Arrows -->
+        <div class="flex items-center space-x-2">
+          <button onclick="scrollTrending(-1)" class="w-9 h-9 rounded-full bg-white hover:bg-black hover:text-white border border-[#d6cfbe] text-black flex items-center justify-center transition-all shadow-sm font-bold text-xs" title="Scroll Left">
+            ❮
+          </button>
+          <button onclick="scrollTrending(1)" class="w-9 h-9 rounded-full bg-white hover:bg-black hover:text-white border border-[#d6cfbe] text-black flex items-center justify-center transition-all shadow-sm font-bold text-xs" title="Scroll Right">
+            ❯
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Horizontal Scroll Track with Modern Numbered Poster Cards (Auto-sliding) -->
+      <div id="trending-track"
+           onmouseenter="isTrendingHovered = true"
+           onmouseleave="isTrendingHovered = false"
+           ontouchstart="isTrendingHovered = true"
+           ontouchend="isTrendingHovered = false"
+           class="flex gap-5 sm:gap-6 overflow-x-auto no-scrollbar pb-4 pt-1 px-1 cursor-grab active:cursor-grabbing">
+        <!-- Rendered dynamically via JavaScript renderTrendingTrack() -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ======================================================== -->
+  <!-- 5. CATEGORY SUBMENU ("Browse the blog :")                -->
+  <!-- ======================================================== -->
+  <section class="w-full bg-paper border-b-2 border-black py-5 px-4 sm:px-6">
+    <div class="max-w-[1200px] mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+      
+      <!-- Script Lead Text -->
+      <div class="text-center md:text-left flex-shrink-0">
+        <span class="font-script text-3xl sm:text-4xl text-ink-black select-none">
+          Browse the blog :
+        </span>
+      </div>
+
+      <!-- Categories in fluid rounded pills (un-boxy) -->
+      <div class="flex flex-wrap items-center justify-center gap-2 sm:gap-2.5 text-[10px] sm:text-[11px] font-sans font-bold tracking-[0.2em] uppercase">
+        <button onclick="filterCategory('ALL')" id="cat-ALL" class="bg-black text-white px-4 py-1.5 rounded-full transition-all shadow-sm">ALL</button>
+        <button onclick="filterCategory('SOCIAL MEDIA')" id="cat-SOCIAL MEDIA" class="bg-white hover:bg-neutral-100 text-ink-charcoal border border-[#d6cfbe] px-4 py-1.5 rounded-full transition-all">SOCIAL MEDIA</button>
+        <button onclick="filterCategory('WELLNESS')" id="cat-WELLNESS" class="bg-white hover:bg-neutral-100 text-ink-charcoal border border-[#d6cfbe] px-4 py-1.5 rounded-full transition-all">WELLNESS</button>
+        <button onclick="filterCategory('BUSINESS')" id="cat-BUSINESS" class="bg-white hover:bg-neutral-100 text-ink-charcoal border border-[#d6cfbe] px-4 py-1.5 rounded-full transition-all">BUSINESS</button>
+        <button onclick="filterCategory('COPYWRITING')" id="cat-COPYWRITING" class="bg-white hover:bg-neutral-100 text-ink-charcoal border border-[#d6cfbe] px-4 py-1.5 rounded-full transition-all">COPYWRITING</button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ======================================================== -->
+  <!-- 7. 3-COLUMN BLOG POST GRID WITH VERTICAL CATEGORY TEXT    -->
+  <!-- ======================================================== -->
+  <section class="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+    
+    <!-- Section Title Rule -->
+    <div class="flex items-center justify-between border-b-2 border-black pb-2 mb-8">
+      <h3 class="font-sans font-bold text-xs tracking-[0.25em] uppercase text-ink-black">
+        LATEST ESSAYS &amp; DISPATCHES
+      </h3>
+      <span class="text-[10px] font-sans text-ink-muted uppercase tracking-wider">
+        DISPLAYS <span id="post-count">4</span> POSTS
+      </span>
+    </div>
+
+    <!-- 3-Column Grid -->
+    <div id="posts-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- Populated dynamically via JavaScript with exact vertical category overlay -->
+    </div>
+
+  </section>
+
+  
+
+  <!-- ======================================================== -->
+  <!-- 9. THE SUNDAY MEMO NEWSLETTER SIGNUP                    -->
+  <!-- ======================================================== -->
+  <section id="newsletter" class="max-w-[1140px] mx-auto px-4 sm:px-6 my-12 sm:my-16">
+    <div class="border border-[#ded6c5] rounded-3xl p-8 sm:p-12 bg-white text-center space-y-4 shadow-[0_10px_35px_rgba(0,0,0,0.04)]">
+      <div class="text-[10px] font-sans font-bold tracking-[0.3em] uppercase text-news-red">
+        DELIVERED EVERY SUNDAY AT 8:00 AM
+      </div>
+      <h3 class="font-headline text-3xl sm:text-4xl font-bold uppercase tracking-tight text-ink-black">
+        The Sunday Editorial Memo
+      </h3>
+      <p class="font-body text-sm sm:text-base text-ink-charcoal max-w-xl mx-auto leading-relaxed">
+        Join over 25,000 founders, freelancers, and creative marketers receiving my private weekly dispatch with marketing teardowns, favorite reads, and exclusive tips not published on the blog.
+      </p>
+
+      <form onsubmit="handleNewsletter(event)" class="pt-2 flex flex-col sm:flex-row gap-3 justify-center max-w-md mx-auto">
+        <input type="email" id="nl-email" required placeholder="Enter your best email address..." class="px-5 py-3 bg-white border border-[#d6cfbe] rounded-full font-sans text-xs text-ink-black focus:outline-none focus:ring-1 focus:ring-black flex-grow shadow-inner">
+        <button type="submit" class="bg-black text-white hover:bg-news-red px-7 py-3 rounded-full font-sans font-bold text-xs uppercase tracking-[0.2em] transition-all whitespace-nowrap shadow-md hover:-translate-y-0.5">
+          SUBSCRIBE
+        </button>
+      </form>
+      <div id="nl-success" class="hidden text-xs font-sans font-bold text-emerald-800 tracking-wider uppercase pt-2">
+        ✓ Thank you for subscribing! Check your inbox for the welcome issue.
+      </div>
+      <div class="text-[9px] font-sans text-ink-muted uppercase tracking-widest pt-1">
+        NO SPAM • UNSUBSCRIBE WITH ONE CLICK ANYTIME
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================== -->
+  <!-- 10. EDITORIAL BLOG FOOTER                                -->
+  <!-- ======================================================== -->
+  <footer class="w-full bg-[#f4f0e6] border-t-2 border-black pt-10 pb-8 text-ink-charcoal">
+    <div class="max-w-[1240px] mx-auto px-4 sm:px-6 space-y-8">
+      
+      <!-- Footer Masthead -->
+      <div class="text-center pb-6 border-b border-paper-border space-y-2">
+        <a href="index.html" class="inline-block">
+          <h4 class="font-headline text-3xl font-black uppercase tracking-tight text-ink-black">
+            Carrie Brad
+          </h4>
+        </a>
+        <p class="font-body text-xs text-ink-muted italic">
+          An editorial blog dedicated to digital marketing strategy, creative copywriting, and mindful living.
+        </p>
+      </div>
+
+      <!-- Footer Columns -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-xs font-sans">
+        
+        <div class="space-y-2">
+          <h5 class="font-bold text-[11px] tracking-[0.2em] uppercase text-ink-black border-b border-paper-border pb-1">
+            BLOG CATEGORIES
+          </h5>
+          <ul class="space-y-1.5 text-ink-muted text-[11px]">
+            <li><button onclick="filterCategory('SOCIAL MEDIA')" class="hover:text-ink-black">Social Media</button></li>
+            <li><button onclick="filterCategory('WELLNESS')" class="hover:text-ink-black">Mindful Wellness</button></li>
+            <li><button onclick="filterCategory('BUSINESS')" class="hover:text-ink-black">Business &amp; Finance</button></li>
+            <li><button onclick="filterCategory('COPYWRITING')" class="hover:text-ink-black">Copywriting Tips</button></li>
+          </ul>
+        </div>
+
+        <div class="space-y-2">
+          <h5 class="font-bold text-[11px] tracking-[0.2em] uppercase text-ink-black border-b border-paper-border pb-1">
+            QUICK NAVIGATION
+          </h5>
+          <ul class="space-y-1.5 text-ink-muted text-[11px]">
+            <li><a href="index.html" class="hover:text-ink-black">Home</a></li>
+            <li><a href="services.html" class="hover:text-ink-black">Services &amp; Retainers</a></li>
+            <li><a href="portfolio.html" class="hover:text-ink-black">Client Portfolio</a></li>
+            <li><a href="blog.html" class="hover:text-ink-black">All Blog Posts</a></li>
+            <li><a href="http://localhost:3000/studio" target="_blank" rel="noopener noreferrer" class="text-news-red font-bold hover:underline flex items-center gap-1">Sanity Studio CMS ↗</a></li>
+          </ul>
+        </div>
+
+        <div class="space-y-2">
+          <h5 class="font-bold text-[11px] tracking-[0.2em] uppercase text-ink-black border-b border-paper-border pb-1">
+            WORK WITH CARRIE
+          </h5>
+          <ul class="space-y-1.5 text-ink-muted text-[11px]">
+            <li><a href="services.html" class="hover:text-ink-black">Sales Page Copywriting</a></li>
+            <li><a href="services.html" class="hover:text-ink-black">Strategy Consultations</a></li>
+            <li><a href="services.html" class="hover:text-ink-black">Newsletter Retainers</a></li>
+            <li><a href="contact.html" class="hover:text-ink-black">Speaking &amp; Podcasts</a></li>
+          </ul>
+        </div>
+
+        <div class="space-y-2">
+          <h5 class="font-bold text-[11px] tracking-[0.2em] uppercase text-ink-black border-b border-paper-border pb-1">
+            GET IN TOUCH
+          </h5>
+          <p class="text-[11px] text-ink-muted leading-relaxed">
+            Have a question or looking to collaborate? Drop me a line anytime.
+          </p>
+          <a href="contact.html" class="inline-block mt-1 font-bold text-news-red hover:underline text-[10px] tracking-wider uppercase">
+            CONTACT CARRIE →
+          </a>
+        </div>
+
+      </div>
+
+      <!-- Copyright & Bottom Rules -->
+      <div class="pt-6 border-t border-paper-border flex flex-col sm:flex-row items-center justify-between text-[10px] font-sans text-ink-muted tracking-wider gap-2 uppercase">
+        <div>
+          © 2026 CARRIE BRAD. ALL RIGHTS RESERVED.
+        </div>
+        <div class="flex space-x-4">
+          <a href="#" class="hover:text-ink-black">PRIVACY</a>
+          <span>•</span>
+          <a href="#" class="hover:text-ink-black">TERMS</a>
+          <span>•</span>
+          <a href="http://localhost:3000/studio" target="_blank" rel="noopener noreferrer" class="text-news-red font-bold hover:underline">SANITY CMS</a>
+          <span>•</span>
+          <a href="#newsletter" class="hover:text-ink-black">NEWSLETTER</a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ======================================================== -->
+  <!-- 11. BLOG POST READER MODAL                               -->
+  <!-- ======================================================== -->
+  <div id="article-modal" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden flex items-center justify-center p-4 overflow-y-auto">
+    <div class="bg-paper border-2 border-black max-w-3xl w-full max-h-[92vh] overflow-y-auto shadow-2xl relative my-6">
+      
+      <!-- Top Modal Bar -->
+      <div class="bg-[#f0eae1] border-b border-black px-6 py-3 flex items-center justify-between sticky top-0 z-20">
+        <div class="flex items-center space-x-2 text-[10px] font-sans font-bold tracking-[0.2em] uppercase text-news-red">
+          <span>THE CARRIE BRAD BLOG</span>
+          <span class="text-neutral-300">•</span>
+          <span id="modal-category">BUSINESS</span>
+        </div>
+        <button onclick="closePostModal()" class="text-ink-black hover:text-news-red text-xl font-bold p-1 leading-none" aria-label="Close Article">
+          ✕
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="p-6 sm:p-10 space-y-6">
+        
+        <!-- Modal Headline & Meta -->
+        <div class="space-y-3 border-b border-paper-border pb-4">
+          <h2 id="modal-title" class="font-headline text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-ink-black leading-tight">
+            Article Headline
+          </h2>
+          <div class="flex flex-wrap items-center justify-between text-[10px] font-sans tracking-[0.16em] uppercase text-ink-muted pt-2">
+            <span class="font-bold text-ink-black" id="modal-byline">BY CARRIE BRAD</span>
+            <span id="modal-dateline">OCTOBER 23, 2026</span>
+          </div>
+        </div>
+
+        <!-- Article Image with Cutline -->
+        <div class="border border-black">
+          <img id="modal-image" src="" alt="Article photo" class="w-full aspect-[16/9] object-cover">
+          <div class="p-2 bg-paper-card border-t border-paper-border text-[11px] font-body text-ink-charcoal italic" id="modal-caption">
+            Photographic dispatch from Carrie Brad.
+          </div>
+        </div>
+
+        <!-- Article Content with Drop Cap -->
+        <div id="modal-body-content" class="font-body text-base sm:text-[17px] text-ink-charcoal leading-relaxed space-y-4">
+          <!-- Injected dynamically -->
+        </div>
+
+        <!-- Footer / Share / Print -->
+        <div class="border-t-2 border-black pt-4 flex flex-wrap items-center justify-between gap-4 text-xs font-sans font-bold tracking-wider uppercase">
+          <div class="text-ink-muted text-[10px]">
+            PUBLISHED ON THE CARRIE BRAD BLOG
+          </div>
+          <div class="flex space-x-3">
+            <button onclick="window.print()" class="text-ink-black hover:text-news-red flex items-center gap-1 text-[11px]">
+              ⎙ PRINT ARTICLE
+            </button>
+            <button onclick="closePostModal()" class="bg-black text-white px-4 py-1.5 hover:bg-neutral-800 text-[10px]">
+              CLOSE POST
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- 12. QUICK SEARCH MODAL                                   -->
+  <!-- ======================================================== -->
+  <div id="search-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-start justify-center pt-24 p-4">
+    <div class="bg-paper border-2 border-black max-w-xl w-full p-6 shadow-2xl relative">
+      <div class="flex items-center justify-between border-b-2 border-black pb-2 mb-4">
+        <h3 class="font-sans font-bold text-xs tracking-[0.2em] uppercase text-ink-black">
+          SEARCH THE BLOG ARCHIVE
+        </h3>
+        <button onclick="toggleSearchModal()" class="text-ink-black hover:text-news-red font-bold text-lg">✕</button>
+      </div>
+      <input type="text" id="blog-search-input" onkeyup="handleBlogSearch(this.value)" placeholder="Search: Instagram, Tax, Copywriting, Burnout..." class="w-full px-4 py-2.5 bg-white border border-black font-sans text-xs text-ink-black focus:outline-none focus:ring-1 focus:ring-black">
+      <div id="search-results" class="mt-4 max-h-60 overflow-y-auto space-y-2 divide-y divide-paper-border text-xs font-body">
+        <div class="text-ink-muted italic py-2">Type keywords above to find relevant blog posts.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- 13. JAVASCRIPT FOR BLOG DATA & RENDERING                 -->
+  <!-- ======================================================== -->
+  <script>
+    // Blog Posts Data (Matching exact prompt requirements & font order)
+    const blogPosts = [
+      {
+        id: 'featured-1',
+        title: "DREADING TAX SEASON? THESE STRATEGIES WILL HELP YOU PREPARE EARLY",
+        category: "BUSINESS",
+        date: "OCTOBER 23, 2026",
+        readTime: "6 MIN READ",
+        image: "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=1200&q=80",
+        caption: "A proactive workspace setup for early quarterly tax audits. [PHOTO: UNSPLASH]",
+        excerpt: "Tax season can be an overwhelmingly stressful time for business owners, especially if you're not prepared.",
+        body: `
+          <p class="drop-cap">Tax season can be an overwhelmingly stressful ordeal for independent business owners, founders, and creative directors, particularly when caught without a proactive system. Rather than frantically assembling spreadsheets and scrambling for expense receipts in late March, high-performing operators build financial preparedness into their weekly workflow.</p>
+          <p>The first critical protocol is establishing an automated tax reserve account. Every single inbound client deposit should immediately have 25 to 30 percent swept into a segregated high-yield corporate reserve account. By automating this transfer at point-of-sale, you eliminate the psychological illusion that operating revenue equals profit.</p>
+          <p>Secondly, audit your recurring SaaS and operational expenses quarterly. Unused subscriptions, redundant software stacks, and uncategorized contractor fees represent both taxable leakage and unnecessary overhead. Categorizing expenses in real-time ensures nothing is omitted when deduction calculations begin.</p>
+          <p>Finally, engage a qualified Certified Public Accountant before the fourth quarter concludes. Year-end hardware purchases, retirement vehicle contributions, and structural tax elections must be made well before December 31 to legally reduce your liability.</p>
+        `
+      },
+      {
+        id: 'post-1',
+        title: "HOW TO GET CLIENTS FROM INSTAGRAM",
+        category: "SOCIAL MEDIA",
+        date: "OCTOBER 21, 2026",
+        readTime: "4 MIN READ",
+        image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=800&q=80",
+        caption: "Reviewing direct messaging conversion pipelines. [PHOTO: UNSPLASH]",
+        excerpt: "Stop waiting for leads to find you. Turn your feed into a high-converting client acquisition funnel with these 5 actionable DM outreach strategies.",
+        body: `
+          <p class="drop-cap">The era of relying solely on viral short-form clips to fill your agency pipeline is over. High-ticket consulting and creative retainers are rarely won through passive link clicks; they are closed through deliberate, personalized conversations.</p>
+          <p>By implementing relationship-focused direct messaging prompts and delivering micro-audits to warm followers, brands establish immediate authority. When your audience recognizes you as an expert advisor rather than an impersonal broadcaster, sales friction disappears entirely.</p>
+        `
+      },
+      {
+        id: 'post-2',
+        title: "CREATIVE BURNOUT: HOW TO REGAIN FOCUS",
+        category: "WELLNESS",
+        date: "OCTOBER 19, 2026",
+        readTime: "5 MIN READ",
+        image: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=800&q=80",
+        caption: "Restorative habits during heavy client campaign sprints. [PHOTO: UNSPLASH]",
+        excerpt: "When your creative well runs dry, pushing harder will only lead to exhaustion. Discover practical rest habits to rekindle creative stamina.",
+        body: `
+          <p class="drop-cap">Creative burnout is not a flaw of discipline; it is physiological depletion. The human brain cannot maintain divergent ideation while stuck in sustained sympathetic nervous system arousal.</p>
+          <p>Strategic recovery requires intentional mental downtime, digital disconnect windows, and non-outcome-oriented creative play. Treating cognitive stamina with the same rigor as an elite athletic regime is what distinguishes enduring careers from rapid flameouts.</p>
+        `
+      },
+      {
+        id: 'post-3',
+        title: "CONVERTING VISITORS WITH HIGH-TOUCH COPY",
+        category: "COPYWRITING",
+        date: "OCTOBER 17, 2026",
+        readTime: "4 MIN READ",
+        image: "https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=800&q=80",
+        caption: "Drafting high-conversion sales page frameworks. [PHOTO: UNSPLASH]",
+        excerpt: "Words make or break your sales page. Discover how to write landing page copy that addresses objections before customers even think them.",
+        body: `
+          <p class="drop-cap">Clear always beats clever. When prospective buyers arrive on your sales page, their internal monologue is skeptical: 'Will this actually work for me? Is it worth the investment? Can I trust this provider?'</p>
+          <p>High-touch copywriting does not rely on inflated promises. Instead, it systematically surfaces each latent hesitation, addresses it with unvarnished proof, and articulates the transformation in crystalline prose.</p>
+        `
+      },
+      {
+        id: 'post-extra',
+        title: "WHY THE EMAIL NEWSLETTER IS YOUR MOST VALUABLE ASSET",
+        category: "BUSINESS",
+        date: "OCTOBER 15, 2026",
+        readTime: "5 MIN READ",
+        image: "https://images.unsplash.com/photo-1457369804613-52c61a468e7d?auto=format&fit=crop&w=800&q=80",
+        caption: "Direct email subscriber relationships vs rented platform feeds. [PHOTO: UNSPLASH]",
+        excerpt: "Building on third-party algorithms is building on rented land. Learn how sovereign audience ownership transforms your digital stability.",
+        body: `
+          <p class="drop-cap">Social media algorithms fluctuate at the whim of platform engineers. A reach model that generated six figures in pipeline last quarter can be rendered obsolete with a single platform update.</p>
+          <p>In contrast, an email subscriber list represents direct, sovereign access to your audience. When someone invites your dispatch into their personal inbox every week, you have established an intimate media relationship that no algorithm can throttle.</p>
+        `
+      },
+      {
+        id: 'post-6',
+        title: "THE 15-MINUTE DAILY WRITING SPRINT PROTOCOL",
+        category: "COPYWRITING",
+        date: "OCTOBER 14, 2026",
+        readTime: "3 MIN READ",
+        image: "https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=800&q=80",
+        caption: "Rapid copywriting ideation and structural draft sprints. [PHOTO: UNSPLASH]",
+        excerpt: "Overthinking is the enemy of prolific writing. Discover how setting a ruthless 15-minute timer produces your most authentic copy.",
+        body: `
+          <p class="drop-cap">Perfectionism is rarely a commitment to quality; it is fear disguised as high standards. When writers stare at a blinking cursor for hours, self-censorship throttles spontaneous intuition.</p>
+          <p>By enforcing a strict, unyielding 15-minute sprint—where backspacing and editing are strictly forbidden—you access raw associative cognition. The polish occurs during editing; the magic occurs during the sprint.</p>
+        `
+      }
+    ];
+
+    // ========================================================
+    // HiAnime-Style Spotlight Slider Data & Logic
+    // ========================================================
+    const spotlightSlides = [
+      {
+        id: 'featured-1',
+        rank: '#1 LATEST SPOTLIGHT',
+        title: "DREADING TAX SEASON? THESE STRATEGIES WILL HELP YOU PREPARE EARLY",
+        category: "BUSINESS / FINANCE",
+        date: "OCTOBER 23, 2026",
+        readTime: "6 MIN READ",
+        reads: "★ 4.9 • 24.5K READS",
+        image: "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=1400&q=80",
+        excerpt: "Tax season can be an overwhelmingly stressful time for independent business owners, especially if you're not prepared. Rather than scrambling for receipts in late spring, learn the proactive deductions and bookkeeping protocols high-earning founders use to stay compliant and protect margins."
+      },
+      {
+        id: 'post-3',
+        rank: '#2 LATEST SPOTLIGHT',
+        title: "CONVERTING VISITORS WITH HIGH-TOUCH COPY",
+        category: "COPYWRITING",
+        date: "OCTOBER 22, 2026",
+        readTime: "4 MIN READ",
+        reads: "★ 4.8 • 19.8K READS",
+        image: "https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=1400&q=80",
+        excerpt: "Clear always beats clever. High-touch copywriting doesn't rely on inflated promises; it systematically surfaces each latent buyer hesitation, addresses it with unvarnished proof, and articulates the transformation in crystalline prose."
+      },
+      {
+        id: 'post-extra',
+        rank: '#3 LATEST SPOTLIGHT',
+        title: "WHY THE EMAIL NEWSLETTER IS YOUR MOST VALUABLE ASSET",
+        category: "BUSINESS & AUDIENCE",
+        date: "OCTOBER 20, 2026",
+        readTime: "5 MIN READ",
+        reads: "★ 4.9 • 21.2K READS",
+        image: "https://images.unsplash.com/photo-1457369804613-52c61a468e7d?auto=format&fit=crop&w=1400&q=80",
+        excerpt: "Building on third-party social algorithms is building on rented land. Learn how sovereign audience ownership transforms your digital stability, pipeline predictability, and direct audience relationships."
+      }
+    ];
+
+    let currentSpotlightIdx = 0;
+
+    function updateSpotlightUI() {
+      const s = spotlightSlides[currentSpotlightIdx];
+      const rankEl = document.getElementById('spotlight-rank');
+      const catEl = document.getElementById('spotlight-cat');
+      const dateEl = document.getElementById('spotlight-date');
+      const readsEl = document.getElementById('spotlight-reads');
+      const titleEl = document.getElementById('spotlight-title');
+      const excerptEl = document.getElementById('spotlight-excerpt');
+      const counterEl = document.getElementById('spotlight-counter');
+      const imgEl = document.getElementById('spotlight-img');
+      const bgEl = document.getElementById('spotlight-bg');
+      const readtimeEl = document.getElementById('spotlight-readtime');
+
+      if (rankEl) rankEl.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-white animate-ping"></span>${s.rank}`;
+      if (catEl) catEl.textContent = s.category;
+      if (dateEl) dateEl.textContent = s.date;
+      if (readsEl) readsEl.textContent = s.reads;
+      if (titleEl) titleEl.textContent = s.title;
+      if (excerptEl) excerptEl.textContent = s.excerpt;
+      if (counterEl) counterEl.textContent = `0${currentSpotlightIdx + 1} / 0${spotlightSlides.length}`;
+      if (imgEl) imgEl.src = s.image;
+      if (bgEl) bgEl.style.backgroundImage = `url('${s.image}')`;
+      if (readtimeEl) readtimeEl.textContent = `BY CARRIE BRAD • ${s.readTime}`;
+    }
+
+    function nextSpotlightSlide() {
+      currentSpotlightIdx = (currentSpotlightIdx + 1) % spotlightSlides.length;
+      updateSpotlightUI();
+    }
+
+    function prevSpotlightSlide() {
+      currentSpotlightIdx = (currentSpotlightIdx - 1 + spotlightSlides.length) % spotlightSlides.length;
+      updateSpotlightUI();
+    }
+
+    function handleSpotlightClick() {
+      const s = spotlightSlides[currentSpotlightIdx];
+      openPostModal(s.id);
+    }
+
+    // ========================================================
+    // HiAnime-Style Ranked Trending Carousel Data & Rendering
+    // ========================================================
+    const trendingPosts = [
+      {
+        rank: "01",
+        id: "post-1",
+        title: "HOW TO GET CLIENTS FROM INSTAGRAM",
+        category: "SOCIAL MEDIA",
+        reads: "32.4K READS",
+        readTime: "4 MIN READ",
+        image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=800&q=80"
+      },
+      {
+        rank: "02",
+        id: "featured-1",
+        title: "DREADING TAX SEASON? PREPARE EARLY",
+        category: "BUSINESS",
+        reads: "24.5K READS",
+        readTime: "6 MIN READ",
+        image: "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=800&q=80"
+      },
+      {
+        rank: "03",
+        id: "post-2",
+        title: "CREATIVE BURNOUT: HOW TO REGAIN FOCUS",
+        category: "WELLNESS",
+        reads: "20.1K READS",
+        readTime: "5 MIN READ",
+        image: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=800&q=80"
+      },
+      {
+        rank: "04",
+        id: "post-3",
+        title: "CONVERTING VISITORS WITH HIGH-TOUCH COPY",
+        category: "COPYWRITING",
+        reads: "19.8K READS",
+        readTime: "4 MIN READ",
+        image: "https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=800&q=80"
+      },
+      {
+        rank: "05",
+        id: "post-extra",
+        title: "WHY THE NEWSLETTER IS YOUR MOST VALUABLE ASSET",
+        category: "BUSINESS",
+        reads: "16.7K READS",
+        readTime: "5 MIN READ",
+        image: "https://images.unsplash.com/photo-1457369804613-52c61a468e7d?auto=format&fit=crop&w=800&q=80"
+      },
+      {
+        rank: "06",
+        id: "post-6",
+        title: "THE 15-MINUTE DAILY WRITING SPRINT PROTOCOL",
+        category: "COPYWRITING",
+        reads: "14.2K READS",
+        readTime: "3 MIN READ",
+        image: "https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=800&q=80"
+      }
+    ];
+
+    let isTrendingHovered = false;
+    let accumulatedTrendingScroll = 0;
+    let trendingAnimationFrame = null;
+    const TRENDING_SCROLL_SPEED = 0.85; // Buttery continuous glide (~50px/sec)
+
+    function renderTrendingTrack() {
+      const track = document.getElementById('trending-track');
+      if (!track) return;
+
+      // Duplicate the array 3 times for a truly unbroken, seamless infinite loop
+      const infiniteList = [...trendingPosts, ...trendingPosts, ...trendingPosts];
+
+      track.innerHTML = infiniteList.map((item, idx) => `
+        <div onclick="openPostModal('${item.id}')" class="flex-shrink-0 w-60 sm:w-68 bg-white rounded-2xl overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.05)] hover:shadow-[0_14px_34px_rgba(0,0,0,0.12)] transition-all duration-300 hover:-translate-y-2 cursor-pointer group flex flex-col border border-[#e8e2d5] select-none">
+          
+          <!-- Poster Thumbnail with Gradient Overlay & Badges -->
+          <div class="relative aspect-[3/4] overflow-hidden bg-neutral-100">
+            <!-- HiAnime Big Rank Number Badge (Floating Rounded Pill) -->
+            <div class="absolute top-3 left-3 z-10 bg-black/85 backdrop-blur-md text-white font-headline font-black text-xs px-2.5 py-1 rounded-full shadow-lg flex items-center gap-1 border border-white/20">
+              <span class="text-amber-400 font-bold">#</span>${item.rank}
+            </div>
+
+            <!-- Floating Category Badge -->
+            <div class="absolute top-3 right-3 z-10 bg-white/95 backdrop-blur-md text-ink-black text-[8.5px] font-sans font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider shadow-sm">
+              ${item.category}
+            </div>
+
+            <!-- Thumbnail Image with smooth scale -->
+            <img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700 filter contrast-[1.03]">
+
+            <!-- Bottom Gradient Fade over Artwork with Title & Reads -->
+            <div class="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black/90 via-black/45 to-transparent flex flex-col justify-end p-4 text-white">
+              <div class="text-[9.5px] font-sans font-bold text-amber-300 tracking-wider uppercase mb-1 flex items-center gap-1">
+                <span>🔥 ${item.reads}</span>
+                <span class="text-neutral-400">•</span>
+                <span class="text-neutral-300">${item.readTime}</span>
+              </div>
+              <h4 class="font-headline font-bold text-sm sm:text-[15px] leading-snug line-clamp-2 uppercase group-hover:text-amber-300 transition-colors">
+                ${item.title}
+              </h4>
+            </div>
+          </div>
+
+          <!-- Bottom Card Base: Clean Link -->
+          <div class="p-3 bg-white flex items-center justify-between text-[10px] font-sans font-bold text-ink-muted group-hover:text-news-red transition-colors border-t border-[#f0ebe0]">
+            <span class="uppercase tracking-wider">READ ARTICLE</span>
+            <span class="font-bold text-sm group-hover:translate-x-1 transition-transform">→</span>
+          </div>
+
+        </div>
+      `).join('');
+    }
+
+    // Continuous 60fps smooth loop function
+    function stepTrendingLoop() {
+      const track = document.getElementById('trending-track');
+      if (track) {
+        const singleSetWidth = track.scrollWidth / 3;
+
+        if (!isTrendingHovered) {
+          accumulatedTrendingScroll += TRENDING_SCROLL_SPEED;
+          
+          // Seamless reset: when one full set scrolls by, seamlessly subtract singleSetWidth
+          // Since Set 2 and Set 1 are identical, this reset is 100% invisible to the user!
+          if (accumulatedTrendingScroll >= singleSetWidth) {
+            accumulatedTrendingScroll -= singleSetWidth;
+          }
+          track.scrollLeft = accumulatedTrendingScroll;
+        } else {
+          // While hovered or dragged by the user, keep the accumulator synced with the actual scrollLeft
+          accumulatedTrendingScroll = track.scrollLeft;
+        }
+      }
+      trendingAnimationFrame = requestAnimationFrame(stepTrendingLoop);
+    }
+
+    function startTrendingAutoSlide() {
+      if (trendingAnimationFrame) cancelAnimationFrame(trendingAnimationFrame);
+      trendingAnimationFrame = requestAnimationFrame(stepTrendingLoop);
+    }
+
+    function scrollTrending(direction) {
+      const track = document.getElementById('trending-track');
+      if (!track) return;
+
+      isTrendingHovered = true; // Pause continuous loop during user button click
+      const singleSetWidth = track.scrollWidth / 3;
+      const scrollAmount = 300;
+
+      // If scrolling left and close to the start, shift to the middle set first so we can scroll back smoothly
+      if (direction < 0 && track.scrollLeft <= 50) {
+        track.scrollLeft += singleSetWidth;
+        accumulatedTrendingScroll = track.scrollLeft;
+      }
+
+      track.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
+
+      // Resume smooth auto-scroll after the user's click scroll finishes
+      setTimeout(() => {
+        if (track.scrollLeft >= singleSetWidth * 2) {
+          track.scrollLeft -= singleSetWidth;
+        }
+        accumulatedTrendingScroll = track.scrollLeft;
+        isTrendingHovered = false;
+      }, 500);
+    }
+
+    let isSpotlightHovered = false;
+    let spotlightAutoSlideTimer = null;
+
+    function startSpotlightAutoSlide() {
+      if (spotlightAutoSlideTimer) clearInterval(spotlightAutoSlideTimer);
+      spotlightAutoSlideTimer = setInterval(() => {
+        if (isSpotlightHovered) return;
+        nextSpotlightSlide();
+      }, 6500);
+    }
+
+    let currentCategory = 'ALL';
+
+    // Renders the 3-column post grid with exact font order & vertical category text
+    function renderGrid() {
+      const container = document.getElementById('posts-grid');
+      if (!container) return;
+
+      const filtered = (currentCategory === 'ALL')
+        ? blogPosts.filter(p => p.id !== 'featured-1')
+        : blogPosts.filter(p => p.category === currentCategory);
+
+      document.getElementById('post-count').textContent = filtered.length;
+
+      container.innerHTML = filtered.map(post => `
+        <article class="bg-white rounded-2xl overflow-hidden border border-[#ded7c8] hover:border-black/30 flex flex-col justify-between cursor-pointer group shadow-[0_4px_18px_rgba(0,0,0,0.04)] hover:shadow-[0_14px_32px_rgba(0,0,0,0.1)] hover:-translate-y-1.5 transition-all duration-300" onclick="openPostModal('${post.id}')">
+          <div>
+            <!-- Image Container with Vertical Category Text along Left Edge -->
+            <div class="relative w-full aspect-[4/3] bg-neutral-200 border-b border-[#ded7c8] overflow-hidden flex">
+              
+              <!-- Vertical Category Strip along the left edge -->
+              <div class="absolute left-0 inset-y-0 z-10 w-9 bg-black/85 text-white flex items-center justify-center pointer-events-none">
+                <span class="vertical-category-tag font-sans font-bold text-[8.5px] uppercase tracking-[0.25em] text-neutral-200 select-none">
+                  ${post.category}
+                </span>
+              </div>
+
+              <!-- Post Thumbnail Image -->
+              <img src="${post.image}" alt="${post.title}" class="w-full h-full object-cover object-center filter contrast-[1.02] group-hover:scale-105 transition-transform duration-700 pl-9" loading="lazy">
+            </div>
+
+            <!-- Content Area: Exact font order from design -->
+            <div class="p-6 space-y-3">
+              
+              <!-- Date & Read Time -->
+              <div class="flex items-center justify-between text-[9px] font-sans font-semibold tracking-[0.18em] uppercase text-ink-muted">
+                <span>${post.date}</span>
+                <span>${post.readTime}</span>
+              </div>
+
+              <!-- 1. Serif Title -->
+              <h4 class="font-headline font-bold text-lg sm:text-xl text-ink-black leading-snug uppercase group-hover:text-news-red transition-colors">
+                ${post.title}
+              </h4>
+
+              <!-- 2. Sans-serif / high-legibility Excerpt -->
+              <p class="font-body text-xs sm:text-sm text-ink-charcoal leading-relaxed line-clamp-3">
+                ${post.excerpt}
+              </p>
+            </div>
+          </div>
+
+          <!-- 3. Italicized Read More link with right arrow -->
+          <div class="px-6 pb-6 pt-2 border-t border-paper-border flex items-center justify-between text-xs font-headline italic text-ink-black group-hover:text-news-red transition-colors">
+            <span class="font-bold not-italic font-sans text-[10px] tracking-[0.2em] uppercase">Read More</span>
+            <span class="text-base font-serif font-bold">→</span>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    // Filter categories
+    function filterCategory(cat) {
+      currentCategory = cat;
+      ['ALL', 'SOCIAL MEDIA', 'WELLNESS', 'BUSINESS', 'COPYWRITING'].forEach(c => {
+        const btn = document.getElementById(`cat-${c}`);
+        if (!btn) return;
+        if (c === cat) {
+          btn.className = 'bg-black text-white px-4 py-1.5 rounded-full transition-all shadow-sm';
+        } else {
+          btn.className = 'bg-white hover:bg-neutral-100 text-ink-charcoal border border-[#d6cfbe] px-4 py-1.5 rounded-full transition-all';
+        }
+      });
+      renderGrid();
+    }
+
+    // Mobile menu toggle
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      const hamburger = document.getElementById('hamburger-icon');
+      const close = document.getElementById('close-icon');
+      if (!menu) return;
+      menu.classList.toggle('hidden');
+      if (hamburger) hamburger.classList.toggle('hidden');
+      if (close) close.classList.toggle('hidden');
+    }
+
+    // Post modal open
+    function openPostModal(id) {
+      const post = blogPosts.find(p => p.id === id) || blogPosts[0];
+      if (!post) return;
+
+      document.getElementById('modal-category').textContent = post.category;
+      document.getElementById('modal-title').textContent = post.title;
+      document.getElementById('modal-byline').textContent = "BY CARRIE BRAD • " + post.readTime;
+      document.getElementById('modal-dateline').textContent = post.date;
+      document.getElementById('modal-image').src = post.image;
+      document.getElementById('modal-caption').textContent = post.caption || "Photographic dispatch from Carrie Brad.";
+      document.getElementById('modal-body-content').innerHTML = post.body;
+
+      document.getElementById('article-modal').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    // Post modal close
+    function closePostModal() {
+      document.getElementById('article-modal').classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+
+    // Search modal toggle
+    function toggleSearchModal() {
+      const modal = document.getElementById('search-modal');
+      modal.classList.toggle('hidden');
+      if (!modal.classList.contains('hidden')) {
+        setTimeout(() => document.getElementById('blog-search-input').focus(), 100);
+      }
+    }
+
+    function handleBlogSearch(query) {
+      const resultsDiv = document.getElementById('search-results');
+      const q = query.trim().toLowerCase();
+      if (!q) {
+        resultsDiv.innerHTML = '<div class="text-ink-muted italic py-2">Type keywords above to find relevant blog posts.</div>';
+        return;
+      }
+
+      const matches = blogPosts.filter(p => 
+        p.title.toLowerCase().includes(q) || 
+        p.category.toLowerCase().includes(q) || 
+        p.excerpt.toLowerCase().includes(q)
+      );
+
+      if (matches.length === 0) {
+        resultsDiv.innerHTML = '<div class="text-ink-muted py-2">No blog posts found matching "' + query + '".</div>';
+        return;
+      }
+
+      resultsDiv.innerHTML = matches.map(m => `
+        <div class="py-2 cursor-pointer hover:text-news-red" onclick="toggleSearchModal(); openPostModal('${m.id}')">
+          <span class="text-[9px] font-sans font-bold text-news-red uppercase">[${m.category}]</span>
+          <div class="font-headline font-bold text-sm text-ink-black hover:text-news-red">${m.title}</div>
+          <div class="text-[10px] text-ink-muted font-sans">${m.date} • ${m.readTime}</div>
+        </div>
+      `).join('');
+    }
+
+    // Newsletter submit handler
+    function handleNewsletter(e) {
+      e.preventDefault();
+      const email = document.getElementById('nl-email').value;
+      if (email) {
+        document.getElementById('nl-success').classList.remove('hidden');
+        document.getElementById('nl-email').value = '';
+      }
+    }
+
+    // Initial render & auto-slide activations
+    renderGrid();
+    renderTrendingTrack();
+    updateSpotlightUI();
+    startTrendingAutoSlide();
+    startSpotlightAutoSlide();
+  </script>
+
+  <script>
+    // AUTOMATIC REAL-TIME DATE & TIME CLOCK
+    function updateLiveClock() {
+      const now = new Date();
+      const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+      const dateFormatted = now.toLocaleDateString('en-US', dateOptions).toUpperCase();
+      const timeFormatted = now.toLocaleTimeString('en-US', {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: true
+      });
+
+      const dateEl = document.getElementById('current-date');
+      const timeEl = document.getElementById('current-time');
+      const datelineEl = document.getElementById('current-dateline');
+
+      if (dateEl) dateEl.textContent = dateFormatted;
+      if (timeEl) timeEl.textContent = timeFormatted;
+      if (datelineEl) datelineEl.textContent = dateFormatted + ' • ' + timeFormatted;
+    }
+    updateLiveClock();
+    setInterval(updateLiveClock, 1000);
+  </script>
+
+</body>
+</html>

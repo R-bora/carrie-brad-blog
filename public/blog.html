@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Blog Posts | Carrie Brad Editorial</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Italianno&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            paper: '#fbf9f5',
+            'paper-card': '#f5f1e8',
+            'paper-border': '#dfd8c7',
+            'ink-black': '#111111',
+            'ink-charcoal': '#2c2c2c',
+            'ink-muted': '#6b665c',
+            'news-red': '#942323',
+          },
+          fontFamily: {
+            headline: ['"Playfair Display"', 'Georgia', 'serif'],
+            masthead: ['"Playfair Display"', 'Cinzel', 'Georgia', 'serif'],
+            body: ['"Newsreader"', '"Libre Baskerville"', 'Georgia', 'serif'],
+            sans: ['"Montserrat"', 'system-ui', 'sans-serif'],
+            script: ['"Italianno"', 'cursive'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    html { overflow-y: scroll; scrollbar-gutter: stable; background-color: #fbf9f5; }
+    body { background-color: #fbf9f5; color: #111111; font-family: 'Newsreader', Georgia, serif; }
+    .drop-cap::first-letter {
+      float: left;
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 3.75rem;
+      line-height: 0.8;
+      padding-top: 4px;
+      padding-right: 8px;
+      font-weight: 700;
+      color: #111111;
+    }
+    .vertical-category-tag {
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      text-orientation: mixed;
+    }
+  </style>
+</head>
+<body class="selection:bg-neutral-800 selection:text-white">
+
+  <!-- Top Editorial Bar -->
+  <div class="w-full bg-[#f4f0e6] border-b border-paper-border text-[11px] font-sans font-medium text-ink-muted">
+    <div class="max-w-[1240px] mx-auto px-4 sm:px-6 py-1.5 flex items-center justify-between">
+      <div class="flex items-center space-x-2 sm:space-x-3">
+        <span class="font-bold text-ink-black uppercase tracking-wider" id="current-date">FRIDAY, OCTOBER 23, 2026</span>
+        <span class="text-neutral-400">•</span>
+        <span class="font-bold text-news-red tracking-wider font-mono text-[10.5px]" id="current-time">07:28:45 PM</span>
+        <span class="text-neutral-400 hidden sm:inline">•</span>
+        <span class="hidden sm:inline">LIVE DIGITAL EDITION</span>
+      </div>
+      <div class="flex items-center space-x-3">
+        <a href="http://localhost:3000/studio" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 bg-black hover:bg-news-red text-white px-2 py-0.5 text-[9.5px] font-sans font-bold tracking-wider uppercase transition-colors" title="Launch Sanity CMS Studio">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+          SANITY STUDIO
+        </a>
+        <span class="text-neutral-400">•</span>
+        <a href="index.html" class="text-news-red hover:underline font-bold uppercase text-[10px]">← BACK TO HOME</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Grand Masthead -->
+  <header class="w-full bg-paper border-b border-paper-border text-center py-6 sm:py-8">
+    <div class="max-w-[1240px] mx-auto px-4 sm:px-6">
+      <div class="text-[9px] sm:text-[10px] font-sans font-bold tracking-[0.25em] uppercase text-ink-muted mb-2">
+        THE COMPLETE DISPATCH ARCHIVE
+      </div>
+      <a href="index.html" class="inline-block">
+        <h1 class="font-headline text-4xl sm:text-6xl md:text-7xl font-black uppercase text-ink-black tracking-tight leading-none">
+          Carrie Brad
+        </h1>
+      </a>
+      <div class="border-t-2 border-b border-black py-1.5 mt-4 flex items-center justify-between text-[10px] sm:text-[11px] font-sans font-semibold tracking-[0.16em] uppercase">
+        <span>THE BLOG INDEX</span>
+        <span class="font-script text-xl normal-case text-ink-charcoal">explore by category</span>
+        <span>SEARCH &amp; TOPICS</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Stationary Sticky Nav Bar (Zero-shaky) -->
+  <nav id="main-header" class="w-full bg-paper/95 backdrop-blur-md border-b-2 border-black sticky top-0 z-50 shadow-sm">
+    <div class="max-w-[1240px] mx-auto px-4 sm:px-6 flex items-center justify-between h-14">
+      <div class="hidden md:flex items-center space-x-7 lg:space-x-9 text-[11px] font-sans font-bold tracking-[0.18em] uppercase">
+        <a href="index.html" class="py-1 text-ink-charcoal hover:text-news-red transition-colors">HOME</a>
+        <a href="services.html" class="py-1 text-ink-charcoal hover:text-news-red transition-colors">SERVICES</a>
+        <a href="portfolio.html" class="py-1 text-ink-charcoal hover:text-news-red transition-colors">PORTFOLIO</a>
+        <a href="blog.html" class="py-1 text-news-red border-b-2 border-news-red">BLOG</a>
+      </div>
+      <div class="flex items-center space-x-3 sm:space-x-4">
+        <a href="http://localhost:3000/studio" target="_blank" rel="noopener noreferrer" class="hidden sm:inline-flex items-center gap-1.5 border border-black hover:bg-black hover:text-white text-ink-black text-[10px] sm:text-[11px] font-sans font-bold tracking-[0.16em] px-3 py-1.5 uppercase transition-colors" title="Manage posts in Sanity Studio">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+          CMS STUDIO
+        </a>
+        <a href="contact.html" class="bg-black hover:bg-neutral-800 text-white text-[10px] sm:text-[11px] font-sans font-bold tracking-[0.18em] px-4 sm:px-5 py-2 uppercase transition-colors shadow-sm">
+          CONTACT
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Blog Content -->
+  <main class="max-w-[1240px] mx-auto px-4 sm:px-6 py-10 space-y-8">
+    
+    <!-- Title & Search Header -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b-2 border-black pb-6">
+      <div>
+        <h2 class="font-headline text-3xl sm:text-4xl font-bold uppercase text-ink-black">The Complete Blog Archive</h2>
+        <p class="font-body text-xs text-ink-muted">Filter by topic below or type keywords to search all articles.</p>
+      </div>
+
+      <!-- Search Input -->
+      <div class="w-full md:w-80">
+        <input type="text" id="archive-filter-input" onkeyup="handleArchiveFilter(this.value)" placeholder="Search blog posts..." class="w-full px-4 py-2 bg-white border border-black font-sans text-xs focus:outline-none focus:ring-1 focus:ring-black">
+      </div>
+    </div>
+
+    <!-- Category Tabs -->
+    <div class="flex flex-wrap items-center gap-2 sm:gap-3 text-[10px] sm:text-[11px] font-sans font-bold tracking-[0.18em] uppercase border-b border-paper-border pb-4">
+      <button onclick="setBlogCat('ALL')" id="bcat-ALL" class="bg-black text-white px-4 py-2 transition-all">ALL POSTS</button>
+      <button onclick="setBlogCat('SOCIAL MEDIA')" id="bcat-SOCIAL MEDIA" class="bg-paper-card hover:bg-neutral-200 text-ink-charcoal border border-paper-border px-4 py-2 transition-all">SOCIAL MEDIA</button>
+      <button onclick="setBlogCat('WELLNESS')" id="bcat-WELLNESS" class="bg-paper-card hover:bg-neutral-200 text-ink-charcoal border border-paper-border px-4 py-2 transition-all">WELLNESS</button>
+      <button onclick="setBlogCat('BUSINESS')" id="bcat-BUSINESS" class="bg-paper-card hover:bg-neutral-200 text-ink-charcoal border border-paper-border px-4 py-2 transition-all">BUSINESS</button>
+      <button onclick="setBlogCat('COPYWRITING')" id="bcat-COPYWRITING" class="bg-paper-card hover:bg-neutral-200 text-ink-charcoal border border-paper-border px-4 py-2 transition-all">COPYWRITING</button>
+    </div>
+
+    <!-- Posts Grid with Vertical Category Text -->
+    <div id="blog-archive-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 pt-4">
+      <!-- Injected via JavaScript -->
+    </div>
+
+  </main>
+
+  <!-- Post Reader Modal -->
+  <div id="article-modal" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden flex items-center justify-center p-4 overflow-y-auto">
+    <div class="bg-paper border-2 border-black max-w-3xl w-full max-h-[92vh] overflow-y-auto shadow-2xl relative my-6">
+      <div class="bg-[#f0eae1] border-b border-black px-6 py-3 flex items-center justify-between sticky top-0 z-20">
+        <div class="flex items-center space-x-2 text-[10px] font-sans font-bold tracking-[0.2em] uppercase text-news-red">
+          <span>THE CARRIE BRAD BLOG</span>
+          <span class="text-neutral-300">•</span>
+          <span id="modal-category">BUSINESS</span>
+        </div>
+        <button onclick="closePostModal()" class="text-ink-black hover:text-news-red text-xl font-bold p-1 leading-none">✕</button>
+      </div>
+      <div class="p-6 sm:p-10 space-y-6">
+        <div class="space-y-3 border-b border-paper-border pb-4">
+          <h2 id="modal-title" class="font-headline text-2xl sm:text-3xl font-bold text-ink-black">Article Title</h2>
+          <div class="text-[10px] font-sans tracking-[0.16em] uppercase text-ink-muted">
+            <span class="font-bold text-ink-black" id="modal-byline">BY CARRIE BRAD</span> • <span id="modal-dateline">OCTOBER 23, 2026</span>
+          </div>
+        </div>
+        <div class="border border-black">
+          <img id="modal-image" src="" alt="Article photo" class="w-full aspect-[16/9] object-cover">
+          <div class="p-2 bg-paper-card text-[11px] font-body text-ink-charcoal italic" id="modal-caption">Photo caption</div>
+        </div>
+        <div id="modal-body-content" class="font-body text-base text-ink-charcoal leading-relaxed space-y-4"></div>
+        <div class="border-t-2 border-black pt-4 flex items-center justify-between">
+          <button onclick="window.print()" class="text-xs font-sans font-bold text-ink-black hover:text-news-red uppercase">⎙ PRINT ARTICLE</button>
+          <button onclick="closePostModal()" class="bg-black text-white px-4 py-1.5 text-xs font-sans uppercase">CLOSE</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="w-full bg-[#f4f0e6] border-t-2 border-black py-8 text-center text-xs font-sans text-ink-muted">
+    <div class="max-w-[1240px] mx-auto px-4 space-y-2">
+      <div class="font-headline font-bold text-xl uppercase text-ink-black">Carrie Brad</div>
+      <p class="italic font-body">An editorial blog on marketing strategy, creative copywriting &amp; mindful living.</p>
+      <div class="flex justify-center space-x-4 text-[10px] tracking-widest uppercase pt-2">
+        <span>© 2026 CARRIE BRAD</span>
+        <span>•</span>
+        <a href="http://localhost:3000/studio" target="_blank" rel="noopener noreferrer" class="text-news-red font-bold hover:underline">SANITY CMS STUDIO ↗</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const posts = [
+      {
+        id: 'featured-1',
+        title: "DREADING TAX SEASON? THESE STRATEGIES WILL HELP YOU PREPARE EARLY",
+        category: "BUSINESS",
+        date: "OCTOBER 23, 2026",
+        readTime: "6 MIN READ",
+        image: "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=1200&q=80",
+        caption: "Early quarterly tax audit protocols. [PHOTO: UNSPLASH]",
+        excerpt: "Tax season can be an overwhelmingly stressful time for business owners, especially if you're not prepared.",
+        body: `<p class="drop-cap">Tax season can be an overwhelmingly stressful ordeal for independent business owners, founders, and creative directors, particularly when caught without a proactive system.</p><p>By establishing automated tax reserves at point of sale, auditing software subscriptions quarterly, and consulting your CPA before year-end, you eliminate the frantic scrambling that plagues unprepared teams.</p>`
+      },
+      {
+        id: 'post-1',
+        title: "HOW TO GET CLIENTS FROM INSTAGRAM",
+        category: "SOCIAL MEDIA",
+        date: "OCTOBER 21, 2026",
+        readTime: "4 MIN READ",
+        image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=800&q=80",
+        caption: "Reviewing direct messaging conversion pipelines. [PHOTO: UNSPLASH]",
+        excerpt: "Stop waiting for leads to find you. Turn your feed into a high-converting client acquisition funnel with these 5 actionable DM outreach strategies.",
+        body: `<p class="drop-cap">High-ticket consulting and creative retainers are rarely won through passive link clicks; they are closed through deliberate, personalized conversations.</p><p>By implementing relationship-focused direct messaging prompts and delivering micro-audits to warm followers, brands establish immediate authority.</p>`
+      },
+      {
+        id: 'post-2',
+        title: "CREATIVE BURNOUT: HOW TO REGAIN FOCUS",
+        category: "WELLNESS",
+        date: "OCTOBER 19, 2026",
+        readTime: "5 MIN READ",
+        image: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=800&q=80",
+        caption: "Restorative habits during heavy client campaign sprints. [PHOTO: UNSPLASH]",
+        excerpt: "When your creative well runs dry, pushing harder will only lead to exhaustion. Discover practical rest habits to rekindle creative stamina.",
+        body: `<p class="drop-cap">Creative burnout is not a flaw of discipline; it is physiological depletion. The human brain cannot maintain divergent ideation while stuck in sustained sympathetic nervous system arousal.</p>`
+      },
+      {
+        id: 'post-3',
+        title: "CONVERTING VISITORS WITH HIGH-TOUCH COPY",
+        category: "COPYWRITING",
+        date: "OCTOBER 17, 2026",
+        readTime: "4 MIN READ",
+        image: "https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=800&q=80",
+        caption: "Drafting high-conversion sales page frameworks. [PHOTO: UNSPLASH]",
+        excerpt: "Words make or break your sales page. Discover how to write landing page copy that addresses objections before customers even think them.",
+        body: `<p class="drop-cap">Clear always beats clever. High-touch copywriting systematically surfaces each latent hesitation, addresses it with unvarnished proof, and articulates the transformation in crystalline prose.</p>`
+      },
+      {
+        id: 'post-extra',
+        title: "WHY THE EMAIL NEWSLETTER IS YOUR MOST VALUABLE ASSET",
+        category: "BUSINESS",
+        date: "OCTOBER 15, 2026",
+        readTime: "5 MIN READ",
+        image: "https://images.unsplash.com/photo-1457369804613-52c61a468e7d?auto=format&fit=crop&w=800&q=80",
+        caption: "Direct email subscriber relationships vs rented platform feeds. [PHOTO: UNSPLASH]",
+        excerpt: "Building on third-party algorithms is building on rented land. Learn how sovereign audience ownership transforms your digital stability.",
+        body: `<p class="drop-cap">When someone invites your dispatch into their personal inbox every week, you have established an intimate media relationship that no algorithm can throttle.</p>`
+      }
+    ];
+
+    let currentCat = 'ALL';
+    let searchQuery = '';
+
+    function renderArchive() {
+      const container = document.getElementById('blog-archive-grid');
+      let filtered = posts;
+
+      if (currentCat !== 'ALL') {
+        filtered = filtered.filter(p => p.category === currentCat);
+      }
+
+      if (searchQuery) {
+        const q = searchQuery.toLowerCase();
+        filtered = filtered.filter(p => 
+          p.title.toLowerCase().includes(q) || 
+          p.category.toLowerCase().includes(q) || 
+          p.excerpt.toLowerCase().includes(q)
+        );
+      }
+
+      if (filtered.length === 0) {
+        container.innerHTML = '<div class="col-span-3 text-center py-12 text-ink-muted italic font-body text-base">No blog posts found matching your search.</div>';
+        return;
+      }
+
+      container.innerHTML = filtered.map(post => `
+        <article class="bg-paper-card border-2 border-black flex flex-col justify-between cursor-pointer group shadow-sm hover:shadow-md transition-all" onclick="openPostModal('${post.id}')">
+          <div>
+            <!-- Vertical category text along left edge of thumbnail -->
+            <div class="relative w-full aspect-[4/3] bg-neutral-200 border-b-2 border-black overflow-hidden flex">
+              <div class="absolute left-0 inset-y-0 z-10 w-9 bg-black/85 text-white flex items-center justify-center pointer-events-none">
+                <span class="vertical-category-tag font-sans font-bold text-[8.5px] uppercase tracking-[0.25em] text-neutral-200 select-none">
+                  ${post.category}
+                </span>
+              </div>
+              <img src="${post.image}" alt="${post.title}" class="w-full h-full object-cover object-center filter contrast-[1.02] group-hover:scale-102 transition-transform duration-500 pl-9" loading="lazy">
+            </div>
+
+            <!-- Content Area: exact font order from design -->
+            <div class="p-6 space-y-3">
+              <div class="flex items-center justify-between text-[9px] font-sans font-semibold tracking-[0.18em] uppercase text-ink-muted">
+                <span>${post.date}</span>
+                <span>${post.readTime}</span>
+              </div>
+
+              <!-- 1. Serif Title -->
+              <h4 class="font-headline font-bold text-lg sm:text-xl text-ink-black leading-snug uppercase group-hover:text-news-red transition-colors">
+                ${post.title}
+              </h4>
+
+              <!-- 2. Sans-serif Excerpt -->
+              <p class="font-body text-xs sm:text-sm text-ink-charcoal leading-relaxed line-clamp-3">
+                ${post.excerpt}
+              </p>
+            </div>
+          </div>
+
+          <!-- 3. Italicized Read More link with right arrow -->
+          <div class="px-6 pb-6 pt-2 border-t border-paper-border flex items-center justify-between text-xs font-headline italic text-ink-black group-hover:text-news-red transition-colors">
+            <span class="font-bold not-italic font-sans text-[10px] tracking-[0.2em] uppercase">Read More</span>
+            <span class="text-base font-serif font-bold">→</span>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    function setBlogCat(cat) {
+      currentCat = cat;
+      ['ALL', 'SOCIAL MEDIA', 'WELLNESS', 'BUSINESS', 'COPYWRITING'].forEach(c => {
+        const btn = document.getElementById(`bcat-${c}`);
+        if (!btn) return;
+        if (c === cat) {
+          btn.className = 'bg-black text-white px-4 py-2 transition-all';
+        } else {
+          btn.className = 'bg-paper-card hover:bg-neutral-200 text-ink-charcoal border border-paper-border px-4 py-2 transition-all';
+        }
+      });
+      renderArchive();
+    }
+
+    function handleArchiveFilter(val) {
+      searchQuery = val.trim();
+      renderArchive();
+    }
+
+    function openPostModal(id) {
+      const post = posts.find(p => p.id === id) || posts[0];
+      if (!post) return;
+      document.getElementById('modal-category').textContent = post.category;
+      document.getElementById('modal-title').textContent = post.title;
+      document.getElementById('modal-byline').textContent = "BY CARRIE BRAD • " + post.readTime;
+      document.getElementById('modal-dateline').textContent = post.date;
+      document.getElementById('modal-image').src = post.image;
+      document.getElementById('modal-caption').textContent = post.caption || "Photographic dispatch from Carrie Brad.";
+      document.getElementById('modal-body-content').innerHTML = post.body;
+      document.getElementById('article-modal').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closePostModal() {
+      document.getElementById('article-modal').classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+
+    renderArchive();
+  </script>
+
+  <script>
+    // AUTOMATIC REAL-TIME DATE & TIME CLOCK
+    function updateLiveClock() {
+      const now = new Date();
+      const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+      const dateFormatted = now.toLocaleDateString('en-US', dateOptions).toUpperCase();
+      const timeFormatted = now.toLocaleTimeString('en-US', {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: true
+      });
+
+      const dateEl = document.getElementById('current-date');
+      const timeEl = document.getElementById('current-time');
+      const datelineEl = document.getElementById('current-dateline');
+
+      if (dateEl) dateEl.textContent = dateFormatted;
+      if (timeEl) timeEl.textContent = timeFormatted;
+      if (datelineEl) datelineEl.textContent = dateFormatted + ' • ' + timeFormatted;
+    }
+    updateLiveClock();
+    setInterval(updateLiveClock, 1000);
+  </script>
+
+</body>
+</html>
