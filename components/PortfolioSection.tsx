@@ -106,7 +106,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ onOpenContac
               </span>
               <h4 className="font-serif text-lg text-neutral-900 mb-2">Lumina Creative Gatherings</h4>
               <p className="font-sans text-xs text-neutral-500 line-clamp-2 mb-4">
-                Digital editorial publication with headless Sanity publishing workflow.
+                Digital editorial publication with headless CMS publishing workflow.
               </p>
               <button
                 onClick={() => setSelectedCaseStudy('Lumina Creative Gatherings')}
@@ -140,11 +140,11 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ onOpenContac
             </h3>
 
             <p className="font-sans text-xs sm:text-sm text-neutral-600 leading-relaxed mb-6">
-              This comprehensive engagement encompassed high-tier brand messaging, website redesign on Next.js, and migration to a structured Sanity.io CMS architecture resulting in an immediate 140% boost in organic inbound inquiries.
+              This comprehensive engagement encompassed high-tier brand messaging, website redesign on Next.js, and migration to a structured headless CMS architecture resulting in an immediate 140% boost in organic inbound inquiries.
             </p>
 
             <div className="p-4 bg-[#f8f6f2] border-l-2 border-neutral-800 mb-6 font-sans text-xs space-y-2">
-              <div><strong>Deliverables:</strong> Brand Voice Manual, Website Copy, Sanity CMS Integration</div>
+              <div><strong>Deliverables:</strong> Brand Voice Manual, Website Copy, Headless CMS Integration</div>
               <div><strong>Timeline:</strong> 6 Weeks</div>
               <div><strong>Outcome:</strong> 2.4x Increase in Client Inbound Value</div>
             </div>

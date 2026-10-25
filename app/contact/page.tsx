@@ -133,7 +133,7 @@ export default function ContactPage() {
                     <select className="w-full bg-neutral-50 border border-neutral-300 p-3 text-xs text-neutral-900 focus:outline-none focus:border-black">
                       <option value="Brand Copywriting">Brand Copywriting &amp; Narrative Architecture</option>
                       <option value="Social Media Strategy">Digital Content &amp; Social Media Direction</option>
-                      <option value="Editorial CMS & Systems">Custom Web &amp; Sanity CMS Headless System</option>
+                      <option value="Editorial CMS & Systems">Custom Web &amp; Headless Editorial System</option>
                       <option value="Complete Overhaul">Comprehensive Full Studio Rebrand</option>
                       <option value="General Inquiry">General Studio Inquiry</option>
                     </select>

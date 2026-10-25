@@ -113,10 +113,10 @@ export default function ServicesPage() {
                 <span className="text-xs uppercase tracking-widest text-neutral-500 font-semibold">From $6,000</span>
               </div>
               <h2 className="font-serif text-2xl sm:text-3xl text-neutral-900">
-                Custom Editorial Web &amp; Sanity CMS Systems
+                Custom Editorial Web &amp; Headless CMS Systems
               </h2>
               <p className="font-sans text-xs sm:text-sm text-neutral-600 leading-relaxed">
-                Eliminate bulky plugins and slow page loads. We engineer custom, pixel-perfect Next.js web applications seamlessly connected to Sanity CMS for effortless one-click article publishing.
+                Eliminate bulky plugins and slow page loads. We engineer custom, pixel-perfect Next.js web applications seamlessly connected to a modern CMS backend for effortless one-click article publishing.
               </p>
               <div className="pt-3">
                 <Link

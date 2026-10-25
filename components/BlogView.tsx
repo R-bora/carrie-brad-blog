@@ -13,7 +13,6 @@ import { ContactSection } from './ContactSection';
 import { Footer } from './Footer';
 import { PostModal } from './PostModal';
 import { ContactModal } from './ContactModal';
-import { SanityInspector } from './SanityInspector';
 
 interface BlogViewProps {
   initialFeaturedPost: BlogPost;
@@ -27,8 +26,8 @@ export const BlogView: React.FC<BlogViewProps> = ({
   isSanityConnected,
 }) => {
   const [activeCategory, setActiveCategory] = useState<CategoryFilter>('ALL');
-  const [featuredPost, setFeaturedPost] = useState<BlogPost>(initialFeaturedPost);
-  const [gridPosts, setGridPosts] = useState<BlogPost[]>(initialGridPosts);
+  const [featuredPost] = useState<BlogPost>(initialFeaturedPost);
+  const [gridPosts] = useState<BlogPost[]>(initialGridPosts);
   const [activeModalPost, setActiveModalPost] = useState<BlogPost | null>(null);
 
   // Contact Modal State
@@ -54,12 +53,8 @@ export const BlogView: React.FC<BlogViewProps> = ({
           return cat === activeCategory;
         });
 
-  const handleAddNewPost = (newPost: BlogPost) => {
-    setGridPosts((prev) => [newPost, ...prev]);
-  };
-
   return (
-    <div className="min-h-screen bg-white text-neutral-900 flex flex-col w-full selection:bg-[#e8dfd8] selection:text-neutral-900">
+    <div className="min-h-screen bg-white text-neutral-900 flex flex-col w-full selection:bg-[#e8dfd8] selection:text-neutral-900 overflow-x-hidden">
       {/* 1. Full-width Responsive Header */}
       <Header onOpenContactModal={() => handleOpenContactModal('General Inquiry')} />
 
@@ -93,13 +88,13 @@ export const BlogView: React.FC<BlogViewProps> = ({
       {/* 6. Dedicated Services Section */}
       <ServicesSection onOpenContact={(srv) => handleOpenContactModal(srv)} />
 
-      {/* 8. Dedicated Portfolio Section */}
+      {/* 7. Dedicated Portfolio Section */}
       <PortfolioSection onOpenContact={(proj) => handleOpenContactModal(`Portfolio: ${proj}`)} />
 
-      {/* 9. Dedicated Contact & Newsletter Section */}
+      {/* 8. Dedicated Contact & Newsletter Section */}
       <ContactSection onOpenContactModal={() => handleOpenContactModal('General Inquiry')} />
 
-      {/* 10. Footer */}
+      {/* 9. Footer */}
       <Footer />
 
       {/* Article Reader Modal */}
@@ -113,14 +108,6 @@ export const BlogView: React.FC<BlogViewProps> = ({
         isOpen={contactModalOpen}
         onClose={() => setContactModalOpen(false)}
         initialService={contactServicePrefill}
-      />
-
-      {/* Sanity CMS Live DevTools */}
-      <SanityInspector
-        isConfigured={isSanityConnected}
-        featuredPost={featuredPost}
-        gridPosts={gridPosts}
-        onAddNewPost={handleAddNewPost}
       />
     </div>
   );

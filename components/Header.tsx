@@ -18,9 +18,9 @@ export const Header: React.FC<HeaderProps> = ({ onOpenContactModal }) => {
     const updateTime = () => {
       const now = new Date();
       const dateOptions: Intl.DateTimeFormatOptions = {
-        weekday: 'long',
+        weekday: 'short',
         year: 'numeric',
-        month: 'long',
+        month: 'short',
         day: 'numeric',
       };
       setLiveDate(now.toLocaleDateString('en-US', dateOptions).toUpperCase());
@@ -42,31 +42,32 @@ export const Header: React.FC<HeaderProps> = ({ onOpenContactModal }) => {
   return (
     <>
       {/* 1. Top Editorial Dateline Strip with Real-time Clock */}
-      <div className="w-full bg-[#f4f0e6] border-b border-[#dfd8c7] text-[11px] font-sans font-medium text-[#6b665c]">
-        <div className="max-w-[1240px] mx-auto px-4 sm:px-6 py-1.5 flex flex-wrap items-center justify-between gap-2">
-          <div className="flex items-center space-x-2 sm:space-x-3">
-            <span className="font-bold text-[#111111] tracking-wider uppercase">{liveDate}</span>
+      <div className="w-full bg-[#f4f0e6] border-b border-[#dfd8c7] text-[10px] sm:text-[11px] font-sans font-medium text-[#6b665c]">
+        <div className="max-w-[1240px] mx-auto px-3 sm:px-6 py-1.5 flex items-center justify-between gap-2">
+          {/* Left: Real-time Date and Clock */}
+          <div className="flex items-center space-x-1.5 sm:space-x-3 overflow-hidden">
+            <span className="font-bold text-[#111111] tracking-wider uppercase whitespace-nowrap text-[9.5px] sm:text-[11px]">
+              {liveDate}
+            </span>
             <span className="text-neutral-400">•</span>
-            <span className="font-bold text-[#942323] tracking-wider font-mono text-[10.5px]">{liveTime}</span>
-            <span className="text-neutral-400 hidden sm:inline">•</span>
-            <span className="hidden sm:inline">LIVE DIGITAL EDITION</span>
+            <span className="font-bold text-[#942323] tracking-wider font-mono text-[9.5px] sm:text-[10.5px] whitespace-nowrap">
+              {liveTime}
+            </span>
+            <span className="text-neutral-400 hidden md:inline">•</span>
+            <span className="hidden md:inline whitespace-nowrap">LIVE DIGITAL EDITION</span>
           </div>
 
-          <div className="hidden lg:block italic text-xs text-[#2c2c2c] tracking-wide">
+          {/* Center Motto - Desktop Only */}
+          <div className="hidden lg:block italic text-xs text-[#2c2c2c] tracking-wide truncate max-w-md text-center">
             "Weekly Dispatches on Digital Strategy, Creative Living &amp; High-Touch Copy"
           </div>
 
-          <div className="flex items-center space-x-3 sm:space-x-4">
-            <Link
-              href="/studio"
-              className="inline-flex items-center gap-1.5 bg-black hover:bg-[#942323] text-white px-2.5 py-0.5 text-[9.5px] font-sans font-bold tracking-wider uppercase transition-colors"
-              title="Launch Sanity CMS Studio"
+          {/* Right: Newsletter Subscribe Link */}
+          <div className="flex items-center space-x-3 flex-shrink-0">
+            <a
+              href="#newsletter"
+              className="text-[#942323] hover:underline font-bold tracking-wider uppercase text-[9px] sm:text-[10px] whitespace-nowrap"
             >
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-              SANITY STUDIO
-            </Link>
-            <span className="text-neutral-400">•</span>
-            <a href="#newsletter" className="text-[#942323] hover:underline font-bold tracking-wider uppercase text-[10px]">
               SUBSCRIBE TO THE MEMO
             </a>
           </div>
@@ -75,44 +76,44 @@ export const Header: React.FC<HeaderProps> = ({ onOpenContactModal }) => {
 
       {/* 2. Grand Editorial Broadsheet Masthead (CARRIE BRAD Centered) */}
       <div className="w-full bg-[#fbf9f5] border-b border-[#dfd8c7]">
-        <div className="max-w-[1240px] mx-auto px-4 sm:px-6 py-6 sm:py-8">
+        <div className="max-w-[1240px] mx-auto px-4 sm:px-6 py-4 sm:py-6 md:py-8">
           {/* Top Subtitle Rule */}
-          <div className="flex items-center justify-between text-[9px] sm:text-[10px] font-sans font-bold tracking-[0.25em] uppercase text-[#6b665c] border-b border-[#dfd8c7] pb-2 mb-3">
+          <div className="flex items-center justify-between text-[8px] sm:text-[10px] font-sans font-bold tracking-[0.14em] sm:tracking-[0.25em] uppercase text-[#6b665c] border-b border-[#dfd8c7] pb-1.5 sm:pb-2 mb-2 sm:mb-3">
             <div className="w-1/4 text-left hidden sm:block">FOUNDED MMXX</div>
-            <div className="w-full sm:w-2/4 text-center">
-              A CURATED EDITORIAL BLOG ON MARKETING, COPYWRITING &amp; WELLNESS
+            <div className="w-full sm:w-2/4 text-center leading-snug">
+              A CURATED EDITORIAL BLOG ON MARKETING &amp; WELLNESS
             </div>
             <div className="w-1/4 text-right hidden sm:block">WEEKLY CIRCULATION</div>
           </div>
 
           {/* The Big Centered Nameplate */}
-          <div className="text-center py-2 sm:py-3">
+          <div className="text-center py-1 sm:py-2 md:py-3">
             <Link href="/" className="inline-block group">
-              <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl lg:text-[84px] font-black tracking-[-0.02em] uppercase text-[#111111] leading-none group-hover:opacity-85 transition-opacity">
+              <h1 className="font-serif text-[38px] sm:text-6xl md:text-7xl lg:text-[84px] font-black tracking-[-0.02em] uppercase text-[#111111] leading-none group-hover:opacity-85 transition-opacity">
                 Carrie Brad
               </h1>
             </Link>
           </div>
 
           {/* Bottom Masthead Rule */}
-          <div className="border-t-2 border-b border-black py-1.5 mt-3 flex items-center justify-between text-[10px] sm:text-[11px] font-sans font-semibold tracking-[0.16em] uppercase text-[#111111]">
+          <div className="border-t-2 border-b border-black py-1 sm:py-1.5 mt-2 sm:mt-3 flex items-center justify-between text-[9px] sm:text-[11px] font-sans font-semibold tracking-[0.12em] sm:tracking-[0.16em] uppercase text-[#111111]">
             <span>THE JOURNAL</span>
-            <span className="font-script text-2xl sm:text-3xl lowercase tracking-normal text-[#2c2c2c] font-normal -my-1">
+            <span className="font-script text-xl sm:text-2xl md:text-3xl lowercase tracking-normal text-[#2c2c2c] font-normal -my-1">
               editorial notes &amp; strategy
             </span>
-            <span>AUTUMN EDITION • 2026</span>
+            <span>AUTUMN • 2026</span>
           </div>
         </div>
       </div>
 
       {/* 3. Rock-Solid Sticky Stationary Navigation Bar */}
-      <header className="w-full bg-[#fbf9f5]/95 backdrop-blur-md border-b-2 border-black sticky top-0 z-50 h-14 flex items-center shadow-sm">
+      <header className="w-full bg-[#fbf9f5]/95 backdrop-blur-md border-b-2 border-black sticky top-0 z-50 h-13 sm:h-14 flex items-center shadow-sm">
         <div className="w-full max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
           {/* Left: Mobile Brand Mark OR Desktop Edition Tag */}
           <div className="flex-shrink-0">
             <Link
               href="/"
-              className="font-serif tracking-[0.18em] text-lg font-black text-neutral-900 md:hidden uppercase"
+              className="font-serif tracking-[0.16em] text-base sm:text-lg font-black text-neutral-900 md:hidden uppercase"
             >
               CARRIE BRAD
             </Link>
@@ -165,35 +166,26 @@ export const Header: React.FC<HeaderProps> = ({ onOpenContactModal }) => {
             </Link>
           </nav>
 
-          {/* Right side: Studio CMS + Contact Button + Social Icons */}
-          <div className="flex items-center space-x-2.5 sm:space-x-4">
-            <Link
-              href="/studio"
-              className="hidden sm:inline-flex items-center gap-1.5 border border-black hover:bg-black hover:text-white text-neutral-900 text-[10px] sm:text-[11px] tracking-[0.16em] font-sans font-bold px-3 py-1.5 uppercase transition-colors"
-              title="Open Sanity CMS Studio"
-            >
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-              CMS STUDIO
-            </Link>
-
+          {/* Right side: Contact Button + Social Icons + Mobile Menu Toggle */}
+          <div className="flex items-center space-x-2 sm:space-x-3.5">
             {onOpenContactModal ? (
               <button
                 onClick={onOpenContactModal}
-                className="bg-black hover:bg-neutral-800 text-white text-[10px] sm:text-[11px] tracking-[0.18em] font-sans font-bold px-4 sm:px-5 py-2 uppercase transition-colors shadow-sm"
+                className="bg-black hover:bg-neutral-800 text-white text-[9.5px] sm:text-[11px] tracking-[0.16em] sm:tracking-[0.18em] font-sans font-bold px-3.5 sm:px-5 py-1.5 sm:py-2 uppercase transition-colors shadow-sm"
               >
                 CONTACT
               </button>
             ) : (
               <Link
                 href="/contact"
-                className="bg-black hover:bg-neutral-800 text-white text-[10px] sm:text-[11px] tracking-[0.18em] font-sans font-bold px-4 sm:px-5 py-2 uppercase transition-colors shadow-sm"
+                className="bg-black hover:bg-neutral-800 text-white text-[9.5px] sm:text-[11px] tracking-[0.16em] sm:tracking-[0.18em] font-sans font-bold px-3.5 sm:px-5 py-1.5 sm:py-2 uppercase transition-colors shadow-sm"
               >
                 CONTACT
               </Link>
             )}
 
-            {/* Social Icons */}
-            <div className="hidden sm:flex items-center space-x-3 text-neutral-800">
+            {/* Social Icons (Desktop & Tablet) */}
+            <div className="hidden sm:flex items-center space-x-2.5 text-neutral-800">
               <a
                 href="https://instagram.com"
                 target="_blank"
@@ -240,63 +232,66 @@ export const Header: React.FC<HeaderProps> = ({ onOpenContactModal }) => {
 
         {/* Mobile Dropdown Menu */}
         {mobileMenuOpen && (
-          <div className="md:hidden bg-white border-t border-neutral-100 px-6 py-5 shadow-lg animate-fadeIn w-full absolute top-full left-0">
-            <nav className="flex flex-col space-y-4 text-xs font-sans font-medium tracking-[0.2em] text-neutral-700">
+          <div className="md:hidden bg-[#fbf9f5] border-t border-neutral-200 px-6 py-5 shadow-xl animate-fadeIn w-full absolute top-full left-0 z-50">
+            <nav className="flex flex-col space-y-3.5 text-xs font-sans font-bold tracking-[0.2em] text-neutral-800">
               <Link
                 href="/"
                 onClick={() => setMobileMenuOpen(false)}
-                className="hover:text-black transition-colors py-1"
+                className={`py-1.5 transition-colors ${
+                  pathname === '/' ? 'text-[#942323]' : 'hover:text-[#942323]'
+                }`}
               >
                 HOME
               </Link>
               <Link
                 href="/services"
                 onClick={() => setMobileMenuOpen(false)}
-                className="hover:text-black transition-colors py-1"
+                className={`py-1.5 transition-colors ${
+                  pathname === '/services' ? 'text-[#942323]' : 'hover:text-[#942323]'
+                }`}
               >
                 SERVICES
               </Link>
               <Link
                 href="/portfolio"
                 onClick={() => setMobileMenuOpen(false)}
-                className="hover:text-black transition-colors py-1"
+                className={`py-1.5 transition-colors ${
+                  pathname === '/portfolio' ? 'text-[#942323]' : 'hover:text-[#942323]'
+                }`}
               >
                 PORTFOLIO
               </Link>
               <Link
                 href="/blog"
                 onClick={() => setMobileMenuOpen(false)}
-                className="hover:text-black transition-colors py-1"
+                className={`py-1.5 transition-colors ${
+                  pathname === '/blog' ? 'text-[#942323]' : 'hover:text-[#942323]'
+                }`}
               >
                 BLOG
               </Link>
-              <Link
-                href="/studio"
-                onClick={() => setMobileMenuOpen(false)}
-                className="text-[#942323] font-bold hover:text-black transition-colors py-1 flex items-center justify-between"
-              >
-                <span>SANITY CMS STUDIO</span>
-                <span className="text-[10px] font-mono bg-neutral-200 text-black px-1.5 py-0.5 rounded">ADMIN ↗</span>
-              </Link>
-              {onOpenContactModal ? (
-                <button
-                  onClick={() => {
-                    setMobileMenuOpen(false);
-                    onOpenContactModal();
-                  }}
-                  className="bg-black text-white text-center py-2.5 uppercase tracking-[0.2em]"
-                >
-                  CONTACT
-                </button>
-              ) : (
-                <Link
-                  href="/contact"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="bg-black text-white text-center py-2.5 uppercase tracking-[0.2em]"
-                >
-                  CONTACT
-                </Link>
-              )}
+
+              <div className="pt-2">
+                {onOpenContactModal ? (
+                  <button
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      onOpenContactModal();
+                    }}
+                    className="w-full bg-black text-white text-center py-3 uppercase tracking-[0.2em] text-[11px] font-bold shadow-sm"
+                  >
+                    CONTACT
+                  </button>
+                ) : (
+                  <Link
+                    href="/contact"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="block w-full bg-black text-white text-center py-3 uppercase tracking-[0.2em] text-[11px] font-bold shadow-sm"
+                  >
+                    CONTACT
+                  </Link>
+                )}
+              </div>
             </nav>
           </div>
         )}

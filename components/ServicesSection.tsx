@@ -73,7 +73,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenContact 
                 Editorial CMS &amp; Web Systems
               </h3>
               <p className="font-sans text-xs sm:text-[13px] text-neutral-600 leading-relaxed mb-6">
-                Custom web experiences built with modern frameworks and connected directly to a headless Sanity CMS backend for seamless, stress-free article publishing.
+                Custom web experiences built with modern frameworks and connected directly to a headless CMS backend for seamless, stress-free article publishing.
               </p>
             </div>
             <button

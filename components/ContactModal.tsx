@@ -109,7 +109,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({
                   <option value="General Inquiry">General Editorial Inquiry</option>
                   <option value="Brand Copywriting">Brand Copywriting &amp; Voice Direction</option>
                   <option value="Social Media Strategy">Social Media Strategy &amp; Editorial Systems</option>
-                  <option value="Editorial CMS & Systems">Custom Editorial Web &amp; Sanity CMS Setup</option>
+                  <option value="Editorial CMS & Systems">Custom Editorial Web &amp; Headless CMS Setup</option>
                   <option value="Consulting">1-on-1 Creative Business Mentorship</option>
                 </select>
               </div>

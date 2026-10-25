@@ -20,23 +20,26 @@ export const CategoryBar: React.FC<CategoryBarProps> = ({
   onSelectCategory,
 }) => {
   return (
-    <section className="w-full bg-white border-b border-editorial-border/60">
-      <div className="max-w-[1140px] mx-auto px-4 sm:px-8 py-8 flex flex-col md:flex-row items-center justify-between gap-5 md:gap-8">
+    <section className="w-full bg-white border-b border-[#ece6db]">
+      <div className="max-w-[1140px] mx-auto px-4 sm:px-6 py-5 sm:py-7 flex flex-col md:flex-row items-center justify-between gap-3 sm:gap-6">
         {/* Script text on the left */}
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center space-x-2 flex-shrink-0">
           <span className="font-script text-2xl sm:text-3xl text-neutral-800 italic select-none">
             Browse the blog :
           </span>
         </div>
 
-        {/* Categories spaced evenly on the right */}
-        <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-9 md:gap-11">
+        {/* Categories: Smooth horizontal scrollable strip on mobile, spaced evenly on desktop */}
+        <div
+          className="flex items-center gap-4 sm:gap-8 md:gap-10 overflow-x-auto w-full md:w-auto px-2 py-1 justify-start md:justify-center"
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        >
           <button
             onClick={() => onSelectCategory('ALL')}
-            className={`text-[11px] uppercase tracking-[0.22em] font-sans transition-all pb-0.5 ${
+            className={`text-[10.5px] sm:text-[11px] uppercase tracking-[0.2em] font-sans transition-all pb-1 whitespace-nowrap flex-shrink-0 ${
               activeCategory === 'ALL'
-                ? 'text-black font-semibold border-b border-black'
-                : 'text-neutral-600 hover:text-black font-medium'
+                ? 'text-black font-bold border-b-2 border-black'
+                : 'text-neutral-500 hover:text-black font-medium border-b-2 border-transparent'
             }`}
           >
             ALL
@@ -46,10 +49,10 @@ export const CategoryBar: React.FC<CategoryBarProps> = ({
             <button
               key={cat}
               onClick={() => onSelectCategory(cat)}
-              className={`text-[11px] uppercase tracking-[0.22em] font-sans transition-all pb-0.5 ${
+              className={`text-[10.5px] sm:text-[11px] uppercase tracking-[0.2em] font-sans transition-all pb-1 whitespace-nowrap flex-shrink-0 ${
                 activeCategory === cat
-                  ? 'text-black font-semibold border-b border-black'
-                  : 'text-neutral-600 hover:text-black font-medium'
+                  ? 'text-black font-bold border-b-2 border-black'
+                  : 'text-neutral-500 hover:text-black font-medium border-b-2 border-transparent'
               }`}
             >
               {cat}
