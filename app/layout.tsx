@@ -29,9 +29,9 @@ const cormorant = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
-  title: 'Carrie Brad | Digital Marketing, Strategy & Lifestyle Editorial',
+  title: 'Gainleadx | Digital Marketing, Strategy & Lifestyle Editorial',
   description:
-    'Stay up to date on tips, tricks, & trends for social media & digital marketing. Editorial blog with Sanity CMS backend.',
+    'Gainleadx - Stay up to date on tips, tricks, & trends for social media, digital marketing, and lead acquisition. Editorial publication.',
 };
 
 export default function RootLayout({

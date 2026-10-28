@@ -179,7 +179,7 @@ export const FeaturedPost: React.FC<FeaturedPostProps> = ({
                 <div className="absolute inset-0 bg-gradient-to-r from-[#0d0d0d]/60 via-transparent to-transparent pointer-events-none" />
 
                 <div className="absolute bottom-2.5 inset-x-2.5 sm:bottom-3 sm:inset-x-3 bg-black/70 backdrop-blur-md px-3 py-1.5 sm:py-2 rounded-xl flex items-center justify-between text-[9px] sm:text-[9.5px] font-sans text-neutral-200 uppercase tracking-wider border border-white/15">
-                  <span className="truncate mr-2">BY CARRIE BRAD • {currentPost.estimatedReadTime || '6 MIN'}</span>
+                  <span className="truncate mr-2">BY GAINLEADX • {currentPost.estimatedReadTime || '6 MIN'}</span>
                   <span className="text-amber-400 font-bold flex-shrink-0 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
                     READ →
                   </span>

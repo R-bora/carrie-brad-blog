@@ -57,7 +57,7 @@ export default function ContactPage() {
                   Direct Inquiries
                 </span>
                 <h2 className="font-serif text-3xl sm:text-4xl text-neutral-900 font-normal">
-                  Carrie Brad Studio
+                  Gainleadx Studio
                 </h2>
                 <p className="font-sans text-xs sm:text-sm text-neutral-600 leading-relaxed mt-3">
                   We accept a limited number of clients per quarter to ensure white-glove creative attention and meticulous execution.
@@ -76,10 +76,10 @@ export default function ContactPage() {
                     Email Inquiries
                   </span>
                   <a
-                    href="mailto:hello@carriebrad.com"
+                    href="mailto:hello@gainleadx.com"
                     className="font-medium text-neutral-900 hover:text-black border-b border-neutral-300"
                   >
-                    hello@carriebrad.com
+                    hello@gainleadx.com
                   </a>
                 </div>
                 <div>
@@ -176,7 +176,7 @@ export default function ContactPage() {
                   <div className="text-4xl text-emerald-600">✓</div>
                   <h3 className="font-serif text-2xl text-neutral-900 font-normal">Thank You for Inquiring</h3>
                   <p className="font-sans text-xs text-neutral-600 max-w-md mx-auto leading-relaxed">
-                    Your inquiry has been received directly by Carrie Brad's studio. We will review your materials and respond within 24 to 48 hours.
+                    Your inquiry has been received directly by Gainleadx Studio. We will review your materials and respond within 24 to 48 hours.
                   </p>
                 </div>
               )}

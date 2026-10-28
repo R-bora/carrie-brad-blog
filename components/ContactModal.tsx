@@ -158,7 +158,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({
             <div className="text-4xl text-emerald-600">✓</div>
             <h4 className="font-serif text-2xl text-neutral-900">Message Received</h4>
             <p className="font-sans text-xs text-neutral-600 max-w-md mx-auto">
-              Thank you, {name}! Carrie will review your inquiry regarding {service} and be in touch within 24 to 48 hours.
+              Thank you, {name}! Gainleadx will review your inquiry regarding {service} and be in touch within 24 to 48 hours.
             </p>
             <button
               onClick={handleResetAndClose}

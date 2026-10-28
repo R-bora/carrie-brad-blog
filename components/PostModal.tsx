@@ -76,7 +76,7 @@ export const PostModal: React.FC<PostModalProps> = ({ post, onClose }) => {
 
           <div className="mt-10 pt-6 border-t border-neutral-200 flex justify-between items-center">
             <span className="text-xs uppercase tracking-[0.2em] font-sans text-neutral-400">
-              Carrie Brad Editorial
+              Gainleadx Editorial
             </span>
             <button
               onClick={onClose}

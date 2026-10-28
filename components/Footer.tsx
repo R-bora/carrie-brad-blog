@@ -9,7 +9,7 @@ export const Footer: React.FC = () => {
       <div className="max-w-[1140px] mx-auto px-4 sm:px-6">
         {/* Brand */}
         <div className="font-serif text-xl sm:text-2xl tracking-[0.24em] text-white uppercase mb-3">
-          CARRIE BRAD
+          GAINLEADX
         </div>
 
         <p className="font-sans text-[10px] sm:text-[10.5px] uppercase tracking-[0.22em] text-neutral-400 mb-7 max-w-md mx-auto leading-relaxed">
@@ -54,7 +54,7 @@ export const Footer: React.FC = () => {
 
         {/* Copyright */}
         <div className="text-[9.5px] sm:text-[10px] font-sans tracking-[0.16em] text-neutral-500 uppercase">
-          &copy; {new Date().getFullYear()} CARRIE BRAD. ALL RIGHTS RESERVED.
+          &copy; {new Date().getFullYear()} GAINLEADX. ALL RIGHTS RESERVED.
         </div>
       </div>
     </footer>

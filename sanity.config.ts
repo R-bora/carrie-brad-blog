@@ -5,8 +5,8 @@ import { projectId, dataset, apiVersion } from './sanity/env';
 
 export default defineConfig({
   basePath: '/studio',
-  name: 'carrie_brad_editorial_studio',
-  title: 'Carrie Brad Editorial Studio',
+  name: 'gainleadx_editorial_studio',
+  title: 'Gainleadx Editorial Studio',
   projectId,
   dataset,
   schema: {

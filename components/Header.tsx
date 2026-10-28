@@ -74,7 +74,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenContactModal }) => {
         </div>
       </div>
 
-      {/* 2. Grand Editorial Broadsheet Masthead (CARRIE BRAD Centered) */}
+      {/* 2. Grand Editorial Broadsheet Masthead (GAINLEADX Centered) */}
       <div className="w-full bg-[#fbf9f5] border-b border-[#dfd8c7]">
         <div className="max-w-[1240px] mx-auto px-4 sm:px-6 py-4 sm:py-6 md:py-8">
           {/* Top Subtitle Rule */}
@@ -90,7 +90,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenContactModal }) => {
           <div className="text-center py-1 sm:py-2 md:py-3">
             <Link href="/" className="inline-block group">
               <h1 className="font-serif text-[38px] sm:text-6xl md:text-7xl lg:text-[84px] font-black tracking-[-0.02em] uppercase text-[#111111] leading-none group-hover:opacity-85 transition-opacity">
-                Carrie Brad
+                Gainleadx
               </h1>
             </Link>
           </div>
@@ -115,7 +115,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenContactModal }) => {
               href="/"
               className="font-serif tracking-[0.16em] text-base sm:text-lg font-black text-neutral-900 md:hidden uppercase"
             >
-              CARRIE BRAD
+              GAINLEADX
             </Link>
             <span className="hidden md:inline-block text-[10px] font-sans font-bold tracking-[0.22em] text-[#6b665c] uppercase">
               VOL. IV • ISSUE 42
