@@ -27,20 +27,20 @@ export default function ContactPage() {
           className="absolute inset-0 bg-cover bg-center opacity-30 mix-blend-screen scale-105"
           style={{
             backgroundImage:
-              'url("https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1800&q=80")',
+              'url("https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=1800&q=80")',
           }}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#161616] via-transparent to-[#161616]/80" />
 
         <div className="relative z-10 max-w-3xl mx-auto px-6">
-          <span className="text-[11px] font-sans uppercase tracking-[0.28em] text-neutral-400 font-medium block mb-3">
-            Begin Your Transformation
+          <span className="text-[11px] font-sans uppercase tracking-[0.28em] text-red-500 font-semibold block mb-3">
+            Confidential Whistleblower Bureau
           </span>
           <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl text-white tracking-[0.18em] uppercase font-normal mb-5 drop-shadow-md">
-            GET IN TOUCH
+            WHISTLEBLOWER DESK
           </h1>
-          <p className="font-sans text-xs sm:text-sm uppercase tracking-[0.24em] text-neutral-300 font-medium leading-relaxed max-w-lg mx-auto">
-            LET'S DISCUSS YOUR BRAND'S NEXT EDITORIAL CHAPTER
+          <p className="font-sans text-xs sm:text-sm uppercase tracking-[0.24em] text-neutral-300 font-medium leading-relaxed max-w-xl mx-auto">
+            SECURE TRANSMISSION FOR LEAKS, EVIDENCE &amp; UNREPORTED UK SCANDALS
           </p>
         </div>
       </section>
@@ -50,49 +50,49 @@ export default function ContactPage() {
         <div className="max-w-[1140px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
             
-            {/* Left: Studio Info */}
+            {/* Left: Bureau Info */}
             <div className="lg:col-span-5 space-y-8">
               <div>
                 <span className="text-[10px] uppercase tracking-[0.25em] text-neutral-400 font-sans block mb-1">
-                  Direct Inquiries
+                  Source Protection Bureau
                 </span>
                 <h2 className="font-serif text-3xl sm:text-4xl text-neutral-900 font-normal">
-                  Gainleadx Studio
+                  Gainleadx Investigative Desk
                 </h2>
                 <p className="font-sans text-xs sm:text-sm text-neutral-600 leading-relaxed mt-3">
-                  We accept a limited number of clients per quarter to ensure white-glove creative attention and meticulous execution.
+                  We rigorously defend source confidentiality under recognized UK journalistic protections. If you have internal records, financial ledgers, or firsthand evidence exposing public misconduct, our investigative reporters verify and report without compromising you.
                 </p>
               </div>
 
               <div className="space-y-4 font-sans text-xs text-neutral-700 border-t border-b border-neutral-200 py-6">
                 <div>
                   <span className="text-neutral-400 uppercase tracking-widest block text-[10px] mb-0.5">
-                    Studio Location
+                    Bureau Location
                   </span>
-                  <p className="font-medium text-neutral-900">New York &amp; London • Available Worldwide</p>
+                  <p className="font-medium text-neutral-900">London Westminster Bureau • End-to-End Encrypted</p>
                 </div>
                 <div>
                   <span className="text-neutral-400 uppercase tracking-widest block text-[10px] mb-0.5">
-                    Email Inquiries
+                    Secure Tip Inboxes
                   </span>
                   <a
-                    href="mailto:hello@gainleadx.com"
+                    href="mailto:tips@gainleadx.com"
                     className="font-medium text-neutral-900 hover:text-black border-b border-neutral-300"
                   >
-                    hello@gainleadx.com
+                    tips@gainleadx.com • Proton &amp; PGP available
                   </a>
                 </div>
                 <div>
                   <span className="text-neutral-400 uppercase tracking-widest block text-[10px] mb-0.5">
-                    Office Hours
+                    Active Investigative Desks
                   </span>
-                  <p className="font-medium text-neutral-900">Monday – Thursday: 9:00 AM – 5:00 PM EST</p>
+                  <p className="font-medium text-neutral-900">Westminster Lobbying • NHS Crisis • Channel Logistics • Water Privatisation</p>
                 </div>
               </div>
 
               <div className="p-6 bg-[#f7f5f2] border-l-4 border-neutral-900">
                 <p className="font-serif text-sm italic text-neutral-800">
-                  “Every great brand began as an intentional decision to stop blending in and start communicating with distinctive clarity.”
+                  “Democracy thrives on transparency. When institutions conceal systemic failure, whistleblowers and independent investigative journalism are the public’s last line of defense.”
                 </p>
               </div>
             </div>
@@ -104,23 +104,23 @@ export default function ContactPage() {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <div>
                       <label className="block text-[10px] uppercase tracking-wider text-neutral-600 mb-1.5 font-medium">
-                        Your Name *
+                        Name or Whistleblower Pseudonym *
                       </label>
                       <input
                         type="text"
                         required
-                        placeholder="First &amp; Last Name"
+                        placeholder="E.g. Civil Servant / Anonymous Source"
                         className="w-full bg-neutral-50 border border-neutral-300 p-3 text-xs text-neutral-900 focus:outline-none focus:border-black"
                       />
                     </div>
                     <div>
                       <label className="block text-[10px] uppercase tracking-wider text-neutral-600 mb-1.5 font-medium">
-                        Email Address *
+                        Secure Email / Proton / Signal *
                       </label>
                       <input
                         type="email"
                         required
-                        placeholder="name@company.com"
+                        placeholder="source@proton.me"
                         className="w-full bg-neutral-50 border border-neutral-300 p-3 text-xs text-neutral-900 focus:outline-none focus:border-black"
                       />
                     </div>
@@ -128,37 +128,39 @@ export default function ContactPage() {
 
                   <div>
                     <label className="block text-[10px] uppercase tracking-wider text-neutral-600 mb-1.5 font-medium">
-                      Service of Interest
+                      Investigative Subject / Department
                     </label>
                     <select className="w-full bg-neutral-50 border border-neutral-300 p-3 text-xs text-neutral-900 focus:outline-none focus:border-black">
-                      <option value="Brand Copywriting">Brand Copywriting &amp; Narrative Architecture</option>
-                      <option value="Social Media Strategy">Digital Content &amp; Social Media Direction</option>
-                      <option value="Editorial CMS & Systems">Custom Web &amp; Headless Editorial System</option>
-                      <option value="Complete Overhaul">Comprehensive Full Studio Rebrand</option>
-                      <option value="General Inquiry">General Studio Inquiry</option>
+                      <option value="Westminster & Lobbying">Westminster, MP Second Jobs &amp; Dark Money</option>
+                      <option value="NHS Healthcare Crisis">NHS Procurement, PFI Debt &amp; Agency Staffing</option>
+                      <option value="Channel Borders & Asylum Hotels">Channel Migration, Asylum Hotels &amp; Security Contracts</option>
+                      <option value="Water Utilities & Sewage">Water Monopolies, Dividends &amp; River Sewage</option>
+                      <option value="Housing & Land Banking">Housing Monopolies &amp; Offshore Land Banking</option>
+                      <option value="Civil Liberties & Policing">Civil Liberties, Facial Recognition &amp; Protest Laws</option>
+                      <option value="General Tip">General Confidential Submission</option>
                     </select>
                   </div>
 
                   <div>
                     <label className="block text-[10px] uppercase tracking-wider text-neutral-600 mb-1.5 font-medium">
-                      Estimated Project Budget
+                      Type of Material / Evidence Available
                     </label>
                     <select className="w-full bg-neutral-50 border border-neutral-300 p-3 text-xs text-neutral-900 focus:outline-none focus:border-black">
-                      <option value="$3,500 – $5,000">$3,500 – $5,000</option>
-                      <option value="$5,000 – $10,000">$5,000 – $10,000</option>
-                      <option value="$10,000+">$10,000+</option>
-                      <option value="Exploring">Currently budgeting / exploring</option>
+                      <option value="Internal Documents">Internal PDF Memos / Unredacted Reports</option>
+                      <option value="Procurement Ledgers">Financial Spreadsheets / Commercial Invoices</option>
+                      <option value="Firsthand Testimony">Firsthand Eyewitness / Institutional Account</option>
+                      <option value="Background Tip">Investigative Lead Requiring Follow-Up</option>
                     </select>
                   </div>
 
                   <div>
                     <label className="block text-[10px] uppercase tracking-wider text-neutral-600 mb-1.5 font-medium">
-                      Share Details About Your Vision *
+                      Provide Evidence Summary &amp; Key Details *
                     </label>
                     <textarea
                       required
                       rows={5}
-                      placeholder="Tell us about your brand, current milestones, website URL, and ideal timeline..."
+                      placeholder="Detail dates, key officials, companies involved, contract sums, or specific document titles. Do not include identifiable personal metadata if you wish to remain anonymous."
                       className="w-full bg-neutral-50 border border-neutral-300 p-3 text-xs text-neutral-900 focus:outline-none focus:border-black"
                     />
                   </div>
@@ -168,19 +170,23 @@ export default function ContactPage() {
                     disabled={loading}
                     className="w-full bg-black hover:bg-neutral-800 text-white font-medium py-3.5 text-xs tracking-[0.2em] uppercase transition-all shadow-md active:scale-95 disabled:opacity-50"
                   >
-                    {loading ? 'SENDING INQUIRY...' : 'SUBMIT INQUIRY'}
+                    {loading ? 'TRANSMITTING CONFIDENTIAL TIP...' : 'TRANSMIT CONFIDENTIAL EVIDENCE'}
                   </button>
                 </form>
               ) : (
                 <div className="text-center py-10 space-y-3 animate-fadeIn">
                   <div className="text-4xl text-emerald-600">✓</div>
-                  <h3 className="font-serif text-2xl text-neutral-900 font-normal">Thank You for Inquiring</h3>
+                  <h3 className="font-serif text-2xl text-neutral-900 font-normal">Evidence Transmitted to Bureau</h3>
                   <p className="font-sans text-xs text-neutral-600 max-w-md mx-auto leading-relaxed">
-                    Your inquiry has been received directly by Gainleadx Studio. We will review your materials and respond within 24 to 48 hours.
+                    Your confidential tip has been queued in Gainleadx's encrypted whistleblower vault. An investigative reporter will review the material in accordance with source protection guidelines.
                   </p>
                 </div>
               )}
             </div>
+
+          </div>
+        </div>
+      </main>
 
           </div>
         </div>

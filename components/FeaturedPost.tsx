@@ -25,7 +25,7 @@ export const FeaturedPost: React.FC<FeaturedPostProps> = ({
     currentPost.mainImage?.asset?.url ||
     (currentPost.mainImage?.asset ? urlForImage(currentPost.mainImage)?.url() : null) ||
     currentPost.mainImage?.url ||
-    'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=1400&q=80';
+    'https://images.unsplash.com/photo-1538332576228-eb5b4c4de6f5?auto=format&fit=crop&w=1200&q=80';
 
   const nextSlide = () => {
     setCurrentIdx((prev) => (prev + 1) % slides.length);
@@ -35,14 +35,14 @@ export const FeaturedPost: React.FC<FeaturedPostProps> = ({
     setCurrentIdx((prev) => (prev - 1 + slides.length) % slides.length);
   };
 
-  // Auto-slide every 6.5 seconds when not hovered
+  // Auto-slide every 7.5 seconds when not hovered
   useEffect(() => {
     if (slides.length <= 1) return;
     const timer = setInterval(() => {
       if (!isHovered) {
         nextSlide();
       }
-    }, 6500);
+    }, 7500);
     return () => clearInterval(timer);
   }, [isHovered, slides.length]);
 
@@ -70,29 +70,29 @@ export const FeaturedPost: React.FC<FeaturedPostProps> = ({
             <div className="flex flex-wrap items-center gap-2 text-[9.5px] sm:text-[10px] font-sans font-bold tracking-[0.16em] sm:tracking-[0.2em] uppercase">
               <span className="inline-flex items-center gap-1.5 bg-[#942323] text-white px-3 py-1 rounded-full shadow-md">
                 <span className="w-1.5 h-1.5 rounded-full bg-white animate-ping"></span>
-                #{currentIdx + 1} LATEST SPOTLIGHT
+                #{currentIdx + 1} LEAD INVESTIGATION
               </span>
               <span className="bg-white/10 text-neutral-200 border border-white/20 px-2.5 sm:px-3 py-1 rounded-full backdrop-blur-sm">
-                {currentPost.category || 'EDITORIAL'}
+                {currentPost.category || 'UK CONTROVERSY'}
               </span>
               <span className="text-neutral-500 hidden sm:inline">•</span>
               <span className="text-neutral-300 hidden sm:inline">
                 {currentPost.publishedAt
-                  ? new Date(currentPost.publishedAt).toLocaleDateString('en-US', {
+                  ? new Date(currentPost.publishedAt).toLocaleDateString('en-GB', {
                       month: 'short',
                       day: 'numeric',
                       year: 'numeric',
                     }).toUpperCase()
-                  : 'OCTOBER 23, 2026'}
+                  : 'OCTOBER 2026'}
               </span>
               <span className="text-neutral-500 hidden sm:inline">•</span>
-              <span className="text-amber-400 font-semibold">★ 4.9 • 24.5K READS</span>
+              <span className="text-amber-400 font-semibold">★ 4.9 • 84.5K CITATIONS</span>
             </div>
 
             {/* Headline */}
             <h2
               onClick={() => onOpenPost && onOpenPost(currentPost)}
-              className="font-serif font-bold text-2xl sm:text-4xl md:text-5xl text-white leading-[1.2] tracking-tight hover:text-amber-300 transition-colors cursor-pointer drop-shadow-sm"
+              className="font-serif font-bold text-2xl sm:text-4xl md:text-5xl text-white leading-[1.2] tracking-tight hover:text-amber-300 transition-colors cursor-pointer drop-shadow-sm uppercase"
             >
               {currentPost.title}
             </h2>
@@ -109,13 +109,13 @@ export const FeaturedPost: React.FC<FeaturedPostProps> = ({
                   onClick={() => onOpenPost && onOpenPost(currentPost)}
                   className="inline-flex items-center gap-1.5 bg-[#942323] hover:bg-red-700 text-white font-sans font-bold text-[10px] sm:text-[11px] tracking-[0.16em] sm:tracking-[0.2em] px-4.5 sm:px-6 py-2.5 rounded-full uppercase transition-all shadow-lg hover:shadow-red-900/40 active:scale-95"
                 >
-                  <span>📖 READ POST</span>
+                  <span>📖 READ FULL INQUEST</span>
                 </button>
                 <button
                   onClick={() => onOpenPost && onOpenPost(currentPost)}
                   className="inline-flex items-center gap-1.5 bg-white/10 hover:bg-white/20 text-neutral-200 border border-white/20 font-sans font-bold text-[9.5px] sm:text-[11px] tracking-[0.14em] sm:tracking-[0.16em] px-3.5 sm:px-5 py-2.5 rounded-full uppercase transition-all backdrop-blur-sm active:scale-95"
                 >
-                  <span>🔖 PREVIEW</span>
+                  <span>🔖 BRIEFING NOTE</span>
                 </button>
               </div>
 
@@ -127,14 +127,14 @@ export const FeaturedPost: React.FC<FeaturedPostProps> = ({
                   <button
                     onClick={prevSlide}
                     className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/10 hover:bg-[#942323] border border-white/20 text-white flex items-center justify-center transition-all active:scale-95"
-                    title="Previous Latest Post"
+                    title="Previous Investigation"
                   >
                     ❮
                   </button>
                   <button
                     onClick={nextSlide}
                     className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/10 hover:bg-[#942323] border border-white/20 text-white flex items-center justify-center transition-all active:scale-95"
-                    title="Next Latest Post"
+                    title="Next Investigation"
                   >
                     ❯
                   </button>
@@ -156,9 +156,9 @@ export const FeaturedPost: React.FC<FeaturedPostProps> = ({
               {/* Circular Badge */}
               <div className="absolute -top-2.5 -left-2.5 sm:-top-5 sm:-left-5 z-20 w-18 h-18 sm:w-24 sm:h-24 rounded-full bg-[#141414] text-white shadow-[0_15px_35px_rgba(0,0,0,0.6)] flex items-center justify-center transform -rotate-12 border border-white/20 group-hover:scale-105 transition-transform select-none">
                 <div className="text-center font-sans tracking-[0.14em] text-[8px] sm:text-[10px] font-bold leading-tight uppercase p-1">
-                  <div>READ</div>
-                  <div className="py-0.5 text-red-400">THE</div>
-                  <div>LATEST</div>
+                  <div>THE</div>
+                  <div className="py-0.5 text-red-400">UK</div>
+                  <div>DOSSIER</div>
                 </div>
               </div>
 
@@ -179,9 +179,9 @@ export const FeaturedPost: React.FC<FeaturedPostProps> = ({
                 <div className="absolute inset-0 bg-gradient-to-r from-[#0d0d0d]/60 via-transparent to-transparent pointer-events-none" />
 
                 <div className="absolute bottom-2.5 inset-x-2.5 sm:bottom-3 sm:inset-x-3 bg-black/70 backdrop-blur-md px-3 py-1.5 sm:py-2 rounded-xl flex items-center justify-between text-[9px] sm:text-[9.5px] font-sans text-neutral-200 uppercase tracking-wider border border-white/15">
-                  <span className="truncate mr-2">BY GAINLEADX • {currentPost.estimatedReadTime || '6 MIN'}</span>
+                  <span className="truncate mr-2">BY GAINLEADX INVESTIGATIVE DESK • {currentPost.estimatedReadTime || '7 MIN'}</span>
                   <span className="text-amber-400 font-bold flex-shrink-0 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-                    READ →
+                    READ INQUEST →
                   </span>
                 </div>
               </div>

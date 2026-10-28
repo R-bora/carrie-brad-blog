@@ -12,8 +12,8 @@ export const Footer: React.FC = () => {
           GAINLEADX
         </div>
 
-        <p className="font-sans text-[10px] sm:text-[10.5px] uppercase tracking-[0.22em] text-neutral-400 mb-7 max-w-md mx-auto leading-relaxed">
-          Digital Marketing, Strategy &amp; Lifestyle Editorial for Creative Entrepreneurs
+        <p className="font-sans text-[10px] sm:text-[10.5px] uppercase tracking-[0.22em] text-neutral-400 mb-7 max-w-lg mx-auto leading-relaxed">
+          Independent Investigative Journalism &amp; Controversial UK Public Debates
         </p>
 
         {/* Navigation */}
@@ -22,16 +22,16 @@ export const Footer: React.FC = () => {
             HOME
           </Link>
           <Link href="/services" className="hover:text-white transition-colors">
-            SERVICES
+            FOCUS PILLARS
           </Link>
           <Link href="/portfolio" className="hover:text-white transition-colors">
-            PORTFOLIO
+            PUBLISHED DOSSIERS
           </Link>
           <Link href="/blog" className="hover:text-white transition-colors">
-            BLOG
+            ALL DEBATES
           </Link>
           <Link href="/contact" className="hover:text-white transition-colors">
-            CONTACT
+            WHISTLEBLOWER DESK
           </Link>
         </div>
 

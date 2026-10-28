@@ -46,11 +46,9 @@ export const BlogView: React.FC<BlogViewProps> = ({
     activeCategory === 'ALL'
       ? gridPosts
       : gridPosts.filter((post) => {
-          const cat = post.category.toUpperCase();
-          if (activeCategory === 'BUSINESS') {
-            return cat.includes('BUSINESS');
-          }
-          return cat === activeCategory;
+          const cat = post.category.toUpperCase().trim();
+          const target = activeCategory.toUpperCase().trim();
+          return cat === target || cat.includes(target) || target.includes(cat);
         });
 
   return (

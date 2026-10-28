@@ -10,8 +10,8 @@ interface HeaderProps {
 
 export const Header: React.FC<HeaderProps> = ({ onOpenContactModal }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [liveDate, setLiveDate] = useState('FRIDAY, OCTOBER 23, 2026');
-  const [liveTime, setLiveTime] = useState('07:28:45 PM');
+  const [liveDate, setLiveDate] = useState('WEDNESDAY, OCTOBER 28, 2026');
+  const [liveTime, setLiveTime] = useState('01:45:00 PM');
   const pathname = usePathname();
 
   useEffect(() => {
@@ -23,9 +23,9 @@ export const Header: React.FC<HeaderProps> = ({ onOpenContactModal }) => {
         month: 'short',
         day: 'numeric',
       };
-      setLiveDate(now.toLocaleDateString('en-US', dateOptions).toUpperCase());
+      setLiveDate(now.toLocaleDateString('en-GB', dateOptions).toUpperCase());
       setLiveTime(
-        now.toLocaleTimeString('en-US', {
+        now.toLocaleTimeString('en-GB', {
           hour: '2-digit',
           minute: '2-digit',
           second: '2-digit',
@@ -44,22 +44,22 @@ export const Header: React.FC<HeaderProps> = ({ onOpenContactModal }) => {
       {/* 1. Top Editorial Dateline Strip with Real-time Clock */}
       <div className="w-full bg-[#f4f0e6] border-b border-[#dfd8c7] text-[10px] sm:text-[11px] font-sans font-medium text-[#6b665c]">
         <div className="max-w-[1240px] mx-auto px-3 sm:px-6 py-1.5 flex items-center justify-between gap-2">
-          {/* Left: Real-time Date and Clock */}
+          {/* Left: Real-time Date and London Clock */}
           <div className="flex items-center space-x-1.5 sm:space-x-3 overflow-hidden">
             <span className="font-bold text-[#111111] tracking-wider uppercase whitespace-nowrap text-[9.5px] sm:text-[11px]">
               {liveDate}
             </span>
             <span className="text-neutral-400">•</span>
             <span className="font-bold text-[#942323] tracking-wider font-mono text-[9.5px] sm:text-[10.5px] whitespace-nowrap">
-              {liveTime}
+              {liveTime} GMT
             </span>
             <span className="text-neutral-400 hidden md:inline">•</span>
-            <span className="hidden md:inline whitespace-nowrap">LIVE DIGITAL EDITION</span>
+            <span className="hidden md:inline whitespace-nowrap">LONDON &amp; WESTMINSTER BUREAU</span>
           </div>
 
           {/* Center Motto - Desktop Only */}
           <div className="hidden lg:block italic text-xs text-[#2c2c2c] tracking-wide truncate max-w-md text-center">
-            "Weekly Dispatches on Digital Strategy, Creative Living &amp; High-Touch Copy"
+            "Unfiltered Investigative Dispatches &amp; The UK's Most Contentious Debates"
           </div>
 
           {/* Right: Newsletter Subscribe Link */}
@@ -68,7 +68,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenContactModal }) => {
               href="#newsletter"
               className="text-[#942323] hover:underline font-bold tracking-wider uppercase text-[9px] sm:text-[10px] whitespace-nowrap"
             >
-              SUBSCRIBE TO THE MEMO
+              SUBSCRIBE TO THE DOSSIER
             </a>
           </div>
         </div>
@@ -79,11 +79,11 @@ export const Header: React.FC<HeaderProps> = ({ onOpenContactModal }) => {
         <div className="max-w-[1240px] mx-auto px-4 sm:px-6 py-4 sm:py-6 md:py-8">
           {/* Top Subtitle Rule */}
           <div className="flex items-center justify-between text-[8px] sm:text-[10px] font-sans font-bold tracking-[0.14em] sm:tracking-[0.25em] uppercase text-[#6b665c] border-b border-[#dfd8c7] pb-1.5 sm:pb-2 mb-2 sm:mb-3">
-            <div className="w-1/4 text-left hidden sm:block">FOUNDED MMXX</div>
+            <div className="w-1/4 text-left hidden sm:block">EST. MMXX</div>
             <div className="w-full sm:w-2/4 text-center leading-snug">
-              A CURATED EDITORIAL BLOG ON MARKETING &amp; WELLNESS
+              INDEPENDENT INVESTIGATIVE JOURNALISM &amp; CONTROVERSIAL UK DEBATES
             </div>
-            <div className="w-1/4 text-right hidden sm:block">WEEKLY CIRCULATION</div>
+            <div className="w-1/4 text-right hidden sm:block">BRITISH CIRCULATION</div>
           </div>
 
           {/* The Big Centered Nameplate */}
@@ -97,11 +97,11 @@ export const Header: React.FC<HeaderProps> = ({ onOpenContactModal }) => {
 
           {/* Bottom Masthead Rule */}
           <div className="border-t-2 border-b border-black py-1 sm:py-1.5 mt-2 sm:mt-3 flex items-center justify-between text-[9px] sm:text-[11px] font-sans font-semibold tracking-[0.12em] sm:tracking-[0.16em] uppercase text-[#111111]">
-            <span>THE JOURNAL</span>
+            <span>THE INQUEST</span>
             <span className="font-script text-xl sm:text-2xl md:text-3xl lowercase tracking-normal text-[#2c2c2c] font-normal -my-1">
-              editorial notes &amp; strategy
+              parliament, civil liberties &amp; public discourse
             </span>
-            <span>AUTUMN • 2026</span>
+            <span>UNITED KINGDOM • 2026</span>
           </div>
         </div>
       </div>
@@ -118,7 +118,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenContactModal }) => {
               GAINLEADX
             </Link>
             <span className="hidden md:inline-block text-[10px] font-sans font-bold tracking-[0.22em] text-[#6b665c] uppercase">
-              VOL. IV • ISSUE 42
+              UK DEBATES • DOSSIER NO. 42
             </span>
           </div>
 
@@ -142,7 +142,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenContactModal }) => {
                   : 'text-neutral-700 border-transparent hover:text-[#942323]'
               }`}
             >
-              SERVICES
+              INVESTIGATIONS
             </Link>
             <Link
               href="/portfolio"
@@ -152,7 +152,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenContactModal }) => {
                   : 'text-neutral-700 border-transparent hover:text-[#942323]'
               }`}
             >
-              PORTFOLIO
+              SPECIAL REPORTS
             </Link>
             <Link
               href="/blog"
@@ -162,7 +162,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenContactModal }) => {
                   : 'text-neutral-700 border-transparent hover:text-[#942323]'
               }`}
             >
-              BLOG
+              ALL DISPATCHES
             </Link>
           </nav>
 
@@ -173,28 +173,29 @@ export const Header: React.FC<HeaderProps> = ({ onOpenContactModal }) => {
                 onClick={onOpenContactModal}
                 className="bg-black hover:bg-neutral-800 text-white text-[9.5px] sm:text-[11px] tracking-[0.16em] sm:tracking-[0.18em] font-sans font-bold px-3.5 sm:px-5 py-1.5 sm:py-2 uppercase transition-colors shadow-sm"
               >
-                CONTACT
+                SUBMIT A TIP
               </button>
             ) : (
               <Link
                 href="/contact"
                 className="bg-black hover:bg-neutral-800 text-white text-[9.5px] sm:text-[11px] tracking-[0.16em] sm:tracking-[0.18em] font-sans font-bold px-3.5 sm:px-5 py-1.5 sm:py-2 uppercase transition-colors shadow-sm"
               >
-                CONTACT
+                SUBMIT A TIP
               </Link>
             )}
 
             {/* Social Icons (Desktop & Tablet) */}
             <div className="hidden sm:flex items-center space-x-2.5 text-neutral-800">
               <a
-                href="https://instagram.com"
+                href="https://twitter.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Instagram"
+                aria-label="X / Twitter"
                 className="hover:text-black transition-colors p-1"
+                title="Follow UK Dispatches on X"
               >
                 <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
                 </svg>
               </a>
 
@@ -204,6 +205,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenContactModal }) => {
                 rel="noopener noreferrer"
                 aria-label="Facebook"
                 className="hover:text-black transition-colors p-1"
+                title="Facebook Dispatches"
               >
                 <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
                   <path d="M9 8H6v4h3v12h5V12h3.642L18 8h-4V6.333C14 5.374 14.556 5 15.658 5H18V0h-3.808C10.597 0 9 1.583 9 4.615V8z" />
@@ -250,7 +252,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenContactModal }) => {
                   pathname === '/services' ? 'text-[#942323]' : 'hover:text-[#942323]'
                 }`}
               >
-                SERVICES
+                INVESTIGATIONS
               </Link>
               <Link
                 href="/portfolio"
@@ -259,7 +261,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenContactModal }) => {
                   pathname === '/portfolio' ? 'text-[#942323]' : 'hover:text-[#942323]'
                 }`}
               >
-                PORTFOLIO
+                SPECIAL REPORTS
               </Link>
               <Link
                 href="/blog"
@@ -268,7 +270,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenContactModal }) => {
                   pathname === '/blog' ? 'text-[#942323]' : 'hover:text-[#942323]'
                 }`}
               >
-                BLOG
+                ALL DISPATCHES
               </Link>
 
               <div className="pt-2">
@@ -280,7 +282,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenContactModal }) => {
                     }}
                     className="w-full bg-black text-white text-center py-3 uppercase tracking-[0.2em] text-[11px] font-bold shadow-sm"
                   >
-                    CONTACT
+                    SUBMIT CONFIDENTIAL TIP
                   </button>
                 ) : (
                   <Link
@@ -288,7 +290,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenContactModal }) => {
                     onClick={() => setMobileMenuOpen(false)}
                     className="block w-full bg-black text-white text-center py-3 uppercase tracking-[0.2em] text-[11px] font-bold shadow-sm"
                   >
-                    CONTACT
+                    SUBMIT CONFIDENTIAL TIP
                   </Link>
                 )}
               </div>

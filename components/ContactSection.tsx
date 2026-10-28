@@ -24,13 +24,13 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenContactMod
     <section id="contact" className="w-full bg-[#1c1c1c] text-white py-20 sm:py-28 scroll-mt-20">
       <div className="max-w-[1080px] mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <span className="text-[11px] font-sans uppercase tracking-[0.25em] text-neutral-400 font-medium block mb-3">
-          Stay Connected
+          Stay Informed &amp; Submit Evidence
         </span>
         <h2 className="font-serif text-3xl sm:text-5xl text-white tracking-[0.05em] uppercase font-normal mb-4">
-          LET'S CONNECT
+          THE GAINLEADX DOSSIER &amp; TIP DESK
         </h2>
-        <p className="font-sans text-xs sm:text-sm text-neutral-300 max-w-lg mx-auto mb-10 leading-relaxed">
-          Join over 12,000+ creative entrepreneurs who receive our private weekly editorial dispatch on digital marketing, high-ticket copywriting, and lifestyle strategy.
+        <p className="font-sans text-xs sm:text-sm text-neutral-300 max-w-xl mx-auto mb-10 leading-relaxed">
+          Join over 24,000 readers across Westminster, Whitehall, legal chambers, and investigative desks who receive our weekly unredacted briefing on Britain’s most controversial public debates, policy failures, and financial trails.
         </p>
 
         {/* Newsletter Form */}
@@ -40,7 +40,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenContactMod
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="Enter your email address"
+            placeholder="Enter your email for private briefings"
             className="flex-1 bg-neutral-800 border border-neutral-700 px-4 py-3 text-xs text-white placeholder-neutral-400 focus:outline-none focus:border-white"
           />
           <button
@@ -53,7 +53,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenContactMod
 
         {subscribed && (
           <div className="text-emerald-400 text-xs font-sans mb-8 animate-fadeIn">
-            ✓ Thank you for subscribing! Check your inbox for your welcome dispatch.
+            ✓ Subscribed. You will receive unredacted investigative dispatches directly in your inbox.
           </div>
         )}
 
@@ -61,14 +61,17 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenContactMod
 
         <div>
           <p className="text-xs text-neutral-400 uppercase tracking-widest mb-4">
-            Have an inquiry or collaboration proposal?
+            Holding power to account • Have verified evidence or a confidential leak?
           </p>
           <button
             onClick={onOpenContactModal}
             className="bg-[#e8dfd8] hover:bg-[#dfd4cc] text-neutral-900 text-xs font-sans font-semibold tracking-[0.2em] uppercase px-8 py-3.5 transition-all shadow-md active:scale-95"
           >
-            OPEN CLIENT INQUIRY FORM
+            SUBMIT CONFIDENTIAL EVIDENCE OR TIP
           </button>
+          <p className="text-[10px] text-neutral-500 font-sans tracking-wide mt-3">
+            Source anonymity protected under rigorous British investigative journalism standards.
+          </p>
         </div>
       </div>
     </section>

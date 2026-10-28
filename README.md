@@ -1,31 +1,24 @@
-# Carrie Brad Editorial Blog & Sanity CMS Backend
+# Gainleadx — Independent Investigative Journalism & Controversial UK Debates
 
-A pixel-perfect, responsive editorial blog modeled after high-end Showit templates, integrated with Next.js 14 App Router, TypeScript, Tailwind CSS, and a Sanity CMS publishing backend.
+A pixel-perfect, responsive broadsheet investigative blog and publishing platform built with Next.js 14 App Router, TypeScript, Tailwind CSS, and Sanity CMS.
 
 ---
 
-## 🌟 Key Features & Design Details
+## 🌟 Publication Focus & Key Features
 
-- **Pixel-Perfect Header**:
-  - Logo "CARRIE BRAD" on the far left with signature editorial letter spacing.
-  - Centered navigation links: `HOME`, `ABOUT`, `SERVICES`, `PORTFOLIO`, `BLOG`, `CONTACT`.
-  - Solid black uppercase `CONTACT` pill button alongside crisp Instagram and Facebook icons.
-- **Moody Hero Section**:
-  - Dark smoky atmospheric background texture with Didone serif title `THE BLOG`.
-  - Centered uppercase tracking subtitle: *"STAY UP TO DATE ON TIPS, TRICKS, & TRENDS FOR SOCIAL MEDIA & DIGITAL MARKETING"*.
-- **Category Submenu**:
-  - Flowing cursive script *"Browse the blog :"* on the left.
-  - Horizontally spaced uppercase category filters (`SOCIAL MEDIA`, `WELLNESS`, `BUSINESS`, `COPYWRITING`) with dynamic interactive filtering.
-- **Featured Post with Overlapping Layout**:
-  - Warm flatlay photography with book, eyeglasses, and coffee.
-  - Dark circular badge titled `READ THE LATEST` rotated on the top-left edge of the image.
-  - Crisp white content box overlapping the right edge of the image with all-caps serif headline, sans-serif excerpt, and sand-toned `READ POST` button.
-- **3-Column Grid with Strict Typography Hierarchy**:
-  - **Vertical Category Text**: Each thumbnail features vertical uppercase category text running along its left edge (`SMALL BUSINESS`, `COPYWRITING`, `SOCIAL MEDIA`, `PERSONAL`, `MARKETING`, `REAL ESTATE`).
-  - **Strict Font Order below thumbnail**:
-    1. High-contrast **Serif Title**
-    2. Legible **Sans-serif Excerpt**
-    3. Centered **Italicized *Read More* ⟶** link with arrow.
+- **Hard-Hitting Controversial UK Debates**:
+  - Independent investigative reporting on Britain's most critical public debates: NHS privatisation and PFI debt, the Small Boats & Channel asylum procurement crisis, the two-child benefit cap, London ghost mansions & offshore land banking, the Crown's sovereign wealth exemptions, water company dividend extraction & sewage spills, and civil liberties under modern public order acts.
+- **British Broadsheet Newspaper Aesthetic**:
+  - Centered high-contrast Didone nameplate `GAINLEADX`, live London GMT clock dateline, double-rules, and authoritative editorial typography.
+  - Whistleblower submission actions and tip-off desk.
+- **Category Inquest Submenu**:
+  - Categorized by urgent UK debates: `POLITICS`, `IMMIGRATION`, `NHS & HEALTH`, `ECONOMY & HOUSING`, `CIVIL LIBERTIES`, `MONARCHY`.
+- **HiAnime-Style Ranked Carousel & Spotlight Slider**:
+  - Continuous 60fps auto-sliding ticker of top trending UK debates and animated spotlight inquest cards with smooth pause on hover.
+- **Confidential Whistleblower Desk**:
+  - Encrypted, anonymous evidence submission desk with source protection guidelines.
+- **Hidden Sanity CMS Studio Route**:
+  - Fully functional headless CMS at `/studio` for editors, with all public-facing CMS studio badges and mentions discreetly hidden from visitors.
 
 ---
 

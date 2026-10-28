@@ -68,10 +68,10 @@
         <span class="hidden sm:inline">LIVE DIGITAL EDITION</span>
       </div>
       <div class="flex items-center space-x-3">
-        <a href="http://localhost:3000/studio" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 bg-black hover:bg-news-red text-white px-2 py-0.5 text-[9.5px] font-sans font-bold tracking-wider uppercase transition-colors" title="Launch Sanity CMS Studio">
+        <span class="inline-flex items-center gap-1 bg-black text-white px-2 py-0.5 text-[9.5px] font-sans font-bold tracking-wider uppercase">
           <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-          SANITY STUDIO
-        </a>
+          INVESTIGATIVE BUREAU
+        </span>
         <span class="text-neutral-400">•</span>
         <a href="index.html" class="text-news-red hover:underline font-bold uppercase text-[10px]">← BACK TO HOME</a>
       </div>
@@ -102,17 +102,15 @@
     <div class="max-w-[1240px] mx-auto px-4 sm:px-6 flex items-center justify-between h-14">
       <div class="hidden md:flex items-center space-x-7 lg:space-x-9 text-[11px] font-sans font-bold tracking-[0.18em] uppercase">
         <a href="index.html" class="py-1 text-ink-charcoal hover:text-news-red transition-colors">HOME</a>
-        <a href="services.html" class="py-1 text-ink-charcoal hover:text-news-red transition-colors">SERVICES</a>
-        <a href="portfolio.html" class="py-1 text-ink-charcoal hover:text-news-red transition-colors">PORTFOLIO</a>
-        <a href="blog.html" class="py-1 text-news-red border-b-2 border-news-red">BLOG</a>
+        <a href="services.html" class="py-1 text-ink-charcoal hover:text-news-red transition-colors">FOCUS PILLARS</a>
+        <a href="portfolio.html" class="py-1 text-ink-charcoal hover:text-news-red transition-colors">DOSSIERS</a>
+        <a href="blog.html" class="py-1 text-news-red border-b-2 border-news-red">ALL DEBATES</a>
       </div>
       <div class="flex items-center space-x-3 sm:space-x-4">
-        <a href="http://localhost:3000/studio" target="_blank" rel="noopener noreferrer" class="hidden sm:inline-flex items-center gap-1.5 border border-black hover:bg-black hover:text-white text-ink-black text-[10px] sm:text-[11px] font-sans font-bold tracking-[0.16em] px-3 py-1.5 uppercase transition-colors" title="Manage posts in Sanity Studio">
-          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-          CMS STUDIO
-        </a>
         <a href="contact.html" class="bg-black hover:bg-neutral-800 text-white text-[10px] sm:text-[11px] font-sans font-bold tracking-[0.18em] px-4 sm:px-5 py-2 uppercase transition-colors shadow-sm">
-          CONTACT
+          WHISTLEBLOWER DESK
+        </a>
+      </div>
         </a>
       </div>
     </div>
@@ -136,11 +134,13 @@
 
     <!-- Category Tabs -->
     <div class="flex flex-wrap items-center gap-2 sm:gap-3 text-[10px] sm:text-[11px] font-sans font-bold tracking-[0.18em] uppercase border-b border-paper-border pb-4">
-      <button onclick="setBlogCat('ALL')" id="bcat-ALL" class="bg-black text-white px-4 py-2 transition-all">ALL POSTS</button>
-      <button onclick="setBlogCat('SOCIAL MEDIA')" id="bcat-SOCIAL MEDIA" class="bg-paper-card hover:bg-neutral-200 text-ink-charcoal border border-paper-border px-4 py-2 transition-all">SOCIAL MEDIA</button>
-      <button onclick="setBlogCat('WELLNESS')" id="bcat-WELLNESS" class="bg-paper-card hover:bg-neutral-200 text-ink-charcoal border border-paper-border px-4 py-2 transition-all">WELLNESS</button>
-      <button onclick="setBlogCat('BUSINESS')" id="bcat-BUSINESS" class="bg-paper-card hover:bg-neutral-200 text-ink-charcoal border border-paper-border px-4 py-2 transition-all">BUSINESS</button>
-      <button onclick="setBlogCat('COPYWRITING')" id="bcat-COPYWRITING" class="bg-paper-card hover:bg-neutral-200 text-ink-charcoal border border-paper-border px-4 py-2 transition-all">COPYWRITING</button>
+      <button onclick="setBlogCat('ALL')" id="bcat-ALL" class="bg-black text-white px-4 py-2 transition-all">ALL DEBATES</button>
+      <button onclick="setBlogCat('POLITICS')" id="bcat-POLITICS" class="bg-paper-card hover:bg-neutral-200 text-ink-charcoal border border-paper-border px-4 py-2 transition-all">POLITICS</button>
+      <button onclick="setBlogCat('IMMIGRATION')" id="bcat-IMMIGRATION" class="bg-paper-card hover:bg-neutral-200 text-ink-charcoal border border-paper-border px-4 py-2 transition-all">IMMIGRATION</button>
+      <button onclick="setBlogCat('NHS & HEALTH')" id="bcat-NHS & HEALTH" class="bg-paper-card hover:bg-neutral-200 text-ink-charcoal border border-paper-border px-4 py-2 transition-all">NHS &amp; HEALTH</button>
+      <button onclick="setBlogCat('ECONOMY & HOUSING')" id="bcat-ECONOMY & HOUSING" class="bg-paper-card hover:bg-neutral-200 text-ink-charcoal border border-paper-border px-4 py-2 transition-all">ECONOMY &amp; HOUSING</button>
+      <button onclick="setBlogCat('CIVIL LIBERTIES')" id="bcat-CIVIL LIBERTIES" class="bg-paper-card hover:bg-neutral-200 text-ink-charcoal border border-paper-border px-4 py-2 transition-all">CIVIL LIBERTIES</button>
+      <button onclick="setBlogCat('MONARCHY')" id="bcat-MONARCHY" class="bg-paper-card hover:bg-neutral-200 text-ink-charcoal border border-paper-border px-4 py-2 transition-all">MONARCHY</button>
     </div>
 
     <!-- Posts Grid with Vertical Category Text -->
@@ -185,11 +185,11 @@
   <footer class="w-full bg-[#f4f0e6] border-t-2 border-black py-8 text-center text-xs font-sans text-ink-muted">
     <div class="max-w-[1240px] mx-auto px-4 space-y-2">
       <div class="font-headline font-bold text-xl uppercase text-ink-black">GAINLEADX</div>
-      <p class="italic font-body">An editorial blog on marketing strategy, creative copywriting &amp; mindful living.</p>
+      <p class="italic font-body">Independent investigative journalism covering Britain’s most controversial political and institutional debates.</p>
       <div class="flex justify-center space-x-4 text-[10px] tracking-widest uppercase pt-2">
         <span>© 2026 GAINLEADX</span>
         <span>•</span>
-        <a href="http://localhost:3000/studio" target="_blank" rel="noopener noreferrer" class="text-news-red font-bold hover:underline">SANITY CMS STUDIO ↗</a>
+        <a href="contact.html" class="text-news-red font-bold hover:underline">WHISTLEBLOWER BUREAU ↗</a>
       </div>
     </div>
   </footer>
@@ -321,7 +321,7 @@
 
     function setBlogCat(cat) {
       currentCat = cat;
-      ['ALL', 'SOCIAL MEDIA', 'WELLNESS', 'BUSINESS', 'COPYWRITING'].forEach(c => {
+      ['ALL', 'POLITICS', 'IMMIGRATION', 'NHS & HEALTH', 'ECONOMY & HOUSING', 'CIVIL LIBERTIES', 'MONARCHY'].forEach(c => {
         const btn = document.getElementById(`bcat-${c}`);
         if (!btn) return;
         if (c === cat) {

@@ -22,16 +22,15 @@ export interface BlogPost {
   };
   excerpt: string;
   publishedAt?: string;
+  estimatedReadTime?: string;
   body?: any[];
 }
 
 export type CategoryFilter =
   | 'ALL'
-  | 'SOCIAL MEDIA'
-  | 'WELLNESS'
-  | 'BUSINESS'
-  | 'COPYWRITING'
-  | 'SMALL BUSINESS'
-  | 'PERSONAL'
-  | 'MARKETING'
-  | 'REAL ESTATE';
+  | 'POLITICS'
+  | 'IMMIGRATION'
+  | 'NHS & HEALTH'
+  | 'ECONOMY & HOUSING'
+  | 'CIVIL LIBERTIES'
+  | 'MONARCHY';

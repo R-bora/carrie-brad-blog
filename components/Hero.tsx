@@ -73,44 +73,54 @@ export const Hero: React.FC<HeroProps> = ({
       ? posts
       : [
           {
-            id: 'post-1',
-            title: 'HOW TO GET CLIENTS FROM INSTAGRAM',
-            category: 'SOCIAL MEDIA',
-            excerpt: 'Turn your feed into a high-converting client acquisition funnel.',
+            id: 'uk-trend-1',
+            title: 'THE ASYLUM HOTEL PROFITEERS: WHERE THE BILLIONS ACTUALLY GO',
+            category: 'IMMIGRATION',
+            excerpt: 'How private contractors extract massive profit margins housing channel arrivals.',
             mainImage: {
-              url: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=800&q=80',
-            },
-            estimatedReadTime: '4 MIN READ',
-          },
-          {
-            id: 'featured-1',
-            title: 'DREADING TAX SEASON? STRATEGIES TO PREPARE EARLY',
-            category: 'BUSINESS',
-            excerpt: 'Proactive tax protocols for independent founders.',
-            mainImage: {
-              url: 'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=800&q=80',
+              url: 'https://images.unsplash.com/photo-1577495508048-b635879837f1?auto=format&fit=crop&w=800&q=80',
             },
             estimatedReadTime: '6 MIN READ',
           },
           {
-            id: 'post-2',
-            title: 'CREATIVE BURNOUT: HOW TO REGAIN FOCUS',
-            category: 'WELLNESS',
-            excerpt: 'Restorative habits to rekindle creative stamina.',
+            id: 'uk-trend-2',
+            title: 'LONDON COUNCILS ON THE BRINK: WHY LOCAL AUTHORITIES ARE GOING BUST',
+            category: 'ECONOMY',
+            excerpt: 'Temporary accommodation and adult social care debts trigger unprecedented Section 114 notices.',
             mainImage: {
-              url: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=800&q=80',
+              url: 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=800&q=80',
+            },
+            estimatedReadTime: '8 MIN READ',
+          },
+          {
+            id: 'uk-trend-3',
+            title: 'THE ROYAL PREROGATIVE: SECRET WINDSOR CONSENT OVER BRITISH LAWS',
+            category: 'MONARCHY',
+            excerpt: 'National Archives expose how Palace lawyers vetted over 1,000 parliamentary bills in secret.',
+            mainImage: {
+              url: 'https://images.unsplash.com/photo-1577962917302-cd874c4e31d2?auto=format&fit=crop&w=800&q=80',
+            },
+            estimatedReadTime: '7 MIN READ',
+          },
+          {
+            id: 'uk-trend-4',
+            title: 'JUNIOR DOCTORS VS DOWNING STREET: THE NHS STRIKE DEADLOCK',
+            category: 'NHS & HEALTH',
+            excerpt: 'Inside the bitter ideological war over full pay restoration and healthcare retention.',
+            mainImage: {
+              url: 'https://images.unsplash.com/photo-1538332576228-eb5b4c4de6f5?auto=format&fit=crop&w=800&q=80',
             },
             estimatedReadTime: '5 MIN READ',
           },
           {
-            id: 'post-3',
-            title: 'CONVERTING VISITORS WITH HIGH-TOUCH COPY',
-            category: 'COPYWRITING',
-            excerpt: 'Landing page copy that addresses objections with proof.',
+            id: 'uk-trend-5',
+            title: 'DIGITAL ID & CASHLESS BRITAIN: THE WAR ON MONETARY FREEDOM',
+            category: 'CIVIL LIBERTIES',
+            excerpt: 'Bank branch closures, central bank digital currencies, and debanking scandals across the UK.',
             mainImage: {
-              url: 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=800&q=80',
+              url: 'https://images.unsplash.com/photo-1590402494682-cd3fb53b1f70?auto=format&fit=crop&w=800&q=80',
             },
-            estimatedReadTime: '4 MIN READ',
+            estimatedReadTime: '6 MIN READ',
           },
         ];
 
@@ -125,21 +135,21 @@ export const Hero: React.FC<HeroProps> = ({
         <div className="flex items-center justify-between border-b border-[#d8cfbe] pb-3 mb-5 sm:mb-6">
           <div className="flex items-center space-x-2.5 sm:space-x-3">
             <span className="inline-flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-black text-white text-sm sm:text-base shadow-sm">
-              🔥
+              ⚡
             </span>
             <div>
               <h3 className="font-serif font-bold text-lg sm:text-2xl uppercase tracking-tight text-neutral-900 flex items-center gap-2">
-                TRENDING BLOGS
+                TRENDING UK CONTROVERSIES
                 <span className="text-[9px] sm:text-[9.5px] font-sans font-bold bg-[#942323] text-white px-2 sm:px-2.5 py-0.5 rounded-full uppercase tracking-wider">
-                  TOP RANKED
+                  TOP INQUESTS
                 </span>
                 <span className="text-[9.5px] font-sans font-bold text-[#6b665c] border border-[#d6cebf] px-2.5 py-0.5 rounded-full uppercase tracking-wider hidden md:inline-flex items-center gap-1">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                  INFINITE LOOP
+                  LIVE ROLLING RADAR
                 </span>
               </h3>
               <p className="font-sans text-[9px] sm:text-[11px] text-[#6b665c] uppercase tracking-[0.14em] sm:tracking-[0.18em]">
-                GLIDING RIGHT TO LEFT • PAUSES ON TOUCH
+                ACTIVE PARLIAMENTARY &amp; PUBLIC INQUIRIES • PAUSES ON TOUCH
               </p>
             </div>
           </div>
@@ -184,13 +194,13 @@ export const Hero: React.FC<HeroProps> = ({
               item.mainImage?.asset?.url ||
               (item.mainImage?.asset ? urlForImage(item.mainImage)?.url() : null) ||
               item.mainImage?.url ||
-              'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=800&q=80';
+              'https://images.unsplash.com/photo-1529655683826-aba9b3e77383?auto=format&fit=crop&w=800&q=80';
 
             const rankNum = (idx % baseItems.length) + 1;
 
             return (
               <div
-                key={`${item.id}-${idx}`}
+                key={`${item.id || item._id}-${idx}`}
                 onClick={() => {
                   if (onOpenPost) onOpenPost(item as BlogPost);
                   else if (onOpenTrendingPost) onOpenTrendingPost();
@@ -207,7 +217,7 @@ export const Hero: React.FC<HeroProps> = ({
 
                   {/* Floating Category Badge */}
                   <div className="absolute top-2.5 right-2.5 z-10 bg-white/95 backdrop-blur-md text-black text-[8px] sm:text-[8.5px] font-sans font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider shadow-sm">
-                    {item.category || 'BLOG'}
+                    {item.category || 'UK TOPIC'}
                   </div>
 
                   <img
@@ -219,9 +229,9 @@ export const Hero: React.FC<HeroProps> = ({
                   {/* Bottom Gradient Fade over Poster */}
                   <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black/90 via-black/45 to-transparent flex flex-col justify-end p-3.5 sm:p-4 text-white">
                     <div className="text-[9px] sm:text-[9.5px] font-sans font-bold text-amber-300 tracking-wider uppercase mb-1 flex items-center gap-1">
-                      <span>🔥 {32 - (rankNum - 1) * 4}.5K READS</span>
+                      <span>🔥 {94 - (rankNum - 1) * 8}.2K CITATIONS</span>
                       <span className="text-neutral-400">•</span>
-                      <span className="text-neutral-300">{item.estimatedReadTime || '4 MIN'}</span>
+                      <span className="text-neutral-300">{item.estimatedReadTime || '6 MIN'}</span>
                     </div>
                     <h4 className="font-serif font-bold text-sm sm:text-[15px] leading-snug line-clamp-2 uppercase group-hover:text-amber-300 transition-colors">
                       {item.title}
@@ -231,7 +241,7 @@ export const Hero: React.FC<HeroProps> = ({
 
                 {/* Bottom Card Footer */}
                 <div className="p-2.5 sm:p-3 bg-white flex items-center justify-between text-[10px] font-sans font-bold text-[#6b665c] group-hover:text-[#942323] transition-colors border-t border-[#f0ebe0]">
-                  <span className="uppercase tracking-wider">READ ARTICLE</span>
+                  <span className="uppercase tracking-wider">READ DEBATE</span>
                   <span className="font-bold text-sm group-hover:translate-x-1 transition-transform">→</span>
                 </div>
               </div>

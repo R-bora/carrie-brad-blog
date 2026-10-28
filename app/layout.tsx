@@ -29,9 +29,9 @@ const cormorant = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
-  title: 'Gainleadx | Digital Marketing, Strategy & Lifestyle Editorial',
+  title: 'Gainleadx | Independent Investigative Journalism & Controversial UK Debates',
   description:
-    'Gainleadx - Stay up to date on tips, tricks, & trends for social media, digital marketing, and lead acquisition. Editorial publication.',
+    'Gainleadx — Unfiltered investigative inquests, forensic reporting, and deep-dive exposés on Britain’s most contentious political, economic, and institutional debates.',
 };
 
 export default function RootLayout({
