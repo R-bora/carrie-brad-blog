@@ -68,12 +68,13 @@ export const Hero: React.FC<HeroProps> = ({
     return () => cancelAnimationFrame(animId);
   }, [isHovered]);
 
-  const baseItems =
+  const baseItems: BlogPost[] =
     posts && posts.length > 0
       ? posts
       : [
           {
-            id: 'uk-trend-1',
+            _id: 'uk-trend-1',
+            slug: 'asylum-hotel-profiteers',
             title: 'THE ASYLUM HOTEL PROFITEERS: WHERE THE BILLIONS ACTUALLY GO',
             category: 'IMMIGRATION',
             excerpt: 'How private contractors extract massive profit margins housing channel arrivals.',
@@ -83,7 +84,8 @@ export const Hero: React.FC<HeroProps> = ({
             estimatedReadTime: '6 MIN READ',
           },
           {
-            id: 'uk-trend-2',
+            _id: 'uk-trend-2',
+            slug: 'london-councils-on-the-brink',
             title: 'LONDON COUNCILS ON THE BRINK: WHY LOCAL AUTHORITIES ARE GOING BUST',
             category: 'ECONOMY',
             excerpt: 'Temporary accommodation and adult social care debts trigger unprecedented Section 114 notices.',
@@ -93,7 +95,8 @@ export const Hero: React.FC<HeroProps> = ({
             estimatedReadTime: '8 MIN READ',
           },
           {
-            id: 'uk-trend-3',
+            _id: 'uk-trend-3',
+            slug: 'the-royal-prerogative-secret-veto',
             title: 'THE ROYAL PREROGATIVE: SECRET WINDSOR CONSENT OVER BRITISH LAWS',
             category: 'MONARCHY',
             excerpt: 'National Archives expose how Palace lawyers vetted over 1,000 parliamentary bills in secret.',
@@ -103,7 +106,8 @@ export const Hero: React.FC<HeroProps> = ({
             estimatedReadTime: '7 MIN READ',
           },
           {
-            id: 'uk-trend-4',
+            _id: 'uk-trend-4',
+            slug: 'junior-doctors-vs-downing-street',
             title: 'JUNIOR DOCTORS VS DOWNING STREET: THE NHS STRIKE DEADLOCK',
             category: 'NHS & HEALTH',
             excerpt: 'Inside the bitter ideological war over full pay restoration and healthcare retention.',
@@ -113,7 +117,8 @@ export const Hero: React.FC<HeroProps> = ({
             estimatedReadTime: '5 MIN READ',
           },
           {
-            id: 'uk-trend-5',
+            _id: 'uk-trend-5',
+            slug: 'digital-id-cashless-britain',
             title: 'DIGITAL ID & CASHLESS BRITAIN: THE WAR ON MONETARY FREEDOM',
             category: 'CIVIL LIBERTIES',
             excerpt: 'Bank branch closures, central bank digital currencies, and debanking scandals across the UK.',
@@ -200,9 +205,9 @@ export const Hero: React.FC<HeroProps> = ({
 
             return (
               <div
-                key={`${item.id || item._id}-${idx}`}
+                key={`${item._id}-${idx}`}
                 onClick={() => {
-                  if (onOpenPost) onOpenPost(item as BlogPost);
+                  if (onOpenPost) onOpenPost(item);
                   else if (onOpenTrendingPost) onOpenTrendingPost();
                 }}
                 className="flex-shrink-0 w-56 sm:w-68 bg-white rounded-2xl overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.05)] hover:shadow-[0_14px_34px_rgba(0,0,0,0.12)] transition-all duration-300 hover:-translate-y-1.5 cursor-pointer group flex flex-col border border-[#e8e2d5]"
