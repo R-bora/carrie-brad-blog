@@ -42,27 +42,22 @@ export const Hero: React.FC<HeroProps> = ({
     }
   };
 
-  // Continuous smooth loop for desktop mouse users; disabled on touch devices for fluid native finger swiping
+  // Continuous 60fps smooth loop that works seamlessly on laptop, desktop, and touch screens
   useEffect(() => {
-    // Check if device is touch-primary (mobile or tablet)
-    const isTouchDevice =
-      typeof window !== 'undefined' &&
-      (window.matchMedia('(pointer: coarse)').matches || 'ontouchstart' in window);
-
-    if (isTouchDevice) {
-      return; // Leave full smooth native momentum scrolling & snapping to touch gestures
-    }
-
     let animId: number;
-    const SPEED = 0.85;
+    let lastTime = performance.now();
+    const SPEED_PER_SEC = 48; // Smooth 48px/second gliding velocity
 
-    const step = () => {
+    const step = (currentTime: number) => {
+      const deltaTime = Math.min((currentTime - lastTime) / 1000, 0.1);
+      lastTime = currentTime;
+
       if (trackRef.current) {
         const track = trackRef.current;
         const singleSetWidth = track.scrollWidth / 3;
 
-        if (!isHovered) {
-          accumulatedScroll.current += SPEED;
+        if (!isHovered && singleSetWidth > 0) {
+          accumulatedScroll.current += SPEED_PER_SEC * deltaTime;
           if (accumulatedScroll.current >= singleSetWidth) {
             accumulatedScroll.current -= singleSetWidth;
           }
@@ -197,14 +192,21 @@ export const Hero: React.FC<HeroProps> = ({
           </div>
         </div>
 
-        {/* Horizontal Scroll Track (Snap-enabled, touch-fluid, continuous) */}
+        {/* Horizontal Scroll Track (Continuous 60fps loop, touch-friendly, hover-pause) */}
         <div
           ref={trackRef}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
           onTouchStart={() => setIsHovered(true)}
-          onTouchEnd={() => setIsHovered(false)}
-          className="flex gap-3 sm:gap-5 md:gap-6 overflow-x-auto pb-4 pt-1 px-1 cursor-grab active:cursor-grabbing select-none snap-x snap-mandatory"
+          onTouchEnd={() => {
+            setTimeout(() => {
+              if (trackRef.current) {
+                accumulatedScroll.current = trackRef.current.scrollLeft;
+              }
+              setIsHovered(false);
+            }, 600);
+          }}
+          className="flex gap-3 sm:gap-5 md:gap-6 overflow-x-auto pb-4 pt-1 px-1 cursor-grab active:cursor-grabbing select-none"
           style={{
             scrollbarWidth: 'none',
             msOverflowStyle: 'none',
@@ -225,7 +227,7 @@ export const Hero: React.FC<HeroProps> = ({
                 key={`${item._id}-${idx}`}
                 href={`/blog/${item.slug}`}
                 target="_blank"
-                className="flex-shrink-0 w-[215px] xs:w-[235px] sm:w-[260px] md:w-[280px] bg-white rounded-xl sm:rounded-2xl overflow-hidden shadow-[0_4px_16px_rgba(0,0,0,0.06)] hover:shadow-[0_12px_30px_rgba(0,0,0,0.12)] transition-all duration-300 hover:-translate-y-1 cursor-pointer group flex flex-col border border-[#e8e2d5] snap-start"
+                className="flex-shrink-0 w-[215px] xs:w-[235px] sm:w-[260px] md:w-[280px] bg-white rounded-xl sm:rounded-2xl overflow-hidden shadow-[0_4px_16px_rgba(0,0,0,0.06)] hover:shadow-[0_12px_30px_rgba(0,0,0,0.12)] transition-all duration-300 hover:-translate-y-1 cursor-pointer group flex flex-col border border-[#e8e2d5]"
               >
                 {/* Poster Thumbnail */}
                 <div className="relative aspect-[3/4] overflow-hidden bg-neutral-100">
