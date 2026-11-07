@@ -21,14 +21,8 @@ export const Footer: React.FC = () => {
           <Link href="/" className="hover:text-white transition-colors">
             HOME
           </Link>
-          <Link href="/services" className="hover:text-white transition-colors">
-            FOCUS PILLARS
-          </Link>
-          <Link href="/portfolio" className="hover:text-white transition-colors">
-            PUBLISHED DOSSIERS
-          </Link>
           <Link href="/blog" className="hover:text-white transition-colors">
-            ALL DEBATES
+            ALL DISPATCHES
           </Link>
           <Link href="/contact" className="hover:text-white transition-colors">
             WHISTLEBLOWER DESK

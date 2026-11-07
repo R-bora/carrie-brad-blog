@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 import { BlogPost } from '@/types/blog';
 import { urlForImage } from '@/sanity/lib/image';
 
@@ -15,6 +16,8 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onOpenPost }) => {
     (post.mainImage?.asset ? urlForImage(post.mainImage)?.url() : null) ||
     post.mainImage?.url ||
     'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=800&q=80';
+
+  const postUrl = `/blog/${post.slug}`;
 
   return (
     <article className="group flex flex-col h-full bg-white transition-all">
@@ -34,9 +37,9 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onOpenPost }) => {
         </div>
 
         {/* Thumbnail Image */}
-        <div
-          onClick={() => onOpenPost && onOpenPost(post)}
-          className="relative flex-1 aspect-[1/1] overflow-hidden bg-neutral-100 cursor-pointer"
+        <Link
+          href={postUrl}
+          className="relative flex-1 aspect-[1/1] overflow-hidden bg-neutral-100 block cursor-pointer"
         >
           <img
             src={imageUrl}
@@ -44,22 +47,17 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onOpenPost }) => {
             className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
             loading="lazy"
           />
-        </div>
+        </Link>
       </div>
 
-      {/* Typography Content below image - STRICT ORDER:
-          1. Serif title
-          2. Sans-serif excerpt
-          3. Italicized Read More link with arrow (centered)
-      */}
+      {/* Typography Content below image */}
       <div className="flex flex-col flex-1 pt-6 pl-7 sm:pl-8">
         {/* 1. Serif Title */}
-        <h3
-          onClick={() => onOpenPost && onOpenPost(post)}
-          className="font-serif text-[18px] sm:text-[19px] leading-[1.3] text-neutral-900 font-medium cursor-pointer hover:text-neutral-600 transition-colors"
-        >
-          {post.title}
-        </h3>
+        <Link href={postUrl} className="group-hover:text-neutral-600">
+          <h3 className="font-serif text-[18px] sm:text-[19px] leading-[1.3] text-neutral-900 font-medium cursor-pointer hover:text-neutral-600 transition-colors">
+            {post.title}
+          </h3>
+        </Link>
 
         {/* 2. Sans-serif Excerpt */}
         <p className="font-sans text-[12px] sm:text-[12.5px] leading-[1.65] text-neutral-500 mt-3 font-normal line-clamp-3">
@@ -68,13 +66,13 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onOpenPost }) => {
 
         {/* 3. Centered Italicized Read More Link with Arrow */}
         <div className="mt-5 pt-1 text-center">
-          <button
-            onClick={() => onOpenPost && onOpenPost(post)}
+          <Link
+            href={postUrl}
             className="inline-flex items-center space-x-2 text-xs sm:text-[13px] font-serif italic text-neutral-700 hover:text-black transition-all group-hover:translate-x-0.5"
           >
             <span>Read More</span>
             <span className="font-sans not-italic text-sm">⟶</span>
-          </button>
+          </Link>
         </div>
       </div>
     </article>

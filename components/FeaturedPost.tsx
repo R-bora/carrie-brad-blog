@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { BlogPost } from '@/types/blog';
 import { urlForImage } from '@/sanity/lib/image';
 
@@ -90,12 +91,13 @@ export const FeaturedPost: React.FC<FeaturedPostProps> = ({
             </div>
 
             {/* Headline */}
-            <h2
-              onClick={() => onOpenPost && onOpenPost(currentPost)}
-              className="font-serif font-bold text-2xl sm:text-4xl md:text-5xl text-white leading-[1.2] tracking-tight hover:text-amber-300 transition-colors cursor-pointer drop-shadow-sm uppercase"
-            >
-              {currentPost.title}
-            </h2>
+            <Link href={`/blog/${currentPost.slug}`}>
+              <h2
+                className="font-serif font-bold text-2xl sm:text-4xl md:text-5xl text-white leading-[1.2] tracking-tight hover:text-amber-300 transition-colors cursor-pointer drop-shadow-sm uppercase"
+              >
+                {currentPost.title}
+              </h2>
+            </Link>
 
             {/* Excerpt */}
             <p className="font-sans text-xs sm:text-sm md:text-base text-neutral-300 leading-relaxed max-w-2xl line-clamp-3 sm:line-clamp-4 font-normal">
@@ -105,18 +107,18 @@ export const FeaturedPost: React.FC<FeaturedPostProps> = ({
             {/* Action Buttons & HiAnime Slider Navigation */}
             <div className="flex flex-wrap items-center justify-between gap-3 pt-1">
               <div className="flex items-center space-x-2.5 sm:space-x-3">
-                <button
-                  onClick={() => onOpenPost && onOpenPost(currentPost)}
+                <Link
+                  href={`/blog/${currentPost.slug}`}
                   className="inline-flex items-center gap-1.5 bg-[#942323] hover:bg-red-700 text-white font-sans font-bold text-[10px] sm:text-[11px] tracking-[0.16em] sm:tracking-[0.2em] px-4.5 sm:px-6 py-2.5 rounded-full uppercase transition-all shadow-lg hover:shadow-red-900/40 active:scale-95"
                 >
                   <span>📖 READ FULL INQUEST</span>
-                </button>
-                <button
-                  onClick={() => onOpenPost && onOpenPost(currentPost)}
+                </Link>
+                <Link
+                  href={`/blog/${currentPost.slug}`}
                   className="inline-flex items-center gap-1.5 bg-white/10 hover:bg-white/20 text-neutral-200 border border-white/20 font-sans font-bold text-[9.5px] sm:text-[11px] tracking-[0.14em] sm:tracking-[0.16em] px-3.5 sm:px-5 py-2.5 rounded-full uppercase transition-all backdrop-blur-sm active:scale-95"
                 >
                   <span>🔖 BRIEFING NOTE</span>
-                </button>
+                </Link>
               </div>
 
               {slides.length > 1 && (
@@ -146,9 +148,9 @@ export const FeaturedPost: React.FC<FeaturedPostProps> = ({
 
           {/* Right Column: Blended Featured Artwork with Atmospheric Glow */}
           <div className="lg:col-span-5 relative flex justify-center mt-2 lg:mt-0">
-            <div
-              className="relative w-full max-w-sm sm:max-w-md cursor-pointer group"
-              onClick={() => onOpenPost && onOpenPost(currentPost)}
+            <Link
+              href={`/blog/${currentPost.slug}`}
+              className="relative w-full max-w-sm sm:max-w-md cursor-pointer group block"
             >
               {/* Atmospheric Glow */}
               <div className="absolute -inset-4 bg-gradient-to-tr from-[#942323]/30 via-amber-500/20 to-transparent rounded-full filter blur-3xl pointer-events-none -z-10 group-hover:scale-110 transition-transform duration-700" />
@@ -185,7 +187,7 @@ export const FeaturedPost: React.FC<FeaturedPostProps> = ({
                   </span>
                 </div>
               </div>
-            </div>
+            </Link>
           </div>
 
         </div>

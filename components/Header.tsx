@@ -64,12 +64,12 @@ export const Header: React.FC<HeaderProps> = ({ onOpenContactModal }) => {
 
           {/* Right: Newsletter Subscribe Link */}
           <div className="flex items-center space-x-3 flex-shrink-0">
-            <a
-              href="#newsletter"
+            <Link
+              href="/#contact"
               className="text-[#942323] hover:underline font-bold tracking-wider uppercase text-[9px] sm:text-[10px] whitespace-nowrap"
             >
               SUBSCRIBE TO THE DOSSIER
-            </a>
+            </Link>
           </div>
         </div>
       </div>
@@ -135,26 +135,6 @@ export const Header: React.FC<HeaderProps> = ({ onOpenContactModal }) => {
               HOME
             </Link>
             <Link
-              href="/services"
-              className={`transition-colors border-b-2 py-1 ${
-                pathname === '/services'
-                  ? 'text-[#942323] border-[#942323]'
-                  : 'text-neutral-700 border-transparent hover:text-[#942323]'
-              }`}
-            >
-              INVESTIGATIONS
-            </Link>
-            <Link
-              href="/portfolio"
-              className={`transition-colors border-b-2 py-1 ${
-                pathname === '/portfolio'
-                  ? 'text-[#942323] border-[#942323]'
-                  : 'text-neutral-700 border-transparent hover:text-[#942323]'
-              }`}
-            >
-              SPECIAL REPORTS
-            </Link>
-            <Link
               href="/blog"
               className={`transition-colors border-b-2 py-1 ${
                 pathname === '/blog'
@@ -164,9 +144,19 @@ export const Header: React.FC<HeaderProps> = ({ onOpenContactModal }) => {
             >
               ALL DISPATCHES
             </Link>
+            <Link
+              href="/contact"
+              className={`transition-colors border-b-2 py-1 ${
+                pathname === '/contact'
+                  ? 'text-[#942323] border-[#942323]'
+                  : 'text-neutral-700 border-transparent hover:text-[#942323]'
+              }`}
+            >
+              WHISTLEBLOWER DESK
+            </Link>
           </nav>
 
-          {/* Right side: Contact Button + Social Icons + Mobile Menu Toggle */}
+          {/* Right side: Contact Button + Mobile Menu Toggle */}
           <div className="flex items-center space-x-2 sm:space-x-3.5">
             {onOpenContactModal ? (
               <button
@@ -183,35 +173,6 @@ export const Header: React.FC<HeaderProps> = ({ onOpenContactModal }) => {
                 SUBMIT A TIP
               </Link>
             )}
-
-            {/* Social Icons (Desktop & Tablet) */}
-            <div className="hidden sm:flex items-center space-x-2.5 text-neutral-800">
-              <a
-                href="https://twitter.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="X / Twitter"
-                className="hover:text-black transition-colors p-1"
-                title="Follow UK Dispatches on X"
-              >
-                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-                </svg>
-              </a>
-
-              <a
-                href="https://facebook.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Facebook"
-                className="hover:text-black transition-colors p-1"
-                title="Facebook Dispatches"
-              >
-                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                  <path d="M9 8H6v4h3v12h5V12h3.642L18 8h-4V6.333C14 5.374 14.556 5 15.658 5H18V0h-3.808C10.597 0 9 1.583 9 4.615V8z" />
-                </svg>
-              </a>
-            </div>
 
             {/* Mobile Hamburger Toggle */}
             <button
@@ -246,24 +207,6 @@ export const Header: React.FC<HeaderProps> = ({ onOpenContactModal }) => {
                 HOME
               </Link>
               <Link
-                href="/services"
-                onClick={() => setMobileMenuOpen(false)}
-                className={`py-1.5 transition-colors ${
-                  pathname === '/services' ? 'text-[#942323]' : 'hover:text-[#942323]'
-                }`}
-              >
-                INVESTIGATIONS
-              </Link>
-              <Link
-                href="/portfolio"
-                onClick={() => setMobileMenuOpen(false)}
-                className={`py-1.5 transition-colors ${
-                  pathname === '/portfolio' ? 'text-[#942323]' : 'hover:text-[#942323]'
-                }`}
-              >
-                SPECIAL REPORTS
-              </Link>
-              <Link
                 href="/blog"
                 onClick={() => setMobileMenuOpen(false)}
                 className={`py-1.5 transition-colors ${
@@ -271,6 +214,15 @@ export const Header: React.FC<HeaderProps> = ({ onOpenContactModal }) => {
                 }`}
               >
                 ALL DISPATCHES
+              </Link>
+              <Link
+                href="/contact"
+                onClick={() => setMobileMenuOpen(false)}
+                className={`py-1.5 transition-colors ${
+                  pathname === '/contact' ? 'text-[#942323]' : 'hover:text-[#942323]'
+                }`}
+              >
+                WHISTLEBLOWER DESK
               </Link>
 
               <div className="pt-2">

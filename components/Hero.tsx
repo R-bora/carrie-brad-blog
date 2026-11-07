@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useRef, useState, useEffect } from 'react';
+import Link from 'next/link';
 import { BlogPost } from '@/types/blog';
 import { urlForImage } from '@/sanity/lib/image';
 
@@ -204,12 +205,9 @@ export const Hero: React.FC<HeroProps> = ({
             const rankNum = (idx % baseItems.length) + 1;
 
             return (
-              <div
+              <Link
                 key={`${item._id}-${idx}`}
-                onClick={() => {
-                  if (onOpenPost) onOpenPost(item);
-                  else if (onOpenTrendingPost) onOpenTrendingPost();
-                }}
+                href={`/blog/${item.slug}`}
                 className="flex-shrink-0 w-56 sm:w-68 bg-white rounded-2xl overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.05)] hover:shadow-[0_14px_34px_rgba(0,0,0,0.12)] transition-all duration-300 hover:-translate-y-1.5 cursor-pointer group flex flex-col border border-[#e8e2d5]"
               >
                 {/* Poster Thumbnail */}
@@ -249,7 +247,7 @@ export const Hero: React.FC<HeroProps> = ({
                   <span className="uppercase tracking-wider">READ DEBATE</span>
                   <span className="font-bold text-sm group-hover:translate-x-1 transition-transform">→</span>
                 </div>
-              </div>
+              </Link>
             );
           })}
         </div>
