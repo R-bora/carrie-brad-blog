@@ -11,7 +11,6 @@ import { ServicesSection } from './ServicesSection';
 import { PortfolioSection } from './PortfolioSection';
 import { ContactSection } from './ContactSection';
 import { Footer } from './Footer';
-import { PostModal } from './PostModal';
 import { ContactModal } from './ContactModal';
 
 interface BlogViewProps {
@@ -28,7 +27,6 @@ export const BlogView: React.FC<BlogViewProps> = ({
   const [activeCategory, setActiveCategory] = useState<CategoryFilter>('ALL');
   const [featuredPost] = useState<BlogPost>(initialFeaturedPost);
   const [gridPosts] = useState<BlogPost[]>(initialGridPosts);
-  const [activeModalPost, setActiveModalPost] = useState<BlogPost | null>(null);
 
   // Contact Modal State
   const [contactModalOpen, setContactModalOpen] = useState(false);
@@ -61,14 +59,12 @@ export const BlogView: React.FC<BlogViewProps> = ({
         <FeaturedPost
           post={featuredPost}
           allPosts={[featuredPost, ...gridPosts]}
-          onOpenPost={(post) => setActiveModalPost(post)}
         />
       )}
 
       {/* 3. Trending Section: HiAnime-style Ranked Carousel */}
       <Hero
         posts={[...gridPosts, featuredPost]}
-        onOpenPost={(post) => setActiveModalPost(post)}
       />
 
       {/* 4. Category Submenu ("Browse the blog :") */}
@@ -80,7 +76,6 @@ export const BlogView: React.FC<BlogViewProps> = ({
       {/* 5. 3-Column Post Grid */}
       <PostGrid
         posts={filteredGridPosts}
-        onOpenPost={(post) => setActiveModalPost(post)}
       />
 
       {/* 6. Dedicated Services Section */}
@@ -94,12 +89,6 @@ export const BlogView: React.FC<BlogViewProps> = ({
 
       {/* 9. Footer */}
       <Footer />
-
-      {/* Article Reader Modal */}
-      <PostModal
-        post={activeModalPost}
-        onClose={() => setActiveModalPost(null)}
-      />
 
       {/* Client Contact Inquiry Modal */}
       <ContactModal
