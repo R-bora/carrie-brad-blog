@@ -43,7 +43,7 @@ function loadEnv() {
 loadEnv();
 
 const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY;
-const SANITY_PROJECT_ID = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
+const SANITY_PROJECT_ID = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || '7vlmtiag';
 const SANITY_DATASET = process.env.NEXT_PUBLIC_SANITY_DATASET || 'production';
 const SANITY_API_VERSION = process.env.NEXT_PUBLIC_SANITY_API_VERSION || '2024-05-01';
 const SANITY_WRITE_TOKEN = process.env.SANITY_API_WRITE_TOKEN;
