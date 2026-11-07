@@ -17,14 +17,14 @@ export const Footer: React.FC = () => {
         </p>
 
         {/* Navigation */}
-        <div className="flex flex-wrap justify-center gap-5 sm:gap-8 text-[10.5px] sm:text-[11px] tracking-[0.18em] uppercase font-sans text-neutral-400 mb-8">
-          <Link href="/" className="hover:text-white transition-colors">
+        <div className="flex flex-wrap justify-center gap-4 sm:gap-8 text-[10px] sm:text-[11px] tracking-[0.16em] sm:tracking-[0.18em] uppercase font-sans text-neutral-400 mb-7 sm:mb-8">
+          <Link href="/" className="hover:text-white transition-colors py-1 px-2">
             HOME
           </Link>
-          <Link href="/blog" className="hover:text-white transition-colors">
+          <Link href="/blog" className="hover:text-white transition-colors py-1 px-2">
             ALL DISPATCHES
           </Link>
-          <Link href="/contact" className="hover:text-white transition-colors">
+          <Link href="/contact" className="hover:text-white transition-colors py-1 px-2">
             WHISTLEBLOWER DESK
           </Link>
         </div>

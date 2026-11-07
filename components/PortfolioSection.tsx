@@ -54,29 +54,29 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ onOpenContac
   const activeDossier = dossiers.find((d) => d.title === selectedCaseStudy);
 
   return (
-    <section id="portfolio" className="w-full bg-[#f6f4f0] py-16 sm:py-24 border-t border-neutral-200/70 scroll-mt-20">
+    <section id="portfolio" className="w-full bg-[#f6f4f0] py-12 sm:py-20 md:py-24 border-t border-neutral-200/70 scroll-mt-20">
       <div className="max-w-[1140px] mx-auto px-4 sm:px-6 lg:px-8">
         
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 sm:mb-14 gap-4">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-14 gap-3 sm:gap-4">
           <div>
-            <span className="text-[11px] font-sans uppercase tracking-[0.25em] text-[#942323] font-bold block mb-2">
+            <span className="text-[10px] sm:text-[11px] font-sans uppercase tracking-[0.25em] text-[#942323] font-bold block mb-1.5 sm:mb-2">
               SPECIAL INQUEST DOSSIERS
             </span>
-            <h2 className="font-serif text-3xl sm:text-4xl text-neutral-900 tracking-[0.05em] uppercase font-normal">
+            <h2 className="font-serif text-2xl sm:text-4xl text-neutral-900 tracking-[0.05em] uppercase font-normal">
               FEATURED EXPOSÉS
             </h2>
           </div>
-          <p className="font-sans text-xs text-neutral-600 max-w-sm leading-relaxed">
+          <p className="font-sans text-xs sm:text-sm text-neutral-600 max-w-sm leading-relaxed">
             Forensic cross-sector investigations breaking down the UK's most heavily guarded public interest records.
           </p>
         </div>
 
-        {/* Dossiers Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+        {/* Dossiers Grid: 1 col on mobile, 3 on desktop */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-8">
           {dossiers.map((d) => (
             <div key={d.id} className="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow border border-neutral-200">
               <div
-                className="aspect-[4/3] overflow-hidden bg-neutral-200 cursor-pointer"
+                className="aspect-[16/10] sm:aspect-[4/3] overflow-hidden bg-neutral-200 cursor-pointer"
                 onClick={() => setSelectedCaseStudy(d.title)}
               >
                 <img
@@ -85,11 +85,11 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ onOpenContac
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
               </div>
-              <div className="p-6">
-                <span className="text-[9.5px] uppercase tracking-[0.2em] font-sans text-[#942323] font-bold block mb-1">
+              <div className="p-5 sm:p-6">
+                <span className="text-[9px] sm:text-[9.5px] uppercase tracking-[0.2em] font-sans text-[#942323] font-bold block mb-1">
                   {d.category}
                 </span>
-                <h4 className="font-serif text-lg text-neutral-900 mb-2 font-bold uppercase leading-snug">
+                <h4 className="font-serif text-base sm:text-lg text-neutral-900 mb-2 font-bold uppercase leading-snug">
                   {d.title}
                 </h4>
                 <p className="font-sans text-xs text-neutral-600 line-clamp-2 mb-4 leading-relaxed">
@@ -97,7 +97,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ onOpenContac
                 </p>
                 <button
                   onClick={() => setSelectedCaseStudy(d.title)}
-                  className="text-xs font-serif italic text-neutral-800 hover:text-[#942323] font-medium"
+                  className="text-xs font-serif italic text-neutral-800 hover:text-[#942323] font-medium py-1"
                 >
                   Read Investigation Briefing ⟶
                 </button>
@@ -110,28 +110,28 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ onOpenContac
 
       {/* Case Study Modal */}
       {activeDossier && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/70 backdrop-blur-sm animate-fadeIn">
-          <div className="relative w-full max-w-2xl bg-white text-neutral-900 shadow-2xl p-6 sm:p-10 border border-neutral-200 max-h-[90vh] overflow-y-auto rounded-2xl">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/75 backdrop-blur-sm animate-fadeIn">
+          <div className="relative w-full max-w-2xl bg-white text-neutral-900 shadow-2xl p-5 sm:p-8 md:p-10 border border-neutral-200 max-h-[90vh] overflow-y-auto rounded-xl sm:rounded-2xl">
             <button
               onClick={() => setSelectedCaseStudy(null)}
-              className="absolute top-4 right-4 w-9 h-9 rounded-full bg-neutral-100 hover:bg-black hover:text-white transition-colors flex items-center justify-center font-bold text-sm"
+              className="absolute top-3.5 right-3.5 sm:top-4 sm:right-4 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-neutral-100 hover:bg-black hover:text-white transition-colors flex items-center justify-center font-bold text-sm"
               aria-label="Close dossier modal"
             >
               ✕
             </button>
 
-            <span className="text-[10px] uppercase tracking-[0.25em] text-[#942323] font-bold font-sans block mb-1">
+            <span className="text-[9.5px] sm:text-[10px] uppercase tracking-[0.25em] text-[#942323] font-bold font-sans block mb-1">
               {activeDossier.category}
             </span>
-            <h3 className="font-serif text-2xl sm:text-3xl text-neutral-900 mb-4 font-bold uppercase">
+            <h3 className="font-serif text-xl sm:text-2xl md:text-3xl text-neutral-900 mb-3 sm:mb-4 font-bold uppercase pr-8">
               {activeDossier.title}
             </h3>
 
-            <p className="font-sans text-xs sm:text-sm text-neutral-600 leading-relaxed mb-6">
+            <p className="font-sans text-xs sm:text-sm text-neutral-600 leading-relaxed mb-5 sm:mb-6">
               {activeDossier.description}
             </p>
 
-            <div className="p-4 bg-[#f8f6f2] border-l-4 border-black mb-6 font-sans text-xs space-y-2 rounded-r-lg">
+            <div className="p-3.5 sm:p-4 bg-[#f8f6f2] border-l-4 border-black mb-6 font-sans text-xs space-y-2 rounded-r-lg">
               {activeDossier.findings.map((f, i) => (
                 <div key={i}>
                   <strong>{f.label}:</strong> {f.val}
@@ -139,14 +139,14 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ onOpenContac
               ))}
             </div>
 
-            <div className="flex justify-end space-x-3">
+            <div className="flex justify-end">
               <button
                 onClick={() => {
                   const title = activeDossier.title;
                   setSelectedCaseStudy(null);
                   onOpenContact(`Dossier Evidence: ${title}`);
                 }}
-                className="bg-black hover:bg-neutral-800 text-white text-xs uppercase tracking-widest px-6 py-2.5 font-bold transition-all rounded-lg"
+                className="w-full sm:w-auto bg-black hover:bg-neutral-800 text-white text-[10.5px] sm:text-xs uppercase tracking-widest px-5 sm:px-6 py-3 font-bold transition-all rounded-lg active:scale-95 text-center"
               >
                 Submit Whistleblower Evidence
               </button>

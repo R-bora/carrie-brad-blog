@@ -21,55 +21,55 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenContactMod
   };
 
   return (
-    <section id="contact" className="w-full bg-[#1c1c1c] text-white py-20 sm:py-28 scroll-mt-20">
+    <section id="contact" className="w-full bg-[#1c1c1c] text-white py-14 sm:py-22 md:py-28 scroll-mt-20">
       <div className="max-w-[1080px] mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <span className="text-[11px] font-sans uppercase tracking-[0.25em] text-neutral-400 font-medium block mb-3">
+        <span className="text-[10px] sm:text-[11px] font-sans uppercase tracking-[0.25em] text-neutral-400 font-medium block mb-2 sm:mb-3">
           Stay Informed &amp; Submit Evidence
         </span>
-        <h2 className="font-serif text-3xl sm:text-5xl text-white tracking-[0.05em] uppercase font-normal mb-4">
+        <h2 className="font-serif text-2xl sm:text-4xl md:text-5xl text-white tracking-[0.05em] uppercase font-normal mb-3 sm:mb-4">
           THE GAINLEADX DOSSIER &amp; TIP DESK
         </h2>
-        <p className="font-sans text-xs sm:text-sm text-neutral-300 max-w-xl mx-auto mb-10 leading-relaxed">
+        <p className="font-sans text-xs sm:text-sm text-neutral-300 max-w-xl mx-auto mb-8 sm:mb-10 leading-relaxed px-2">
           Join over 24,000 readers across Westminster, Whitehall, legal chambers, and investigative desks who receive our weekly unredacted briefing on Britain’s most controversial public debates, policy failures, and financial trails.
         </p>
 
         {/* Newsletter Form */}
-        <form onSubmit={handleSubscribe} className="max-w-md mx-auto flex flex-col sm:flex-row gap-2 mb-10">
+        <form onSubmit={handleSubscribe} className="max-w-md mx-auto flex flex-col sm:flex-row gap-2.5 mb-8 sm:mb-10 px-2 sm:px-0">
           <input
             type="email"
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Enter your email for private briefings"
-            className="flex-1 bg-neutral-800 border border-neutral-700 px-4 py-3 text-xs text-white placeholder-neutral-400 focus:outline-none focus:border-white"
+            className="flex-1 bg-neutral-800 border border-neutral-700 px-4 py-3 sm:py-2.5 text-base sm:text-xs text-white placeholder-neutral-400 focus:outline-none focus:border-white rounded-lg sm:rounded-none"
           />
           <button
             type="submit"
-            className="bg-white hover:bg-neutral-200 text-black text-xs font-sans font-semibold tracking-[0.2em] uppercase px-6 py-3 transition-colors active:scale-95"
+            className="bg-white hover:bg-neutral-200 text-black text-xs font-sans font-semibold tracking-[0.2em] uppercase px-6 py-3 sm:py-2.5 transition-colors active:scale-95 rounded-lg sm:rounded-none"
           >
             SUBSCRIBE
           </button>
         </form>
 
         {subscribed && (
-          <div className="text-emerald-400 text-xs font-sans mb-8 animate-fadeIn">
+          <div className="text-emerald-400 text-xs font-sans mb-8 animate-fadeIn px-3">
             ✓ Subscribed. You will receive unredacted investigative dispatches directly in your inbox.
           </div>
         )}
 
-        <div className="inline-block p-px bg-neutral-800 w-32 mb-8" />
+        <div className="inline-block p-px bg-neutral-800 w-24 sm:w-32 mb-6 sm:mb-8" />
 
-        <div>
-          <p className="text-xs text-neutral-400 uppercase tracking-widest mb-4">
+        <div className="px-2">
+          <p className="text-[11px] sm:text-xs text-neutral-400 uppercase tracking-widest mb-4">
             Holding power to account • Have verified evidence or a confidential leak?
           </p>
           <button
             onClick={onOpenContactModal}
-            className="bg-[#e8dfd8] hover:bg-[#dfd4cc] text-neutral-900 text-xs font-sans font-semibold tracking-[0.2em] uppercase px-8 py-3.5 transition-all shadow-md active:scale-95"
+            className="w-full sm:w-auto bg-[#e8dfd8] hover:bg-[#dfd4cc] text-neutral-900 text-[11px] sm:text-xs font-sans font-semibold tracking-[0.18em] sm:tracking-[0.2em] uppercase px-6 sm:px-8 py-3.5 transition-all shadow-md active:scale-95 rounded-lg sm:rounded-none"
           >
             SUBMIT CONFIDENTIAL EVIDENCE OR TIP
           </button>
-          <p className="text-[10px] text-neutral-500 font-sans tracking-wide mt-3">
+          <p className="text-[9.5px] sm:text-[10px] text-neutral-500 font-sans tracking-wide mt-3 max-w-md mx-auto">
             Source anonymity protected under rigorous British investigative journalism standards.
           </p>
         </div>

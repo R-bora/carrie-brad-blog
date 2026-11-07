@@ -21,10 +21,10 @@ export const PostGrid: React.FC<PostGridProps> = ({ posts, onOpenPost }) => {
   }
 
   return (
-    <section className="w-full bg-white py-14 sm:py-20 md:py-24 px-4 sm:px-6 lg:px-8">
+    <section className="w-full bg-white py-10 sm:py-16 md:py-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-[1140px] mx-auto">
         {/* 3-Column Responsive Grid: 1 col on mobile, 2 on tablet, 3 on desktop */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 sm:gap-x-10 gap-y-14 sm:gap-y-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 sm:gap-x-10 gap-y-10 sm:gap-y-16">
           {posts.map((post) => (
             <PostCard
               key={post._id || post.slug}

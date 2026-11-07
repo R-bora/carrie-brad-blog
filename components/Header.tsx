@@ -44,13 +44,13 @@ export const Header: React.FC<HeaderProps> = ({ onOpenContactModal }) => {
       {/* 1. Top Editorial Dateline Strip with Real-time Clock */}
       <div className="w-full bg-[#f4f0e6] border-b border-[#dfd8c7] text-[10px] sm:text-[11px] font-sans font-medium text-[#6b665c]">
         <div className="max-w-[1240px] mx-auto px-3 sm:px-6 py-1.5 flex items-center justify-between gap-2">
-          {/* Left: Real-time Date and London Clock */}
+          {/* Left: Real-time Date and London Clock (Responsive) */}
           <div className="flex items-center space-x-1.5 sm:space-x-3 overflow-hidden">
-            <span className="font-bold text-[#111111] tracking-wider uppercase whitespace-nowrap text-[9.5px] sm:text-[11px]">
+            <span className="font-bold text-[#111111] tracking-wider uppercase whitespace-nowrap text-[9px] sm:text-[11px]">
               {liveDate}
             </span>
             <span className="text-neutral-400">•</span>
-            <span className="font-bold text-[#942323] tracking-wider font-mono text-[9.5px] sm:text-[10.5px] whitespace-nowrap">
+            <span className="font-bold text-[#942323] tracking-wider font-mono text-[9px] sm:text-[10.5px] whitespace-nowrap">
               {liveTime} GMT
             </span>
             <span className="text-neutral-400 hidden md:inline">•</span>
@@ -66,7 +66,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenContactModal }) => {
           <div className="flex items-center space-x-3 flex-shrink-0">
             <Link
               href="/#contact"
-              className="text-[#942323] hover:underline font-bold tracking-wider uppercase text-[9px] sm:text-[10px] whitespace-nowrap"
+              className="text-[#942323] hover:underline font-bold tracking-wider uppercase text-[8.5px] sm:text-[10px] whitespace-nowrap"
             >
               SUBSCRIBE TO THE DOSSIER
             </Link>
@@ -76,11 +76,11 @@ export const Header: React.FC<HeaderProps> = ({ onOpenContactModal }) => {
 
       {/* 2. Grand Editorial Broadsheet Masthead (GAINLEADX Centered) */}
       <div className="w-full bg-[#fbf9f5] border-b border-[#dfd8c7]">
-        <div className="max-w-[1240px] mx-auto px-4 sm:px-6 py-4 sm:py-6 md:py-8">
+        <div className="max-w-[1240px] mx-auto px-4 sm:px-6 py-3 sm:py-6 md:py-8">
           {/* Top Subtitle Rule */}
-          <div className="flex items-center justify-between text-[8px] sm:text-[10px] font-sans font-bold tracking-[0.14em] sm:tracking-[0.25em] uppercase text-[#6b665c] border-b border-[#dfd8c7] pb-1.5 sm:pb-2 mb-2 sm:mb-3">
+          <div className="flex items-center justify-between text-[8px] sm:text-[10px] font-sans font-bold tracking-[0.12em] sm:tracking-[0.25em] uppercase text-[#6b665c] border-b border-[#dfd8c7] pb-1.5 sm:pb-2 mb-2 sm:mb-3">
             <div className="w-1/4 text-left hidden sm:block">EST. MMXX</div>
-            <div className="w-full sm:w-2/4 text-center leading-snug">
+            <div className="w-full sm:w-2/4 text-center leading-snug truncate sm:overflow-visible">
               INDEPENDENT INVESTIGATIVE JOURNALISM &amp; CONTROVERSIAL UK DEBATES
             </div>
             <div className="w-1/4 text-right hidden sm:block">BRITISH CIRCULATION</div>
@@ -89,16 +89,16 @@ export const Header: React.FC<HeaderProps> = ({ onOpenContactModal }) => {
           {/* The Big Centered Nameplate */}
           <div className="text-center py-1 sm:py-2 md:py-3">
             <Link href="/" className="inline-block group">
-              <h1 className="font-serif text-[38px] sm:text-6xl md:text-7xl lg:text-[84px] font-black tracking-[-0.02em] uppercase text-[#111111] leading-none group-hover:opacity-85 transition-opacity">
+              <h1 className="font-serif text-[34px] xs:text-[40px] sm:text-6xl md:text-7xl lg:text-[84px] font-black tracking-[-0.02em] uppercase text-[#111111] leading-none group-hover:opacity-85 transition-opacity">
                 Gainleadx
               </h1>
             </Link>
           </div>
 
           {/* Bottom Masthead Rule */}
-          <div className="border-t-2 border-b border-black py-1 sm:py-1.5 mt-2 sm:mt-3 flex items-center justify-between text-[9px] sm:text-[11px] font-sans font-semibold tracking-[0.12em] sm:tracking-[0.16em] uppercase text-[#111111]">
+          <div className="border-t-2 border-b border-black py-1 sm:py-1.5 mt-2 sm:mt-3 flex items-center justify-between text-[8.5px] sm:text-[11px] font-sans font-semibold tracking-[0.12em] sm:tracking-[0.16em] uppercase text-[#111111]">
             <span>THE INQUEST</span>
-            <span className="font-script text-xl sm:text-2xl md:text-3xl lowercase tracking-normal text-[#2c2c2c] font-normal -my-1">
+            <span className="hidden sm:inline-block font-script text-xl sm:text-2xl md:text-3xl lowercase tracking-normal text-[#2c2c2c] font-normal -my-1 text-center truncate px-2">
               parliament, civil liberties &amp; public discourse
             </span>
             <span>UNITED KINGDOM • 2026</span>
@@ -107,7 +107,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenContactModal }) => {
       </div>
 
       {/* 3. Rock-Solid Sticky Stationary Navigation Bar */}
-      <header className="w-full bg-[#fbf9f5]/95 backdrop-blur-md border-b-2 border-black sticky top-0 z-50 h-13 sm:h-14 flex items-center shadow-sm">
+      <header className="w-full bg-[#fbf9f5]/95 backdrop-blur-md border-b-2 border-black sticky top-0 z-50 h-14 flex items-center shadow-sm">
         <div className="w-full max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
           {/* Left: Mobile Brand Mark OR Desktop Edition Tag */}
           <div className="flex-shrink-0">
@@ -161,14 +161,14 @@ export const Header: React.FC<HeaderProps> = ({ onOpenContactModal }) => {
             {onOpenContactModal ? (
               <button
                 onClick={onOpenContactModal}
-                className="bg-black hover:bg-neutral-800 text-white text-[9.5px] sm:text-[11px] tracking-[0.16em] sm:tracking-[0.18em] font-sans font-bold px-3.5 sm:px-5 py-1.5 sm:py-2 uppercase transition-colors shadow-sm"
+                className="bg-black hover:bg-neutral-800 text-white text-[9.5px] sm:text-[11px] tracking-[0.16em] sm:tracking-[0.18em] font-sans font-bold px-3 sm:px-5 py-2 uppercase transition-colors shadow-sm"
               >
                 SUBMIT A TIP
               </button>
             ) : (
               <Link
                 href="/contact"
-                className="bg-black hover:bg-neutral-800 text-white text-[9.5px] sm:text-[11px] tracking-[0.16em] sm:tracking-[0.18em] font-sans font-bold px-3.5 sm:px-5 py-1.5 sm:py-2 uppercase transition-colors shadow-sm"
+                className="bg-black hover:bg-neutral-800 text-white text-[9.5px] sm:text-[11px] tracking-[0.16em] sm:tracking-[0.18em] font-sans font-bold px-3 sm:px-5 py-2 uppercase transition-colors shadow-sm"
               >
                 SUBMIT A TIP
               </Link>
@@ -177,77 +177,93 @@ export const Header: React.FC<HeaderProps> = ({ onOpenContactModal }) => {
             {/* Mobile Hamburger Toggle */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden text-neutral-800 hover:text-black p-1.5 focus:outline-none"
+              className="md:hidden text-neutral-800 hover:text-black p-2 -mr-1 focus:outline-none focus:ring-1 focus:ring-black rounded"
               aria-label="Toggle navigation menu"
+              aria-expanded={mobileMenuOpen}
             >
               {mobileMenuOpen ? (
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M6 18L18 6M6 6l12 12" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
               ) : (
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M4 6h16M4 12h16M4 18h16" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
               )}
             </button>
           </div>
         </div>
 
-        {/* Mobile Dropdown Menu */}
+        {/* Mobile Dropdown Backdrop & Menu */}
         {mobileMenuOpen && (
-          <div className="md:hidden bg-[#fbf9f5] border-t border-neutral-200 px-6 py-5 shadow-xl animate-fadeIn w-full absolute top-full left-0 z-50">
-            <nav className="flex flex-col space-y-3.5 text-xs font-sans font-bold tracking-[0.2em] text-neutral-800">
-              <Link
-                href="/"
-                onClick={() => setMobileMenuOpen(false)}
-                className={`py-1.5 transition-colors ${
-                  pathname === '/' ? 'text-[#942323]' : 'hover:text-[#942323]'
-                }`}
-              >
-                HOME
-              </Link>
-              <Link
-                href="/blog"
-                onClick={() => setMobileMenuOpen(false)}
-                className={`py-1.5 transition-colors ${
-                  pathname === '/blog' ? 'text-[#942323]' : 'hover:text-[#942323]'
-                }`}
-              >
-                ALL DISPATCHES
-              </Link>
-              <Link
-                href="/contact"
-                onClick={() => setMobileMenuOpen(false)}
-                className={`py-1.5 transition-colors ${
-                  pathname === '/contact' ? 'text-[#942323]' : 'hover:text-[#942323]'
-                }`}
-              >
-                WHISTLEBLOWER DESK
-              </Link>
+          <>
+            <div
+              className="md:hidden fixed inset-0 top-14 bg-black/40 backdrop-blur-sm z-40 animate-fadeIn"
+              onClick={() => setMobileMenuOpen(false)}
+            />
+            <div className="md:hidden bg-[#fbf9f5] border-b-2 border-black px-6 py-6 shadow-2xl animate-fadeIn w-full absolute top-full left-0 z-50">
+              <nav className="flex flex-col space-y-4 text-xs font-sans font-bold tracking-[0.2em] text-neutral-800">
+                <Link
+                  href="/"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`py-2 px-3 rounded transition-colors flex items-center justify-between ${
+                    pathname === '/'
+                      ? 'bg-[#f0ebe0] text-[#942323]'
+                      : 'hover:bg-[#f4efe5] hover:text-[#942323]'
+                  }`}
+                >
+                  <span>HOME</span>
+                  <span className="text-neutral-400">→</span>
+                </Link>
+                <Link
+                  href="/blog"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`py-2 px-3 rounded transition-colors flex items-center justify-between ${
+                    pathname === '/blog'
+                      ? 'bg-[#f0ebe0] text-[#942323]'
+                      : 'hover:bg-[#f4efe5] hover:text-[#942323]'
+                  }`}
+                >
+                  <span>ALL DISPATCHES</span>
+                  <span className="text-neutral-400">→</span>
+                </Link>
+                <Link
+                  href="/contact"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`py-2 px-3 rounded transition-colors flex items-center justify-between ${
+                    pathname === '/contact'
+                      ? 'bg-[#f0ebe0] text-[#942323]'
+                      : 'hover:bg-[#f4efe5] hover:text-[#942323]'
+                  }`}
+                >
+                  <span>WHISTLEBLOWER DESK</span>
+                  <span className="text-neutral-400">→</span>
+                </Link>
 
-              <div className="pt-2">
-                {onOpenContactModal ? (
-                  <button
-                    onClick={() => {
-                      setMobileMenuOpen(false);
-                      onOpenContactModal();
-                    }}
-                    className="w-full bg-black text-white text-center py-3 uppercase tracking-[0.2em] text-[11px] font-bold shadow-sm"
-                  >
-                    SUBMIT CONFIDENTIAL TIP
-                  </button>
-                ) : (
-                  <Link
-                    href="/contact"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="block w-full bg-black text-white text-center py-3 uppercase tracking-[0.2em] text-[11px] font-bold shadow-sm"
-                  >
-                    SUBMIT CONFIDENTIAL TIP
-                  </Link>
-                )}
-              </div>
-            </nav>
-          </div>
+                <div className="pt-3 border-t border-[#dfd8c7]">
+                  {onOpenContactModal ? (
+                    <button
+                      onClick={() => {
+                        setMobileMenuOpen(false);
+                        onOpenContactModal();
+                      }}
+                      className="w-full bg-black text-white text-center py-3.5 uppercase tracking-[0.2em] text-[11px] font-bold shadow-md active:scale-98 transition-transform"
+                    >
+                      SUBMIT CONFIDENTIAL TIP
+                    </button>
+                  ) : (
+                    <Link
+                      href="/contact"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="block w-full bg-black text-white text-center py-3.5 uppercase tracking-[0.2em] text-[11px] font-bold shadow-md active:scale-98 transition-transform"
+                    >
+                      SUBMIT CONFIDENTIAL TIP
+                    </Link>
+                  )}
+                </div>
+              </nav>
+            </div>
+          </>
         )}
       </header>
     </>

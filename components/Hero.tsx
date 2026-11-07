@@ -42,10 +42,19 @@ export const Hero: React.FC<HeroProps> = ({
     }
   };
 
-  // Continuous 60fps smooth loop from right to left
+  // Continuous smooth loop for desktop mouse users; disabled on touch devices for fluid native finger swiping
   useEffect(() => {
+    // Check if device is touch-primary (mobile or tablet)
+    const isTouchDevice =
+      typeof window !== 'undefined' &&
+      (window.matchMedia('(pointer: coarse)').matches || 'ontouchstart' in window);
+
+    if (isTouchDevice) {
+      return; // Leave full smooth native momentum scrolling & snapping to touch gestures
+    }
+
     let animId: number;
-    const SPEED = 0.85; // smooth gliding pixels per frame
+    const SPEED = 0.85;
 
     const step = () => {
       if (trackRef.current) {
@@ -134,61 +143,68 @@ export const Hero: React.FC<HeroProps> = ({
   const trendingItems = [...baseItems, ...baseItems, ...baseItems];
 
   return (
-    <section className="w-full bg-[#f8f5ee] border-b border-[#e2dbcd] py-7 sm:py-12 overflow-hidden">
+    <section className="w-full bg-[#f8f5ee] border-b border-[#e2dbcd] py-6 sm:py-10 md:py-12 overflow-hidden">
       <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header with Chevrons & Status Badge */}
-        <div className="flex items-center justify-between border-b border-[#d8cfbe] pb-3 mb-5 sm:mb-6">
-          <div className="flex items-center space-x-2.5 sm:space-x-3">
-            <span className="inline-flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-black text-white text-sm sm:text-base shadow-sm">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-[#d8cfbe] pb-3 mb-4 sm:mb-6 gap-3">
+          <div className="flex items-start sm:items-center space-x-2.5 sm:space-x-3">
+            <span className="inline-flex items-center justify-center w-7 h-7 sm:w-9 sm:h-9 rounded-xl bg-black text-white text-xs sm:text-base shadow-sm flex-shrink-0 mt-0.5 sm:mt-0">
               ⚡
             </span>
             <div>
-              <h3 className="font-serif font-bold text-lg sm:text-2xl uppercase tracking-tight text-neutral-900 flex items-center gap-2">
-                TRENDING UK CONTROVERSIES
-                <span className="text-[9px] sm:text-[9.5px] font-sans font-bold bg-[#942323] text-white px-2 sm:px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+              <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
+                <h3 className="font-serif font-bold text-base sm:text-xl md:text-2xl uppercase tracking-tight text-neutral-900">
+                  TRENDING UK CONTROVERSIES
+                </h3>
+                <span className="text-[8.5px] sm:text-[9.5px] font-sans font-bold bg-[#942323] text-white px-2 py-0.5 rounded-full uppercase tracking-wider">
                   TOP INQUESTS
                 </span>
-                <span className="text-[9.5px] font-sans font-bold text-[#6b665c] border border-[#d6cebf] px-2.5 py-0.5 rounded-full uppercase tracking-wider hidden md:inline-flex items-center gap-1">
+                <span className="text-[8.5px] sm:text-[9.5px] font-sans font-bold text-[#6b665c] border border-[#d6cebf] px-2 py-0.5 rounded-full uppercase tracking-wider hidden md:inline-flex items-center gap-1">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
                   LIVE ROLLING RADAR
                 </span>
-              </h3>
-              <p className="font-sans text-[9px] sm:text-[11px] text-[#6b665c] uppercase tracking-[0.14em] sm:tracking-[0.18em]">
-                ACTIVE PARLIAMENTARY &amp; PUBLIC INQUIRIES • PAUSES ON TOUCH
+              </div>
+              <p className="font-sans text-[8.5px] sm:text-[10.5px] text-[#6b665c] uppercase tracking-[0.12em] sm:tracking-[0.16em] mt-0.5">
+                ACTIVE PARLIAMENTARY &amp; PUBLIC INQUIRIES • SWIPE TO EXPLORE
               </p>
             </div>
           </div>
 
           {/* Carousel Scroll Controls */}
-          <div className="flex items-center space-x-1.5 sm:space-x-2">
-            <button
-              onClick={() => scrollTrack(-1)}
-              className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white hover:bg-black hover:text-white border border-[#d6cfbe] text-black flex items-center justify-center transition-all shadow-sm font-bold text-xs active:scale-95"
-              title="Scroll Left"
-              aria-label="Scroll left"
-            >
-              ❮
-            </button>
-            <button
-              onClick={() => scrollTrack(1)}
-              className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white hover:bg-black hover:text-white border border-[#d6cfbe] text-black flex items-center justify-center transition-all shadow-sm font-bold text-xs active:scale-95"
-              title="Scroll Right"
-              aria-label="Scroll right"
-            >
-              ❯
-            </button>
+          <div className="flex items-center justify-between sm:justify-end space-x-2">
+            <span className="sm:hidden text-[9px] font-sans uppercase tracking-widest text-[#6b665c]">
+              Swipe cards ↔
+            </span>
+            <div className="flex items-center space-x-1.5 sm:space-x-2">
+              <button
+                onClick={() => scrollTrack(-1)}
+                className="w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-white hover:bg-black hover:text-white border border-[#d6cfbe] text-black flex items-center justify-center transition-all shadow-sm font-bold text-xs active:scale-95"
+                title="Scroll Left"
+                aria-label="Scroll left"
+              >
+                ❮
+              </button>
+              <button
+                onClick={() => scrollTrack(1)}
+                className="w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-white hover:bg-black hover:text-white border border-[#d6cfbe] text-black flex items-center justify-center transition-all shadow-sm font-bold text-xs active:scale-95"
+                title="Scroll Right"
+                aria-label="Scroll right"
+              >
+                ❯
+              </button>
+            </div>
           </div>
         </div>
 
-        {/* Horizontal Scroll Track (Continuous Infinite Loop, Touch-friendly) */}
+        {/* Horizontal Scroll Track (Snap-enabled, touch-fluid, continuous) */}
         <div
           ref={trackRef}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
           onTouchStart={() => setIsHovered(true)}
           onTouchEnd={() => setIsHovered(false)}
-          className="flex gap-4 sm:gap-6 overflow-x-auto pb-3 pt-1 px-1 cursor-grab active:cursor-grabbing select-none"
+          className="flex gap-3 sm:gap-5 md:gap-6 overflow-x-auto pb-4 pt-1 px-1 cursor-grab active:cursor-grabbing select-none snap-x snap-mandatory"
           style={{
             scrollbarWidth: 'none',
             msOverflowStyle: 'none',
@@ -209,44 +225,44 @@ export const Hero: React.FC<HeroProps> = ({
                 key={`${item._id}-${idx}`}
                 href={`/blog/${item.slug}`}
                 target="_blank"
-                className="flex-shrink-0 w-56 sm:w-68 bg-white rounded-2xl overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.05)] hover:shadow-[0_14px_34px_rgba(0,0,0,0.12)] transition-all duration-300 hover:-translate-y-1.5 cursor-pointer group flex flex-col border border-[#e8e2d5]"
+                className="flex-shrink-0 w-[215px] xs:w-[235px] sm:w-[260px] md:w-[280px] bg-white rounded-xl sm:rounded-2xl overflow-hidden shadow-[0_4px_16px_rgba(0,0,0,0.06)] hover:shadow-[0_12px_30px_rgba(0,0,0,0.12)] transition-all duration-300 hover:-translate-y-1 cursor-pointer group flex flex-col border border-[#e8e2d5] snap-start"
               >
                 {/* Poster Thumbnail */}
                 <div className="relative aspect-[3/4] overflow-hidden bg-neutral-100">
                   {/* Floating Rank Badge */}
-                  <div className="absolute top-2.5 left-2.5 z-10 bg-black/85 backdrop-blur-md text-white font-serif font-black text-xs px-2.5 py-1 rounded-full shadow-lg flex items-center gap-1 border border-white/20">
+                  <div className="absolute top-2 left-2 sm:top-2.5 sm:left-2.5 z-10 bg-black/85 backdrop-blur-md text-white font-serif font-black text-[11px] sm:text-xs px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full shadow-lg flex items-center gap-1 border border-white/20">
                     <span className="text-amber-400 font-bold">#</span>
                     0{rankNum}
                   </div>
 
                   {/* Floating Category Badge */}
-                  <div className="absolute top-2.5 right-2.5 z-10 bg-white/95 backdrop-blur-md text-black text-[8px] sm:text-[8.5px] font-sans font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider shadow-sm">
+                  <div className="absolute top-2 right-2 sm:top-2.5 sm:right-2.5 z-10 bg-white/95 backdrop-blur-md text-black text-[7.5px] sm:text-[8.5px] font-sans font-bold px-2 sm:px-2.5 py-0.5 rounded-full uppercase tracking-wider shadow-sm truncate max-w-[120px]">
                     {item.category || 'UK TOPIC'}
                   </div>
 
                   <img
                     src={imgUrl}
                     alt={item.title}
-                    className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700 filter contrast-[1.03]"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 filter contrast-[1.03]"
                   />
 
                   {/* Bottom Gradient Fade over Poster */}
-                  <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black/90 via-black/45 to-transparent flex flex-col justify-end p-3.5 sm:p-4 text-white">
-                    <div className="text-[9px] sm:text-[9.5px] font-sans font-bold text-amber-300 tracking-wider uppercase mb-1 flex items-center gap-1">
+                  <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black/92 via-black/50 to-transparent flex flex-col justify-end p-3 sm:p-4 text-white">
+                    <div className="text-[8.5px] sm:text-[9.5px] font-sans font-bold text-amber-300 tracking-wider uppercase mb-1 flex items-center gap-1">
                       <span>🔥 {94 - (rankNum - 1) * 8}.2K CITATIONS</span>
                       <span className="text-neutral-400">•</span>
                       <span className="text-neutral-300">{item.estimatedReadTime || '6 MIN'}</span>
                     </div>
-                    <h4 className="font-serif font-bold text-sm sm:text-[15px] leading-snug line-clamp-2 uppercase group-hover:text-amber-300 transition-colors">
+                    <h4 className="font-serif font-bold text-xs sm:text-sm md:text-[15px] leading-snug line-clamp-2 uppercase group-hover:text-amber-300 transition-colors">
                       {item.title}
                     </h4>
                   </div>
                 </div>
 
                 {/* Bottom Card Footer */}
-                <div className="p-2.5 sm:p-3 bg-white flex items-center justify-between text-[10px] font-sans font-bold text-[#6b665c] group-hover:text-[#942323] transition-colors border-t border-[#f0ebe0]">
+                <div className="p-2.5 sm:p-3 bg-white flex items-center justify-between text-[9.5px] sm:text-[10px] font-sans font-bold text-[#6b665c] group-hover:text-[#942323] transition-colors border-t border-[#f0ebe0]">
                   <span className="uppercase tracking-wider">READ DEBATE</span>
-                  <span className="font-bold text-sm group-hover:translate-x-1 transition-transform">→</span>
+                  <span className="font-bold text-xs sm:text-sm group-hover:translate-x-1 transition-transform">→</span>
                 </div>
               </Link>
             );

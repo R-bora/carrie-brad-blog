@@ -22,7 +22,7 @@ export default function ContactPage() {
       <Header />
 
       {/* Hero */}
-      <section className="relative w-full overflow-hidden bg-[#161616] py-20 sm:py-28 md:py-32 flex items-center justify-center text-center">
+      <section className="relative w-full overflow-hidden bg-[#161616] py-14 sm:py-24 md:py-32 flex items-center justify-center text-center">
         <div
           className="absolute inset-0 bg-cover bg-center opacity-30 mix-blend-screen scale-105"
           style={{
@@ -32,39 +32,39 @@ export default function ContactPage() {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#161616] via-transparent to-[#161616]/80" />
 
-        <div className="relative z-10 max-w-3xl mx-auto px-6">
-          <span className="text-[11px] font-sans uppercase tracking-[0.28em] text-red-500 font-semibold block mb-3">
+        <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6">
+          <span className="text-[10px] sm:text-[11px] font-sans uppercase tracking-[0.25em] sm:tracking-[0.28em] text-red-500 font-semibold block mb-2 sm:mb-3">
             Confidential Whistleblower Bureau
           </span>
-          <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl text-white tracking-[0.18em] uppercase font-normal mb-5 drop-shadow-md">
+          <h1 className="font-serif text-3xl sm:text-5xl md:text-6xl text-white tracking-[0.14em] sm:tracking-[0.18em] uppercase font-normal mb-3 sm:mb-5 drop-shadow-md">
             WHISTLEBLOWER DESK
           </h1>
-          <p className="font-sans text-xs sm:text-sm uppercase tracking-[0.24em] text-neutral-300 font-medium leading-relaxed max-w-xl mx-auto">
+          <p className="font-sans text-[11px] sm:text-xs md:text-sm uppercase tracking-[0.18em] sm:tracking-[0.24em] text-neutral-300 font-medium leading-relaxed max-w-xl mx-auto">
             SECURE TRANSMISSION FOR LEAKS, EVIDENCE &amp; UNREPORTED UK SCANDALS
           </p>
         </div>
       </section>
 
       {/* Main Form */}
-      <main className="w-full bg-[#fdfcfb] py-16 sm:py-24 flex-1">
+      <main className="w-full bg-[#fdfcfb] py-10 sm:py-20 md:py-24 flex-1">
         <div className="max-w-[1140px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start">
             
             {/* Left: Bureau Info */}
-            <div className="lg:col-span-5 space-y-8">
+            <div className="lg:col-span-5 space-y-6 sm:space-y-8">
               <div>
-                <span className="text-[10px] uppercase tracking-[0.25em] text-neutral-400 font-sans block mb-1">
+                <span className="text-[9.5px] sm:text-[10px] uppercase tracking-[0.25em] text-neutral-400 font-sans block mb-1">
                   Source Protection Bureau
                 </span>
-                <h2 className="font-serif text-3xl sm:text-4xl text-neutral-900 font-normal">
+                <h2 className="font-serif text-2xl sm:text-4xl text-neutral-900 font-normal">
                   Gainleadx Investigative Desk
                 </h2>
-                <p className="font-sans text-xs sm:text-sm text-neutral-600 leading-relaxed mt-3">
+                <p className="font-sans text-xs sm:text-sm text-neutral-600 leading-relaxed mt-2.5 sm:mt-3">
                   We rigorously defend source confidentiality under recognized UK journalistic protections. If you have internal records, financial ledgers, or firsthand evidence exposing public misconduct, our investigative reporters verify and report without compromising you.
                 </p>
               </div>
 
-              <div className="space-y-4 font-sans text-xs text-neutral-700 border-t border-b border-neutral-200 py-6">
+              <div className="space-y-4 font-sans text-xs text-neutral-700 border-t border-b border-neutral-200 py-5 sm:py-6">
                 <div>
                   <span className="text-neutral-400 uppercase tracking-widest block text-[10px] mb-0.5">
                     Bureau Location
@@ -90,18 +90,18 @@ export default function ContactPage() {
                 </div>
               </div>
 
-              <div className="p-6 bg-[#f7f5f2] border-l-4 border-neutral-900">
-                <p className="font-serif text-sm italic text-neutral-800">
+              <div className="p-5 sm:p-6 bg-[#f7f5f2] border-l-4 border-neutral-900">
+                <p className="font-serif text-xs sm:text-sm italic text-neutral-800 leading-relaxed">
                   “Democracy thrives on transparency. When institutions conceal systemic failure, whistleblowers and independent investigative journalism are the public’s last line of defense.”
                 </p>
               </div>
             </div>
 
             {/* Right: The Form */}
-            <div className="lg:col-span-7 bg-white p-8 sm:p-12 border border-neutral-200 shadow-sm">
+            <div className="lg:col-span-7 bg-white p-5 sm:p-8 md:p-12 border border-neutral-200 shadow-sm rounded-xl">
               {!submitted ? (
-                <form onSubmit={handleSubmit} className="space-y-5 font-sans text-xs">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5 font-sans text-xs">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
                     <div>
                       <label className="block text-[10px] uppercase tracking-wider text-neutral-600 mb-1.5 font-medium">
                         Name or Whistleblower Pseudonym *
@@ -110,7 +110,7 @@ export default function ContactPage() {
                         type="text"
                         required
                         placeholder="E.g. Civil Servant / Anonymous Source"
-                        className="w-full bg-neutral-50 border border-neutral-300 p-3 text-xs text-neutral-900 focus:outline-none focus:border-black"
+                        className="w-full bg-neutral-50 border border-neutral-300 p-3 text-base sm:text-xs text-neutral-900 focus:outline-none focus:border-black rounded"
                       />
                     </div>
                     <div>
@@ -121,7 +121,7 @@ export default function ContactPage() {
                         type="email"
                         required
                         placeholder="source@proton.me"
-                        className="w-full bg-neutral-50 border border-neutral-300 p-3 text-xs text-neutral-900 focus:outline-none focus:border-black"
+                        className="w-full bg-neutral-50 border border-neutral-300 p-3 text-base sm:text-xs text-neutral-900 focus:outline-none focus:border-black rounded"
                       />
                     </div>
                   </div>
@@ -130,7 +130,7 @@ export default function ContactPage() {
                     <label className="block text-[10px] uppercase tracking-wider text-neutral-600 mb-1.5 font-medium">
                       Investigative Subject / Department
                     </label>
-                    <select className="w-full bg-neutral-50 border border-neutral-300 p-3 text-xs text-neutral-900 focus:outline-none focus:border-black">
+                    <select className="w-full bg-neutral-50 border border-neutral-300 p-3 text-base sm:text-xs text-neutral-900 focus:outline-none focus:border-black rounded">
                       <option value="Westminster & Lobbying">Westminster, MP Second Jobs &amp; Dark Money</option>
                       <option value="NHS Healthcare Crisis">NHS Procurement, PFI Debt &amp; Agency Staffing</option>
                       <option value="Channel Borders & Asylum Hotels">Channel Migration, Asylum Hotels &amp; Security Contracts</option>
@@ -145,7 +145,7 @@ export default function ContactPage() {
                     <label className="block text-[10px] uppercase tracking-wider text-neutral-600 mb-1.5 font-medium">
                       Type of Material / Evidence Available
                     </label>
-                    <select className="w-full bg-neutral-50 border border-neutral-300 p-3 text-xs text-neutral-900 focus:outline-none focus:border-black">
+                    <select className="w-full bg-neutral-50 border border-neutral-300 p-3 text-base sm:text-xs text-neutral-900 focus:outline-none focus:border-black rounded">
                       <option value="Internal Documents">Internal PDF Memos / Unredacted Reports</option>
                       <option value="Procurement Ledgers">Financial Spreadsheets / Commercial Invoices</option>
                       <option value="Firsthand Testimony">Firsthand Eyewitness / Institutional Account</option>
@@ -161,14 +161,14 @@ export default function ContactPage() {
                       required
                       rows={5}
                       placeholder="Detail dates, key officials, companies involved, contract sums, or specific document titles. Do not include identifiable personal metadata if you wish to remain anonymous."
-                      className="w-full bg-neutral-50 border border-neutral-300 p-3 text-xs text-neutral-900 focus:outline-none focus:border-black"
+                      className="w-full bg-neutral-50 border border-neutral-300 p-3 text-base sm:text-xs text-neutral-900 focus:outline-none focus:border-black rounded"
                     />
                   </div>
 
                   <button
                     type="submit"
                     disabled={loading}
-                    className="w-full bg-black hover:bg-neutral-800 text-white font-medium py-3.5 text-xs tracking-[0.2em] uppercase transition-all shadow-md active:scale-95 disabled:opacity-50"
+                    className="w-full bg-black hover:bg-neutral-800 text-white font-medium py-3.5 text-xs tracking-[0.2em] uppercase transition-all shadow-md active:scale-95 disabled:opacity-50 rounded"
                   >
                     {loading ? 'TRANSMITTING CONFIDENTIAL TIP...' : 'TRANSMIT CONFIDENTIAL EVIDENCE'}
                   </button>

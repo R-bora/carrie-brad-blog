@@ -22,8 +22,8 @@ export const CategoryBar: React.FC<CategoryBarProps> = ({
   onSelectCategory,
 }) => {
   return (
-    <section className="w-full bg-white border-b border-[#ece6db]">
-      <div className="max-w-[1140px] mx-auto px-4 sm:px-6 py-5 sm:py-6 flex flex-col md:flex-row items-center justify-between gap-3 sm:gap-6">
+    <section className="w-full bg-white border-b border-[#ece6db] py-3 sm:py-5">
+      <div className="max-w-[1140px] mx-auto px-4 sm:px-6 flex flex-col md:flex-row items-center justify-between gap-3 sm:gap-6">
         {/* Script text on the left */}
         <div className="flex items-center space-x-2 flex-shrink-0">
           <span className="font-script text-2xl sm:text-3xl text-neutral-800 italic select-none">
@@ -31,35 +31,41 @@ export const CategoryBar: React.FC<CategoryBarProps> = ({
           </span>
         </div>
 
-        {/* Categories: Smooth horizontal scrollable strip on mobile, spaced evenly on desktop */}
-        <div
-          className="flex items-center gap-3 sm:gap-6 md:gap-8 overflow-x-auto w-full md:w-auto px-2 py-1 justify-start md:justify-center"
-          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-        >
-          <button
-            onClick={() => onSelectCategory('ALL')}
-            className={`text-[10px] sm:text-[11px] uppercase tracking-[0.18em] sm:tracking-[0.2em] font-sans transition-all pb-1 whitespace-nowrap flex-shrink-0 ${
-              activeCategory === 'ALL'
-                ? 'text-black font-bold border-b-2 border-black'
-                : 'text-neutral-500 hover:text-black font-medium border-b-2 border-transparent'
-            }`}
+        {/* Categories: Smooth touch-scrollable strip with touch-friendly pills on mobile */}
+        <div className="w-full md:w-auto overflow-hidden relative">
+          <div
+            className="flex items-center gap-1.5 sm:gap-2 md:gap-4 overflow-x-auto w-full px-1 py-1 justify-start md:justify-center scrollbar-none"
+            style={{
+              scrollbarWidth: 'none',
+              msOverflowStyle: 'none',
+              WebkitOverflowScrolling: 'touch',
+            }}
           >
-            ALL DEBATES
-          </button>
-
-          {CATEGORIES.map((cat) => (
             <button
-              key={cat}
-              onClick={() => onSelectCategory(cat)}
-              className={`text-[10px] sm:text-[11px] uppercase tracking-[0.18em] sm:tracking-[0.2em] font-sans transition-all pb-1 whitespace-nowrap flex-shrink-0 ${
-                activeCategory === cat
-                  ? 'text-black font-bold border-b-2 border-black'
-                  : 'text-neutral-500 hover:text-black font-medium border-b-2 border-transparent'
+              onClick={() => onSelectCategory('ALL')}
+              className={`text-[9.5px] sm:text-[11px] uppercase tracking-[0.16em] sm:tracking-[0.2em] font-sans transition-all px-3 py-1.5 rounded-full whitespace-nowrap flex-shrink-0 ${
+                activeCategory === 'ALL'
+                  ? 'bg-neutral-900 text-white font-bold shadow-sm'
+                  : 'bg-neutral-100 text-neutral-600 hover:text-black hover:bg-neutral-200 font-medium'
               }`}
             >
-              {cat}
+              ALL DEBATES
             </button>
-          ))}
+
+            {CATEGORIES.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => onSelectCategory(cat)}
+                className={`text-[9.5px] sm:text-[11px] uppercase tracking-[0.16em] sm:tracking-[0.2em] font-sans transition-all px-3 py-1.5 rounded-full whitespace-nowrap flex-shrink-0 ${
+                  activeCategory === cat
+                    ? 'bg-neutral-900 text-white font-bold shadow-sm'
+                    : 'bg-neutral-100 text-neutral-600 hover:text-black hover:bg-neutral-200 font-medium'
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
     </section>
