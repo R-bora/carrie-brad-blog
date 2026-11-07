@@ -91,7 +91,7 @@ export const FeaturedPost: React.FC<FeaturedPostProps> = ({
             </div>
 
             {/* Headline */}
-            <Link href={`/blog/${currentPost.slug}`}>
+            <Link href={`/blog/${currentPost.slug}`} target="_blank">
               <h2
                 className="font-serif font-bold text-2xl sm:text-4xl md:text-5xl text-white leading-[1.2] tracking-tight hover:text-amber-300 transition-colors cursor-pointer drop-shadow-sm uppercase"
               >
@@ -109,12 +109,14 @@ export const FeaturedPost: React.FC<FeaturedPostProps> = ({
               <div className="flex items-center space-x-2.5 sm:space-x-3">
                 <Link
                   href={`/blog/${currentPost.slug}`}
+                  target="_blank"
                   className="inline-flex items-center gap-1.5 bg-[#942323] hover:bg-red-700 text-white font-sans font-bold text-[10px] sm:text-[11px] tracking-[0.16em] sm:tracking-[0.2em] px-4.5 sm:px-6 py-2.5 rounded-full uppercase transition-all shadow-lg hover:shadow-red-900/40 active:scale-95"
                 >
                   <span>📖 READ FULL INQUEST</span>
                 </Link>
                 <Link
                   href={`/blog/${currentPost.slug}`}
+                  target="_blank"
                   className="inline-flex items-center gap-1.5 bg-white/10 hover:bg-white/20 text-neutral-200 border border-white/20 font-sans font-bold text-[9.5px] sm:text-[11px] tracking-[0.14em] sm:tracking-[0.16em] px-3.5 sm:px-5 py-2.5 rounded-full uppercase transition-all backdrop-blur-sm active:scale-95"
                 >
                   <span>🔖 BRIEFING NOTE</span>
@@ -150,6 +152,7 @@ export const FeaturedPost: React.FC<FeaturedPostProps> = ({
           <div className="lg:col-span-5 relative flex justify-center mt-2 lg:mt-0">
             <Link
               href={`/blog/${currentPost.slug}`}
+              target="_blank"
               className="relative w-full max-w-sm sm:max-w-md cursor-pointer group block"
             >
               {/* Atmospheric Glow */}

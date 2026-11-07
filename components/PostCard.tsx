@@ -39,6 +39,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onOpenPost }) => {
         {/* Thumbnail Image */}
         <Link
           href={postUrl}
+          target="_blank"
           className="relative flex-1 aspect-[1/1] overflow-hidden bg-neutral-100 block cursor-pointer"
         >
           <img
@@ -53,7 +54,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onOpenPost }) => {
       {/* Typography Content below image */}
       <div className="flex flex-col flex-1 pt-6 pl-7 sm:pl-8">
         {/* 1. Serif Title */}
-        <Link href={postUrl} className="group-hover:text-neutral-600">
+        <Link href={postUrl} target="_blank" className="group-hover:text-neutral-600">
           <h3 className="font-serif text-[18px] sm:text-[19px] leading-[1.3] text-neutral-900 font-medium cursor-pointer hover:text-neutral-600 transition-colors">
             {post.title}
           </h3>
@@ -68,6 +69,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onOpenPost }) => {
         <div className="mt-5 pt-1 text-center">
           <Link
             href={postUrl}
+            target="_blank"
             className="inline-flex items-center space-x-2 text-xs sm:text-[13px] font-serif italic text-neutral-700 hover:text-black transition-all group-hover:translate-x-0.5"
           >
             <span>Read More</span>

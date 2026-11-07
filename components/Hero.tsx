@@ -208,6 +208,7 @@ export const Hero: React.FC<HeroProps> = ({
               <Link
                 key={`${item._id}-${idx}`}
                 href={`/blog/${item.slug}`}
+                target="_blank"
                 className="flex-shrink-0 w-56 sm:w-68 bg-white rounded-2xl overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.05)] hover:shadow-[0_14px_34px_rgba(0,0,0,0.12)] transition-all duration-300 hover:-translate-y-1.5 cursor-pointer group flex flex-col border border-[#e8e2d5]"
               >
                 {/* Poster Thumbnail */}

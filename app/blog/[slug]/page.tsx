@@ -37,15 +37,15 @@ async function getPostData(slug: string): Promise<{
       client.fetch<BlogPost[]>(allPostsQuery),
     ]);
 
-    const post = sanityPost || allFallback.find((p) => p.slug === slug || p._id === slug) || null;
+    const post = sanityPost || allFallback.find((p: BlogPost) => p.slug === slug || p._id === slug) || null;
     const relatedSource = allSanity && allSanity.length > 0 ? allSanity : allFallback;
-    const relatedPosts = relatedSource.filter((p) => p.slug !== slug).slice(0, 3);
+    const relatedPosts = relatedSource.filter((p: BlogPost) => p.slug !== slug).slice(0, 3);
 
     return { post, relatedPosts };
   } catch (error) {
     console.warn('Sanity fetch error in slug route, using fallback dataset:', error);
-    const post = allFallback.find((p) => p.slug === slug || p._id === slug) || null;
-    const relatedPosts = allFallback.filter((p) => p.slug !== slug).slice(0, 3);
+    const post = allFallback.find((p: BlogPost) => p.slug === slug || p._id === slug) || null;
+    const relatedPosts = allFallback.filter((p: BlogPost) => p.slug !== slug).slice(0, 3);
     return { post, relatedPosts };
   }
 }
