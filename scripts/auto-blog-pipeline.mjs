@@ -108,10 +108,21 @@ ${task.targetQuestions ? task.targetQuestions.map((q) => `- ${q}`).join('\n') : 
 Return a JSON object with this EXACT structure:
 {
   "title": "A sharp, capitalized broadsheet headline under 100 characters",
+  "headlineDeck": "A secondary sub-headline deck elaborating on the investigative findings (under 130 characters)",
   "slug": "url-friendly-slug-with-hyphens",
   "category": "${task.category}",
   "excerpt": "A powerful 2-3 sentence teaser summarizing the investigation and the scandal or policy debate.",
   "estimatedReadTime": "6 MIN READ",
+  "inquestStatus": "ONGOING INQUEST", // Options: "ONGOING INQUEST", "VERIFIED LEAK", "SPECIAL DOSSIER", "PARLIAMENTARY AUDIT"
+  "citationsCount": "18 AUDIT CITATIONS",
+  "keyTakeaways": [
+    "First crucial bullet point takeaway highlighting the central figure or revelation",
+    "Second finding detailing policy failure or corporate accountability",
+    "Third outcome or imminent parliamentary action"
+  ],
+  "authorName": "Gainleadx Inquest Desk",
+  "seoTitle": "SEO title under 60 characters targeting the keyword",
+  "seoDescription": "Meta description under 155 characters summarizing the investigation with high click appeal",
   "unsplashImageKeywords": "two or three search words for finding a high-contrast editorial photo (e.g. 'westminster big ben night', 'hospital emergency corridor')",
   "sections": [
     {
@@ -120,7 +131,17 @@ Return a JSON object with this EXACT structure:
         "First in-depth paragraph presenting verified facts, figures, and historical policy background...",
         "Second paragraph providing forensic detail, commercial contracts, or quote from whistleblowers/audits..."
       ],
-      "calloutQuote": "A poignant, unvarnished quotation or critical takeaway regarding this aspect of the controversy."
+      "calloutQuote": "A poignant, unvarnished quotation or critical takeaway regarding this aspect of the controversy.",
+      "calloutBox": {
+        "type": "whistleblower", // Options: "whistleblower", "official_denial", "statutory_data", "legal_warning"
+        "title": "LEAKED WHITEHALL MEMORANDUM",
+        "text": "Specific leaked excerpt or damning audit note relevant to this section."
+      },
+      "keyStat": {
+        "stat": "£4.2B",
+        "label": "Annual Taxpayer Liability",
+        "source": "National Audit Office Investigation"
+      }
     },
     {
       "heading": "Second Section H2 Heading",
@@ -136,7 +157,7 @@ Return a JSON object with this EXACT structure:
       ]
     }
   ]
-}`;
+};`
 
   const response = await fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
@@ -203,6 +224,26 @@ function convertToPortableText(articleData) {
         children: [{ _type: 'span', _key: `span-${keyIndex++}`, text: section.calloutQuote, marks: [] }],
       });
     }
+
+    if (section.calloutBox) {
+      blocks.push({
+        _type: 'calloutBox',
+        _key: `callout-${keyIndex++}`,
+        type: section.calloutBox.type || 'whistleblower',
+        title: section.calloutBox.title || 'INVESTIGATIVE DISCLOSURE',
+        text: section.calloutBox.text || '',
+      });
+    }
+
+    if (section.keyStat) {
+      blocks.push({
+        _type: 'keyStat',
+        _key: `stat-${keyIndex++}`,
+        stat: section.keyStat.stat || '£0',
+        label: section.keyStat.label || 'Documented Variance',
+        source: section.keyStat.source || 'Gainleadx Inquest Audit',
+      });
+    }
   }
 
   return blocks;
@@ -230,19 +271,29 @@ async function publishToSanity(articleData) {
     _id: docId,
     _type: 'post',
     title: articleData.title,
+    headlineDeck: articleData.headlineDeck || '',
     slug: {
       _type: 'slug',
       current: articleData.slug,
     },
     category: articleData.category,
+    inquestStatus: articleData.inquestStatus || 'ONGOING INQUEST',
+    citationsCount: articleData.citationsCount || 'VERIFIED EVIDENCE',
+    keyTakeaways: articleData.keyTakeaways || [],
+    authorName: articleData.authorName || 'Gainleadx Inquest Desk',
+    estimatedReadTime: articleData.estimatedReadTime || '6 MIN READ',
     isFeatured: false,
+    isTrending: true,
     excerpt: articleData.excerpt,
     publishedAt: new Date().toISOString(),
     body: portableTextBlocks,
+    seoTitle: articleData.seoTitle || articleData.title,
+    seoDescription: articleData.seoDescription || articleData.excerpt,
     mainImage: {
       _type: 'image',
       alt: articleData.title,
-      url: `https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=1200&q=80`,
+      caption: `Investigative dossier coverage for ${articleData.title}`,
+      credit: 'Gainleadx Bureau & Investigative Archives',
     },
   };
 
