@@ -1,0 +1,68 @@
+[
+  {
+    "keyword": "asylum hotel procurement contracts UK",
+    "category": "IMMIGRATION",
+    "searchVolume": 8400,
+    "kd": 22,
+    "targetQuestions": [
+      "How much does the UK spend on asylum hotels per day?",
+      "Which private companies hold Home Office accommodation contracts?",
+      "Why are local councils challenging asylum hotel procurement in high court?"
+    ]
+  },
+  {
+    "keyword": "NHS PFI debt interest repayments",
+    "category": "NHS & HEALTH",
+    "searchVolume": 6200,
+    "kd": 18,
+    "targetQuestions": [
+      "How much PFI debt do NHS hospital trusts still owe?",
+      "Are private finance initiatives bankrupting English hospitals?",
+      "How much public health funding goes to private equity servicing costs?"
+    ]
+  },
+  {
+    "keyword": "water company dividends vs sewage spills UK",
+    "category": "POLITICS",
+    "searchVolume": 11500,
+    "kd": 25,
+    "targetQuestions": [
+      "How much in dividends have privatised water companies paid out since 1989?",
+      "Why are water monopolies allowed to dump raw sewage during heavy rainfall?",
+      "What is the total cumulative debt of Thames Water and regional suppliers?"
+    ]
+  },
+  {
+    "keyword": "two child benefit cap poverty statistics",
+    "category": "ECONOMY & HOUSING",
+    "searchVolume": 14200,
+    "kd": 28,
+    "targetQuestions": [
+      "How many children are affected by the two-child benefit limit in the UK?",
+      "What is the projected cost to scrap the two-child cap in parliament?",
+      "Why is the policy splitting parliamentary backbenches across parties?"
+    ]
+  },
+  {
+    "keyword": "live facial recognition police powers UK",
+    "category": "CIVIL LIBERTIES",
+    "searchVolume": 5900,
+    "kd": 19,
+    "targetQuestions": [
+      "Is live facial recognition legal in the UK without specific legislation?",
+      "How accurate are Met Police facial recognition surveillance vans?",
+      "What rights do citizens have under the Public Order Acts when protesting?"
+    ]
+  },
+  {
+    "keyword": "Duchy of Lancaster Duchy of Cornwall tax exemptions",
+    "category": "MONARCHY",
+    "searchVolume": 7800,
+    "kd": 24,
+    "targetQuestions": [
+      "Do the royal duchies pay corporation tax or capital gains tax?",
+      "How much revenue do the Duchies of Lancaster and Cornwall generate annually?",
+      "Why do royal estates charge rent to public bodies including the NHS and Armed Forces?"
+    ]
+  }
+]

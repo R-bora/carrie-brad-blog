@@ -1,0 +1,61 @@
+name: Gainleadx Daily Investigative Blog Publisher
+
+on:
+  schedule:
+    # Runs every morning at 08:00 AM UTC (London GMT)
+    - cron: '0 8 * * *'
+  workflow_dispatch:
+    inputs:
+      keyword:
+        description: 'Target keyword (optional, leave blank to use Ahrefs queue)'
+        required: false
+        type: string
+      category:
+        description: 'Debate Category (POLITICS, IMMIGRATION, NHS & HEALTH, ECONOMY & HOUSING, CIVIL LIBERTIES, MONARCHY)'
+        required: false
+        default: 'POLITICS'
+        type: choice
+        options:
+          - POLITICS
+          - IMMIGRATION
+          - NHS & HEALTH
+          - ECONOMY & HOUSING
+          - CIVIL LIBERTIES
+          - MONARCHY
+      is_draft:
+        description: 'Save as draft instead of publishing live immediately'
+        required: false
+        default: false
+        type: boolean
+
+jobs:
+  publish-blog:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Run Auto Blog Pipeline
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_SANITY_PROJECT_ID }}
+          NEXT_PUBLIC_SANITY_DATASET: ${{ secrets.NEXT_PUBLIC_SANITY_DATASET || 'production' }}
+          NEXT_PUBLIC_SANITY_API_VERSION: '2024-05-01'
+          SANITY_API_WRITE_TOKEN: ${{ secrets.SANITY_API_WRITE_TOKEN }}
+          REVALIDATION_SECRET: ${{ secrets.REVALIDATION_SECRET }}
+          NEXT_PUBLIC_SITE_URL: 'https://gainleadx.com'
+        run: |
+          CMD="node scripts/auto-blog-pipeline.mjs"
+          if [ -n "${{ inputs.keyword }}" ]; then
+            CMD="$CMD --keyword '${{ inputs.keyword }}' --category '${{ inputs.category }}'"
+          fi
+          if [ "${{ inputs.is_draft }}" = "true" ]; then
+            CMD="$CMD --draft"
+          fi
+          eval $CMD
