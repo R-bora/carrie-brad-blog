@@ -404,30 +404,51 @@ async function generateWithGemini(task) {
   console.log(`   Target Topic: "${task.keyword}" | Category: [${task.category}]`);
 
   const { systemPrompt, userPrompt } = buildPrompts(task);
-  const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}`;
 
-  const res = await fetch(endpoint, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      system_instruction: { parts: [{ text: systemPrompt }] },
-      contents: [{ parts: [{ text: userPrompt }] }],
-      generationConfig: {
-        temperature: 0.3,
-        response_mime_type: 'application/json',
-      },
-    }),
-  });
+  // Fallback cascade: starts with standard gemini-1.5-flash, then 2.0-flash, then 1.5-pro
+  const candidateModels = [
+    'gemini-1.5-flash',
+    'gemini-2.0-flash',
+    'gemini-1.5-pro',
+    'gemini-2.0-flash-exp',
+  ];
 
-  if (!res.ok) {
-    const errorText = await res.text();
-    throw new Error(`Google Gemini API Error (${res.status}): ${errorText}`);
+  let lastError = null;
+  for (const model of candidateModels) {
+    try {
+      console.log(`   Attempting generation with model: ${model}...`);
+      const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${GEMINI_API_KEY}`;
+
+      const res = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          system_instruction: { parts: [{ text: systemPrompt }] },
+          contents: [{ parts: [{ text: userPrompt }] }],
+          generationConfig: {
+            temperature: 0.3,
+            response_mime_type: 'application/json',
+          },
+        }),
+      });
+
+      if (!res.ok) {
+        const errorText = await res.text();
+        console.warn(`   Model ${model} returned (${res.status}): ${errorText.slice(0, 150)}...`);
+        lastError = new Error(`Google Gemini API Error (${res.status}): ${errorText}`);
+        continue;
+      }
+
+      const result = await res.json();
+      const rawText = result.candidates[0].content.parts[0].text.trim();
+      const cleanedJson = rawText.replace(/^```json\s*/, '').replace(/\s*```$/, '');
+      return JSON.parse(cleanedJson);
+    } catch (err) {
+      lastError = err;
+    }
   }
 
-  const result = await res.json();
-  const rawText = result.candidates[0].content.parts[0].text.trim();
-  const cleanedJson = rawText.replace(/^```json\s*/, '').replace(/\s*```$/, '');
-  return JSON.parse(cleanedJson);
+  throw lastError || new Error('All candidate Gemini models failed.');
 }
 
 async function generateWithClaude(task) {
