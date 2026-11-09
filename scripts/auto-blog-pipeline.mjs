@@ -399,7 +399,9 @@ Return a JSON object with this EXACT structure:
   return { systemPrompt, userPrompt };
 }
 
-async function getActiveGeminiModel() {
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+async function getActiveGeminiModels() {
   try {
     const listRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${GEMINI_API_KEY}`);
     if (listRes.ok) {
@@ -408,20 +410,33 @@ async function getActiveGeminiModel() {
         .filter((m) => m.supportedGenerationMethods && m.supportedGenerationMethods.includes('generateContent'))
         .map((m) => m.name.replace(/^models\//, ''));
 
-      if (available.length > 0) {
-        // Pick the best flash model or first active model
-        const flashModel = available.find((m) => m.includes('3.8-flash') || m.includes('flash')) || available[0];
-        console.log(`   ✓ Selected active Gemini model: ${flashModel} (from ${available.length} available models)`);
-        return flashModel;
-      }
-    } else {
-      const errTxt = await listRes.text();
-      console.warn(`   Could not query ModelService.ListModels: ${errTxt.slice(0, 120)}`);
+      console.log(`   Available Gemini models (${available.length}): ${available.slice(0, 8).join(', ')}...`);
+
+      // Filter out deprecated models that return 404
+      const valid = available.filter(
+        (m) =>
+          !m.includes('2.5-flash') &&
+          !m.includes('1.5-flash') &&
+          !m.includes('2.0-flash')
+      );
+
+      // Priority sort: gemini-3.8-flash first, then any 3.8 model, then any flash, then pro
+      valid.sort((a, b) => {
+        if (a === 'gemini-3.8-flash') return -1;
+        if (b === 'gemini-3.8-flash') return 1;
+        if (a.includes('3.8') && !b.includes('3.8')) return -1;
+        if (!a.includes('3.8') && b.includes('3.8')) return 1;
+        if (a.includes('flash') && !b.includes('flash')) return -1;
+        if (!a.includes('flash') && b.includes('flash')) return 1;
+        return 0;
+      });
+
+      if (valid.length > 0) return valid;
     }
   } catch (err) {
     console.warn(`   ListModels query failed: ${err.message}`);
   }
-  return 'gemini-3.8-flash';
+  return ['gemini-3.8-flash', 'gemini-3.8-pro', 'gemini-2.5-pro'];
 }
 
 async function generateWithGemini(task) {
@@ -429,50 +444,52 @@ async function generateWithGemini(task) {
   console.log(`   Target Topic: "${task.keyword}" | Category: [${task.category}]`);
 
   const { systemPrompt, userPrompt } = buildPrompts(task);
+  const models = await getActiveGeminiModels();
 
-  // Dynamically discover active models on the user's API key
-  const activeModel = await getActiveGeminiModel();
-  const candidateModels = [
-    activeModel,
-    'gemini-3.8-flash',
-    'gemini-2.5-flash',
-    'gemini-1.5-flash',
-  ];
-
-  const uniqueModels = [...new Set(candidateModels)];
   let lastError = null;
 
-  for (const model of uniqueModels) {
-    try {
-      console.log(`   Attempting generation with model: ${model}...`);
-      const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${GEMINI_API_KEY}`;
+  for (const model of models.slice(0, 5)) {
+    console.log(`   Attempting generation with model: ${model}...`);
+    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${GEMINI_API_KEY}`;
 
-      const res = await fetch(endpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          system_instruction: { parts: [{ text: systemPrompt }] },
-          contents: [{ parts: [{ text: userPrompt }] }],
-          generationConfig: {
-            temperature: 0.3,
-            response_mime_type: 'application/json',
-          },
-        }),
-      });
+    // Retry loop for temporary 503 high demand or 429 rate limit
+    for (let attempt = 1; attempt <= 2; attempt++) {
+      try {
+        const res = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            system_instruction: { parts: [{ text: systemPrompt }] },
+            contents: [{ parts: [{ text: userPrompt }] }],
+            generationConfig: {
+              temperature: 0.3,
+              response_mime_type: 'application/json',
+            },
+          }),
+        });
 
-      if (!res.ok) {
-        const errorText = await res.text();
-        console.warn(`   Model ${model} returned (${res.status}): ${errorText.slice(0, 150)}...`);
-        lastError = new Error(`Google Gemini API Error (${res.status}): ${errorText}`);
-        continue;
+        if (res.status === 503 || res.status === 429) {
+          const warnText = await res.text();
+          console.warn(`   Model ${model} returned (${res.status} High Demand) on attempt ${attempt}. Waiting 3s...`);
+          lastError = new Error(`Google Gemini API Error (${res.status}): ${warnText}`);
+          await sleep(3000);
+          continue;
+        }
+
+        if (!res.ok) {
+          const errorText = await res.text();
+          console.warn(`   Model ${model} returned (${res.status}): ${errorText.slice(0, 150)}...`);
+          lastError = new Error(`Google Gemini API Error (${res.status}): ${errorText}`);
+          break; // Try next model
+        }
+
+        const result = await res.json();
+        const rawText = result.candidates[0].content.parts[0].text.trim();
+        const cleanedJson = rawText.replace(/^```json\s*/, '').replace(/\s*```$/, '');
+        return JSON.parse(cleanedJson);
+      } catch (err) {
+        lastError = err;
       }
-
-      const result = await res.json();
-      const rawText = result.candidates[0].content.parts[0].text.trim();
-      const cleanedJson = rawText.replace(/^```json\s*/, '').replace(/\s*```$/, '');
-      return JSON.parse(cleanedJson);
-    } catch (err) {
-      lastError = err;
     }
   }
 
