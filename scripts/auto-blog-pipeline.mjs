@@ -399,22 +399,50 @@ Return a JSON object with this EXACT structure:
   return { systemPrompt, userPrompt };
 }
 
+async function getActiveGeminiModel() {
+  try {
+    const listRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${GEMINI_API_KEY}`);
+    if (listRes.ok) {
+      const data = await listRes.json();
+      const available = (data.models || [])
+        .filter((m) => m.supportedGenerationMethods && m.supportedGenerationMethods.includes('generateContent'))
+        .map((m) => m.name.replace(/^models\//, ''));
+
+      if (available.length > 0) {
+        // Pick the best flash model or first active model
+        const flashModel = available.find((m) => m.includes('3.8-flash') || m.includes('flash')) || available[0];
+        console.log(`   ✓ Selected active Gemini model: ${flashModel} (from ${available.length} available models)`);
+        return flashModel;
+      }
+    } else {
+      const errTxt = await listRes.text();
+      console.warn(`   Could not query ModelService.ListModels: ${errTxt.slice(0, 120)}`);
+    }
+  } catch (err) {
+    console.warn(`   ListModels query failed: ${err.message}`);
+  }
+  return 'gemini-3.8-flash';
+}
+
 async function generateWithGemini(task) {
   console.log(`\n🤖 [AI Engine] Generating broadsheet investigation with Google Gemini...`);
   console.log(`   Target Topic: "${task.keyword}" | Category: [${task.category}]`);
 
   const { systemPrompt, userPrompt } = buildPrompts(task);
 
-  // Fallback cascade: starts with standard gemini-1.5-flash, then 2.0-flash, then 1.5-pro
+  // Dynamically discover active models on the user's API key
+  const activeModel = await getActiveGeminiModel();
   const candidateModels = [
+    activeModel,
+    'gemini-3.8-flash',
+    'gemini-2.5-flash',
     'gemini-1.5-flash',
-    'gemini-2.0-flash',
-    'gemini-1.5-pro',
-    'gemini-2.0-flash-exp',
   ];
 
+  const uniqueModels = [...new Set(candidateModels)];
   let lastError = null;
-  for (const model of candidateModels) {
+
+  for (const model of uniqueModels) {
     try {
       console.log(`   Attempting generation with model: ${model}...`);
       const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${GEMINI_API_KEY}`;
