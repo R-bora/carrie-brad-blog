@@ -58,13 +58,15 @@ const DUMMY_IDENTIFIERS = [
   'post-6',
 ];
 
+const deleteAll = process.argv.includes('--all');
+
 async function deleteDummyPosts() {
   if (!SANITY_WRITE_TOKEN) {
-    console.error('❌ SANITY_API_WRITE_TOKEN is missing in .env.local.');
+    console.error('❌ SANITY_API_WRITE_TOKEN is missing in environment.');
     process.exit(1);
   }
 
-  console.log(`🔍 Querying Sanity (${SANITY_PROJECT_ID}/${SANITY_DATASET}) for dummy/mock documents...`);
+  console.log(`🔍 Querying Sanity (${SANITY_PROJECT_ID}/${SANITY_DATASET}) for documents to delete...`);
 
   const query = encodeURIComponent('*[_type == "post"]{ _id, title, "slug": slug.current }');
   const queryUrl = `https://${SANITY_PROJECT_ID}.api.sanity.io/v${SANITY_API_VERSION}/data/query/${SANITY_DATASET}?query=${query}`;
@@ -79,10 +81,13 @@ async function deleteDummyPosts() {
 
   for (const doc of result) {
     const isDummy =
+      deleteAll ||
       DUMMY_IDENTIFIERS.includes(doc._id) ||
       (doc.slug && DUMMY_IDENTIFIERS.includes(doc.slug)) ||
       (doc.title && doc.title.toLowerCase().includes('dummy')) ||
-      (doc.title && doc.title.toLowerCase().includes('sample'));
+      (doc.title && doc.title.toLowerCase().includes('sample')) ||
+      (doc.slug && doc.slug.includes('baillie')) ||
+      (doc.title && doc.title.includes('BAILLIE'));
 
     if (isDummy) {
       toDelete.push(doc);
@@ -90,11 +95,11 @@ async function deleteDummyPosts() {
   }
 
   if (toDelete.length === 0) {
-    console.log(`✓ No dummy posts found in Sanity database.`);
+    console.log(`✓ No matching posts found in Sanity database.`);
     return;
   }
 
-  console.log(`Found ${toDelete.length} dummy post(s) to delete:`);
+  console.log(`Found ${toDelete.length} post(s) to delete:`);
   toDelete.forEach((d) => console.log(`  - [${d._id}] ${d.title} (/blog/${d.slug})`));
 
   const mutateUrl = `https://${SANITY_PROJECT_ID}.api.sanity.io/v${SANITY_API_VERSION}/data/mutate/${SANITY_DATASET}`;
@@ -113,7 +118,19 @@ async function deleteDummyPosts() {
     throw new Error(`Delete failed: ${await mutateRes.text()}`);
   }
 
-  console.log(`✓ Successfully deleted ${toDelete.length} dummy post(s) from Sanity CMS.`);
+  console.log(`✓ Successfully deleted ${toDelete.length} post(s) from Sanity CMS.`);
+
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://gainleadx.com';
+  const secret = process.env.REVALIDATION_SECRET;
+  if (secret) {
+    console.log(`⚡ Purging edge cache on ${siteUrl}...`);
+    try {
+      await fetch(`${siteUrl}/api/revalidate?secret=${encodeURIComponent(secret)}`, { method: 'POST' });
+      console.log(`✓ Cache purged successfully!`);
+    } catch (e) {
+      console.warn(`Could not purge cache: ${e.message}`);
+    }
+  }
 }
 
 deleteDummyPosts().catch((err) => {
