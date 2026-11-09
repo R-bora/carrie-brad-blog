@@ -328,6 +328,46 @@ function selectEditorialPhoto(category) {
   return list[Math.floor(Math.random() * list.length)];
 }
 
+async function fetchTopicEditorialPhoto(topicTitle, category) {
+  // 1. Try finding an authentic, topic-specific press photo via Wikimedia
+  try {
+    const cleanQuery = topicTitle
+      .replace(/['":]/g, '')
+      .replace(/\b(THE|HOW|WHY|WHAT|A|AN|IN|OF|ON|AND|TO|FOR)\b/gi, '')
+      .trim()
+      .split(/\s+/)
+      .slice(0, 4)
+      .join(' ');
+
+    if (cleanQuery.length > 2) {
+      const url = `https://en.wikipedia.org/w/api.php?action=query&generator=search&gsrsearch=${encodeURIComponent(cleanQuery)}&gsrlimit=1&prop=pageimages&piprop=thumbnail&pithumbsize=1200&format=json`;
+      const res = await fetch(url, {
+        headers: { 'User-Agent': 'GainleadxEditorialBot/1.0 (editor@gainleadx.com)' },
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        if (data.query && data.query.pages) {
+          const pages = Object.values(data.query.pages);
+          if (pages[0] && pages[0].thumbnail && pages[0].thumbnail.source) {
+            console.log(`   ✓ Found topic-specific editorial photo for: "${pages[0].title}"`);
+            return {
+              url: pages[0].thumbnail.source,
+              alt: `Investigative dossier coverage of ${pages[0].title}`,
+              credit: `${pages[0].title} Archives / Gainleadx`,
+            };
+          }
+        }
+      }
+    }
+  } catch (err) {
+    console.warn(`   Topic photo search note: ${err.message}`);
+  }
+
+  // 2. High-contrast broadsheet editorial photo for this category
+  return selectEditorialPhoto(category);
+}
+
 // -------------------------------------------------------------
 // 6. AI Generation (Google Gemini or Anthropic Claude)
 // -------------------------------------------------------------
@@ -620,7 +660,7 @@ async function publishToSanity(articleData) {
 
   const docId = isDraft ? `drafts.post-${Date.now()}` : `post-${Date.now()}`;
   const portableTextBlocks = convertToPortableText(articleData);
-  const photo = selectEditorialPhoto(articleData.category);
+  const photo = await fetchTopicEditorialPhoto(articleData.title, articleData.category);
 
   const document = {
     _id: docId,
