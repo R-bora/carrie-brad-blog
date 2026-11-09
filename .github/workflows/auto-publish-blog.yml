@@ -2,12 +2,14 @@ name: Gainleadx Daily Investigative Blog Publisher
 
 on:
   schedule:
-    # Runs every morning at 08:00 AM UTC (London GMT)
+    # 07:00 UTC (08:00 AM BST in Summer) and 08:00 UTC (08:00 AM GMT in Winter)
+    # The pipeline script inspects Europe/London time and runs at exactly 08:00 AM UK time.
+    - cron: '0 7 * * *'
     - cron: '0 8 * * *'
   workflow_dispatch:
     inputs:
       keyword:
-        description: 'Target keyword (optional, leave blank to use Ahrefs queue)'
+        description: 'Target keyword (optional, leave blank to use live UK trending news)'
         required: false
         type: string
       category:
@@ -43,8 +45,9 @@ jobs:
 
       - name: Run Auto Blog Pipeline
         env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_SANITY_PROJECT_ID }}
+          NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_SANITY_PROJECT_ID || '7vlmtiag' }}
           NEXT_PUBLIC_SANITY_DATASET: ${{ secrets.NEXT_PUBLIC_SANITY_DATASET || 'production' }}
           NEXT_PUBLIC_SANITY_API_VERSION: '2024-05-01'
           SANITY_API_WRITE_TOKEN: ${{ secrets.SANITY_API_WRITE_TOKEN }}

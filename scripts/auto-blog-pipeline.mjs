@@ -1,16 +1,17 @@
 /**
  * Gainleadx Autonomous Blog Publishing Pipeline
  * -------------------------------------------------------------
- * Workflow:
- * 1. Keyword Research & Intent: Reads targeted high-search-volume UK controversial keyword (from Ahrefs API or queue).
- * 2. Investigative Drafting: Calls Anthropic Claude 3.5 Sonnet with Gainleadx editorial broadsheet prompt.
- * 3. Sanity CMS Ingestion: Posts structured document (PortableText) directly into Sanity CMS database.
- * 4. Instant On-Demand Revalidation: Triggers Next.js ISR on gainleadx.com so the article goes live instantly.
+ * 1. Schedule Check: Ensures execution at 08:00 AM UK Time (Europe/London).
+ * 2. Real-Time Trending Inquest: Fetches live UK trending topics from Google Trends & Google News RSS.
+ * 3. AI Forensic Drafting: Supports Google Gemini (Free API) or Anthropic Claude 3.5 Sonnet.
+ * 4. Sanity CMS Ingestion: Posts structured document (PortableText) with stats & whistleblower leaks.
+ * 5. Instant On-Demand Revalidation: Purges Next.js cache so the article goes live immediately.
  *
  * Usage:
  *   node scripts/auto-blog-pipeline.mjs
- *   node scripts/auto-blog-pipeline.mjs --keyword "NHS private agency nurse costs" --category "NHS & HEALTH"
- *   node scripts/auto-blog-pipeline.mjs --draft (saves as draft instead of publishing immediately)
+ *   node scripts/auto-blog-pipeline.mjs --force (bypass 8 AM UK schedule check)
+ *   node scripts/auto-blog-pipeline.mjs --keyword "NHS waiting lists" --category "NHS & HEALTH"
+ *   node scripts/auto-blog-pipeline.mjs --draft (saves as draft in Sanity)
  */
 
 import fs from 'node:fs';
@@ -42,6 +43,7 @@ function loadEnv() {
 
 loadEnv();
 
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY;
 const SANITY_PROJECT_ID = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || '7vlmtiag';
 const SANITY_DATASET = process.env.NEXT_PUBLIC_SANITY_DATASET || 'production';
@@ -50,9 +52,11 @@ const SANITY_WRITE_TOKEN = process.env.SANITY_API_WRITE_TOKEN;
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://gainleadx.com';
 const REVALIDATION_SECRET = process.env.REVALIDATION_SECRET;
 
-// Parse CLI args
+// CLI Flags
 const args = process.argv.slice(2);
 const isDraft = args.includes('--draft');
+const forceRun = args.includes('--force') || process.env.FORCE_RUN === 'true' || process.env.GITHUB_EVENT_NAME === 'workflow_dispatch';
+
 let argKeyword = null;
 let argCategory = null;
 
@@ -61,22 +65,202 @@ for (let i = 0; i < args.length; i++) {
   if (args[i] === '--category' && args[i + 1]) argCategory = args[i + 1];
 }
 
-async function getKeywordTask() {
+// -------------------------------------------------------------
+// 1. UK Timezone Scheduler Guard (08:00 AM London)
+// -------------------------------------------------------------
+function checkUkSchedule() {
+  if (forceRun || argKeyword) {
+    console.log(`[Schedule Check] Manual or forced execution triggered. Bypassing schedule lock.`);
+    return;
+  }
+
+  const ukHourStr = new Intl.DateTimeFormat('en-GB', {
+    timeZone: 'Europe/London',
+    hour: 'numeric',
+    hour12: false,
+  }).format(new Date());
+  const ukHour = parseInt(ukHourStr, 10);
+
+  if (ukHour !== 8) {
+    console.log(`[Schedule Check] Current Europe/London time is ${ukHour}:00.`);
+    console.log(`[Schedule Check] Daily publishing is scheduled for 08:00 AM UK time. Exiting cleanly.`);
+    process.exit(0);
+  }
+
+  console.log(`[Schedule Check] ✓ Verified: 08:00 AM UK time. Starting daily publishing pipeline!`);
+}
+
+// -------------------------------------------------------------
+// 2. Fetch Existing Published Posts from Sanity (Avoid Duplicates)
+// -------------------------------------------------------------
+async function getExistingSlugsAndTitles() {
+  if (!SANITY_PROJECT_ID) return new Set();
+
+  try {
+    const query = encodeURIComponent('*[_type == "post"]{ "slug": slug.current, title }');
+    const url = `https://${SANITY_PROJECT_ID}.api.sanity.io/v${SANITY_API_VERSION}/data/query/${SANITY_DATASET}?query=${query}`;
+    const res = await fetch(url);
+    if (!res.ok) return new Set();
+
+    const data = await res.json();
+    const existing = new Set();
+    if (data.result && Array.isArray(data.result)) {
+      for (const item of data.result) {
+        if (item.slug) existing.add(item.slug.toLowerCase().trim());
+        if (item.title) existing.add(item.title.toLowerCase().trim());
+      }
+    }
+    return existing;
+  } catch (err) {
+    console.warn(`[Sanity Read] Could not fetch existing posts: ${err.message}. Proceeding with fresh queue.`);
+    return new Set();
+  }
+}
+
+// -------------------------------------------------------------
+// 3. Live UK Trending Topic Scraper (Google Trends & Google News)
+// -------------------------------------------------------------
+function parseRssItems(xmlText) {
+  const items = [];
+  const itemMatches = xmlText.match(/<item>[\s\S]*?<\/item>/gi) || [];
+
+  for (const itemStr of itemMatches) {
+    const titleMatch = itemStr.match(/<title>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?<\/title>/i);
+    const descMatch = itemStr.match(/<description>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?<\/description>/i);
+    const pubDateMatch = itemStr.match(/<pubDate>([\s\S]*?)<\/pubDate>/i);
+
+    const title = titleMatch ? titleMatch[1].replace(/<[^>]+>/g, '').trim() : '';
+    const desc = descMatch ? descMatch[1].replace(/<[^>]+>/g, '').trim() : '';
+
+    if (title) {
+      items.push({ title, desc, pubDate: pubDateMatch ? pubDateMatch[1] : '' });
+    }
+  }
+
+  return items;
+}
+
+function categorizeUkTopic(title, desc = '') {
+  const combined = `${title} ${desc}`.toLowerCase();
+
+  if (combined.match(/migrat|asylum|border|channel|boat|visa|deport|refugee|home office/)) {
+    return 'IMMIGRATION';
+  }
+  if (combined.match(/nhs|health|hospital|doctor|nurse|gp|patient|medicine|ambulance|dental/)) {
+    return 'NHS & HEALTH';
+  }
+  if (combined.match(/housing|rent|mortgage|inflation|tax|budget|debt|economy|poverty|benefits|pension|bank of england/)) {
+    return 'ECONOMY & HOUSING';
+  }
+  if (combined.match(/royal|monarch|king|prince|palace|duchy|windsor|crown/)) {
+    return 'MONARCHY';
+  }
+  if (combined.match(/protest|police|surveillance|facial recognition|free speech|court|rights|civil|jail/)) {
+    return 'CIVIL LIBERTIES';
+  }
+  return 'POLITICS';
+}
+
+async function fetchLiveTrendingUkTopic(existingSet) {
+  console.log(`\n🔍 [Topic Discovery] Scanning real-time UK trending feeds...`);
+
+  const feeds = [
+    'https://trends.google.com/trending/rss?geo=GB',
+    'https://news.google.com/rss?hl=en-GB&gl=GB&ceid=GB:en',
+    'https://feeds.bbci.co.uk/news/uk/rss.xml',
+    'https://feeds.bbci.co.uk/news/politics/rss.xml',
+  ];
+
+  for (const feedUrl of feeds) {
+    try {
+      const res = await fetch(feedUrl, {
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) GainleadxEditorialBot/1.0',
+        },
+      });
+
+      if (!res.ok) continue;
+
+      const xml = await res.text();
+      const items = parseRssItems(xml);
+
+      for (const item of items) {
+        const cleanedTitle = item.title.replace(/\s*-\s*[A-Za-z0-9\s]+$/, '').trim();
+        const lower = cleanedTitle.toLowerCase();
+
+        // Skip if already published or matches existing
+        let alreadyCovered = false;
+        for (const existing of existingSet) {
+          if (existing.includes(lower) || lower.includes(existing)) {
+            alreadyCovered = true;
+            break;
+          }
+        }
+
+        if (!alreadyCovered && cleanedTitle.length > 8) {
+          const category = categorizeUkTopic(cleanedTitle, item.desc);
+          console.log(`   ✓ Found Breaking UK Trending Topic: "${cleanedTitle}"`);
+          console.log(`   ✓ Assigned Category: [${category}]`);
+
+          return {
+            keyword: cleanedTitle,
+            category,
+            contextSnippet: item.desc || cleanedTitle,
+            targetQuestions: [
+              `What are the documented facts and official statistics behind the controversy regarding ${cleanedTitle}?`,
+              `Which institutional, commercial, or parliamentary bodies bear legal and financial accountability?`,
+              `What is the documented impact on British taxpayers and what reforms are being demanded?`,
+            ],
+          };
+        }
+      }
+    } catch (err) {
+      console.warn(`   Feed error on ${feedUrl}: ${err.message}`);
+    }
+  }
+
+  return null;
+}
+
+// -------------------------------------------------------------
+// 4. Keyword Queue Fallback
+// -------------------------------------------------------------
+async function getKeywordTask(existingSet) {
   if (argKeyword) {
     return {
       keyword: argKeyword,
       category: argCategory || 'POLITICS',
-      targetQuestions: [`Comprehensive investigative overview of ${argKeyword}`],
+      targetQuestions: [`Comprehensive investigative inquest into ${argKeyword}`],
     };
   }
 
-  // Load from Ahrefs research queue
+  // 1. Attempt live trending feed
+  const liveTrending = await fetchLiveTrendingUkTopic(existingSet);
+  if (liveTrending) {
+    return liveTrending;
+  }
+
+  // 2. Fall back to curated investigative queue
+  console.log(`   Using high-search-volume curated investigative queue...`);
   const queuePath = path.resolve(__dirname, 'keywords-queue.json');
   if (fs.existsSync(queuePath)) {
     const queue = JSON.parse(fs.readFileSync(queuePath, 'utf8'));
-    if (queue.length > 0) {
-      return queue[Math.floor(Math.random() * queue.length)];
+    // Find first topic not yet covered
+    for (const item of queue) {
+      const lower = item.keyword.toLowerCase();
+      let covered = false;
+      for (const existing of existingSet) {
+        if (existing.includes(lower) || lower.includes(existing)) {
+          covered = true;
+          break;
+        }
+      }
+      if (!covered) {
+        return item;
+      }
     }
+    // If all covered, return random from queue
+    return queue[Math.floor(Math.random() * queue.length)];
   }
 
   return {
@@ -86,22 +270,76 @@ async function getKeywordTask() {
   };
 }
 
-async function generateArticleWithClaude(task) {
-  if (!ANTHROPIC_API_KEY) {
-    throw new Error('Missing ANTHROPIC_API_KEY. Add it to .env.local to generate articles with Claude.');
-  }
+// -------------------------------------------------------------
+// 5. Editorial Cover Photo Selection
+// -------------------------------------------------------------
+const CATEGORY_EDITORIAL_PHOTOS = {
+  POLITICS: [
+    {
+      url: 'https://images.unsplash.com/photo-1529655683826-aba9b3e77383?auto=format&fit=crop&w=1200&q=80',
+      alt: 'Palace of Westminster and Big Ben clock tower at dusk',
+      credit: 'Westminster Parliamentary Bureau',
+    },
+    {
+      url: 'https://images.unsplash.com/photo-1543783207-ec64e4d95325?auto=format&fit=crop&w=1200&q=80',
+      alt: 'Houses of Parliament reflected over the River Thames',
+      credit: 'Gainleadx Inquest Archives',
+    },
+  ],
+  IMMIGRATION: [
+    {
+      url: 'https://images.unsplash.com/photo-1577495508048-b635879837f1?auto=format&fit=crop&w=1200&q=80',
+      alt: 'White Cliffs of Dover overlooking the English Channel',
+      credit: 'Border Force Coastal Inquest',
+    },
+  ],
+  'NHS & HEALTH': [
+    {
+      url: 'https://images.unsplash.com/photo-1538332576228-eb5b4c4de6f5?auto=format&fit=crop&w=1200&q=80',
+      alt: 'British NHS hospital emergency ward corridor',
+      credit: 'Healthcare Audit Bureau',
+    },
+  ],
+  'ECONOMY & HOUSING': [
+    {
+      url: 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=1200&q=80',
+      alt: 'London residential skyline and Victorian terrace housing',
+      credit: 'Financial & Housing Ledger',
+    },
+  ],
+  'CIVIL LIBERTIES': [
+    {
+      url: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=1200&q=80',
+      alt: 'The Royal Courts of Justice statue of Lady Justice',
+      credit: 'Judiciary & Liberties Desk',
+    },
+  ],
+  MONARCHY: [
+    {
+      url: 'https://images.unsplash.com/photo-1577962917302-cd874c4e31d2?auto=format&fit=crop&w=1200&q=80',
+      alt: 'Buckingham Palace gates and royal crest',
+      credit: 'Crown & Sovereign Audit',
+    },
+  ],
+};
 
-  console.log(`\n🤖 [Step 1/3] Generating investigative exposé with Claude 3.5 Sonnet...`);
-  console.log(`   Target Keyword: "${task.keyword}"`);
-  console.log(`   Category: ${task.category}`);
+function selectEditorialPhoto(category) {
+  const list = CATEGORY_EDITORIAL_PHOTOS[category] || CATEGORY_EDITORIAL_PHOTOS.POLITICS;
+  return list[Math.floor(Math.random() * list.length)];
+}
 
+// -------------------------------------------------------------
+// 6. AI Generation (Google Gemini or Anthropic Claude)
+// -------------------------------------------------------------
+function buildPrompts(task) {
   const systemPrompt = `You are the Senior Chief Investigative Reporter for "Gainleadx", a prominent British broadsheet publication investigating the most controversial topics, policy failures, financial paper trails, and institutional scandals across the United Kingdom.
 Your writing style is forensic, rigorous, authoritative, and unapologetic. You cite official statistics, parliamentary inquiries, National Audit Office findings, and corporate ledger realities.
 You must output ONLY valid, unescaped JSON matching the exact schema requested below, with no markdown code fences or conversational preamble.`;
 
-  const userPrompt = `Conduct an exhaustive investigative inquest on the following controversial UK debate:
+  const userPrompt = `Conduct an exhaustive investigative inquest on the following trending UK debate:
 Primary Keyword: "${task.keyword}"
 Debate Category: "${task.category}"
+${task.contextSnippet ? `Context Details: "${task.contextSnippet}"` : ''}
 Key Inquest Questions to address:
 ${task.targetQuestions ? task.targetQuestions.map((q) => `- ${q}`).join('\n') : ''}
 
@@ -123,7 +361,6 @@ Return a JSON object with this EXACT structure:
   "authorName": "Gainleadx Inquest Desk",
   "seoTitle": "SEO title under 60 characters targeting the keyword",
   "seoDescription": "Meta description under 155 characters summarizing the investigation with high click appeal",
-  "unsplashImageKeywords": "two or three search words for finding a high-contrast editorial photo (e.g. 'westminster big ben night', 'hospital emergency corridor')",
   "sections": [
     {
       "heading": "Section H2 Heading",
@@ -133,7 +370,7 @@ Return a JSON object with this EXACT structure:
       ],
       "calloutQuote": "A poignant, unvarnished quotation or critical takeaway regarding this aspect of the controversy.",
       "calloutBox": {
-        "type": "whistleblower", // Options: "whistleblower", "official_denial", "statutory_data", "legal_warning"
+        "type": "whistleblower",
         "title": "LEAKED WHITEHALL MEMORANDUM",
         "text": "Specific leaked excerpt or damning audit note relevant to this section."
       },
@@ -157,9 +394,49 @@ Return a JSON object with this EXACT structure:
       ]
     }
   ]
-};`
+};`;
 
-  const response = await fetch('https://api.anthropic.com/v1/messages', {
+  return { systemPrompt, userPrompt };
+}
+
+async function generateWithGemini(task) {
+  console.log(`\n🤖 [AI Engine] Generating broadsheet investigation with Google Gemini...`);
+  console.log(`   Target Topic: "${task.keyword}" | Category: [${task.category}]`);
+
+  const { systemPrompt, userPrompt } = buildPrompts(task);
+  const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}`;
+
+  const res = await fetch(endpoint, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      system_instruction: { parts: [{ text: systemPrompt }] },
+      contents: [{ parts: [{ text: userPrompt }] }],
+      generationConfig: {
+        temperature: 0.3,
+        response_mime_type: 'application/json',
+      },
+    }),
+  });
+
+  if (!res.ok) {
+    const errorText = await res.text();
+    throw new Error(`Google Gemini API Error (${res.status}): ${errorText}`);
+  }
+
+  const result = await res.json();
+  const rawText = result.candidates[0].content.parts[0].text.trim();
+  const cleanedJson = rawText.replace(/^```json\s*/, '').replace(/\s*```$/, '');
+  return JSON.parse(cleanedJson);
+}
+
+async function generateWithClaude(task) {
+  console.log(`\n🤖 [AI Engine] Generating broadsheet investigation with Claude 3.5 Sonnet...`);
+  console.log(`   Target Topic: "${task.keyword}" | Category: [${task.category}]`);
+
+  const { systemPrompt, userPrompt } = buildPrompts(task);
+
+  const res = await fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -175,24 +452,35 @@ Return a JSON object with this EXACT structure:
     }),
   });
 
-  if (!response.ok) {
-    const errorText = await response.text();
-    throw new Error(`Anthropic API Error (${response.status}): ${errorText}`);
+  if (!res.ok) {
+    const errorText = await res.text();
+    throw new Error(`Anthropic Claude API Error (${res.status}): ${errorText}`);
   }
 
-  const result = await response.json();
+  const result = await res.json();
   const rawText = result.content[0].text.trim();
-
-  // Strip markdown code fences if model enclosed them
   const cleanedJson = rawText.replace(/^```json\s*/, '').replace(/\s*```$/, '');
   return JSON.parse(cleanedJson);
 }
 
+async function generateArticle(task) {
+  if (GEMINI_API_KEY) {
+    return await generateWithGemini(task);
+  }
+  if (ANTHROPIC_API_KEY) {
+    return await generateWithClaude(task);
+  }
+  throw new Error('Missing AI API Key. Please configure GEMINI_API_KEY or ANTHROPIC_API_KEY in your environment/secrets.');
+}
+
+// -------------------------------------------------------------
+// 7. Sanity PortableText Formatting & Ingestion
+// -------------------------------------------------------------
 function convertToPortableText(articleData) {
   const blocks = [];
   let keyIndex = 1;
 
-  for (const section of articleData.sections) {
+  for (const section of articleData.sections || []) {
     if (section.heading) {
       blocks.push({
         _type: 'block',
@@ -251,9 +539,9 @@ function convertToPortableText(articleData) {
 
 async function publishToSanity(articleData) {
   if (!SANITY_PROJECT_ID || !SANITY_WRITE_TOKEN) {
-    console.warn(`\n⚠️  [Step 2/3] Skipping live Sanity CMS sync:`);
+    console.warn(`\n⚠️  [Sanity CMS] Skipping live Sanity publish:`);
     console.warn(`   NEXT_PUBLIC_SANITY_PROJECT_ID or SANITY_API_WRITE_TOKEN not set in environment.`);
-    console.warn(`   Generated article saved locally to 'scripts/generated-preview.json' for inspection.`);
+    console.warn(`   Generated article saved locally to 'scripts/generated-preview.json' for preview.`);
     fs.writeFileSync(
       path.resolve(__dirname, 'generated-preview.json'),
       JSON.stringify(articleData, null, 2),
@@ -262,10 +550,11 @@ async function publishToSanity(articleData) {
     return null;
   }
 
-  console.log(`\n📤 [Step 2/3] Uploading document to Sanity Studio (${SANITY_PROJECT_ID}/${SANITY_DATASET})...`);
+  console.log(`\n📤 [Sanity CMS] Uploading article to dataset (${SANITY_PROJECT_ID}/${SANITY_DATASET})...`);
 
   const docId = isDraft ? `drafts.post-${Date.now()}` : `post-${Date.now()}`;
   const portableTextBlocks = convertToPortableText(articleData);
+  const photo = selectEditorialPhoto(articleData.category);
 
   const document = {
     _id: docId,
@@ -282,7 +571,7 @@ async function publishToSanity(articleData) {
     keyTakeaways: articleData.keyTakeaways || [],
     authorName: articleData.authorName || 'Gainleadx Inquest Desk',
     estimatedReadTime: articleData.estimatedReadTime || '6 MIN READ',
-    isFeatured: false,
+    isFeatured: true, // Brand-new daily article takes the top hero spotlight
     isTrending: true,
     excerpt: articleData.excerpt,
     publishedAt: new Date().toISOString(),
@@ -291,9 +580,10 @@ async function publishToSanity(articleData) {
     seoDescription: articleData.seoDescription || articleData.excerpt,
     mainImage: {
       _type: 'image',
-      alt: articleData.title,
+      url: photo.url,
+      alt: photo.alt,
       caption: `Investigative dossier coverage for ${articleData.title}`,
-      credit: 'Gainleadx Bureau & Investigative Archives',
+      credit: photo.credit,
     },
   };
 
@@ -324,10 +614,13 @@ async function publishToSanity(articleData) {
   return result;
 }
 
+// -------------------------------------------------------------
+// 8. Instant Next.js Cache Purge
+// -------------------------------------------------------------
 async function triggerRevalidation() {
   if (!REVALIDATION_SECRET) return;
 
-  console.log(`\n⚡ [Step 3/3] Triggering instant On-Demand Revalidation on ${SITE_URL}...`);
+  console.log(`\n⚡ [Revalidation] Triggering instant On-Demand Revalidation on ${SITE_URL}...`);
   try {
     const res = await fetch(`${SITE_URL}/api/revalidate?secret=${encodeURIComponent(REVALIDATION_SECRET)}`, {
       method: 'POST',
@@ -342,24 +635,35 @@ async function triggerRevalidation() {
   }
 }
 
+// -------------------------------------------------------------
+// Main Autonomous Execution
+// -------------------------------------------------------------
 async function main() {
   console.log(`=======================================================`);
-  console.log(`  GAINLEADX • AUTONOMOUS INVESTIGATIVE BLOG PIPELINE   `);
+  console.log(`  GAINLEADX • AUTONOMOUS DAILY INVESTIGATIVE PIPELINE   `);
   console.log(`=======================================================`);
 
-  try {
-    const task = await getKeywordTask();
-    const article = await generateArticleWithClaude(task);
+  // 1. Check schedule (08:00 AM Europe/London time)
+  checkUkSchedule();
 
-    console.log(`\nHeadline Generated: "${article.title}"`);
+  try {
+    // 2. Discover fresh trending UK topic
+    const existingSet = await getExistingSlugsAndTitles();
+    const task = await getKeywordTask(existingSet);
+
+    // 3. Draft investigation
+    const article = await generateArticle(task);
+
+    console.log(`\nHeadline: "${article.title}"`);
     console.log(`Slug: /blog/${article.slug}`);
     console.log(`Excerpt: ${article.excerpt.slice(0, 120)}...`);
 
+    // 4. Ingest to Sanity & purge cache
     await publishToSanity(article);
     await triggerRevalidation();
 
-    console.log(`\n✨ Pipeline complete! You can view or edit this post in Sanity Studio at:`);
-    console.log(`   ${SITE_URL}/studio\n`);
+    console.log(`\n✨ Successfully finished! Article is published and live at:`);
+    console.log(`   ${SITE_URL}/blog/${article.slug}\n`);
   } catch (error) {
     console.error(`\n❌ Pipeline Error:`, error.message);
     process.exit(1);

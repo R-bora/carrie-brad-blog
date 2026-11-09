@@ -21,9 +21,26 @@ async function getBlogData() {
       client.fetch<BlogPost>(featuredPostQuery),
       client.fetch<BlogPost[]>(postsGridQuery),
     ]);
+
+    const hasSanityPosts = Boolean(sanityFeatured) || (Boolean(sanityGrid) && sanityGrid.length > 0);
+
+    // If real Sanity posts exist, do NOT pollute the site with dummy fallback posts
+    if (hasSanityPosts) {
+      const featured = sanityFeatured || sanityGrid[0];
+      const grid = sanityFeatured
+        ? (sanityGrid || [])
+        : sanityGrid.slice(1);
+
+      return {
+        featuredPost: featured,
+        gridPosts: grid,
+        isSanityConnected: true,
+      };
+    }
+
     return {
-      featuredPost: sanityFeatured || fallbackFeaturedPost,
-      gridPosts: sanityGrid && sanityGrid.length > 0 ? sanityGrid : fallbackGridPosts,
+      featuredPost: fallbackFeaturedPost,
+      gridPosts: fallbackGridPosts,
       isSanityConnected: true,
     };
   } catch (error) {
