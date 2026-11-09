@@ -303,76 +303,97 @@ async function getKeywordTask(existingSet) {
 }
 
 // -------------------------------------------------------------
-// 5. Editorial Cover Photo Selection
+// 5. Editorial Cover Photo Selection & Thematic Mapping
 // -------------------------------------------------------------
-const CATEGORY_EDITORIAL_PHOTOS = {
-  POLITICS: [
-    {
-      url: 'https://images.unsplash.com/photo-1529655683826-aba9b3e77383?auto=format&fit=crop&w=1200&q=80',
-      alt: 'Palace of Westminster and Big Ben clock tower at dusk',
-      credit: 'Westminster Parliamentary Bureau',
-    },
-    {
-      url: 'https://images.unsplash.com/photo-1543783207-ec64e4d95325?auto=format&fit=crop&w=1200&q=80',
-      alt: 'Houses of Parliament reflected over the River Thames',
-      credit: 'Gainleadx Inquest Archives',
-    },
-  ],
-  IMMIGRATION: [
-    {
-      url: 'https://images.unsplash.com/photo-1577495508048-b635879837f1?auto=format&fit=crop&w=1200&q=80',
-      alt: 'White Cliffs of Dover overlooking the English Channel',
-      credit: 'Border Force Coastal Inquest',
-    },
-  ],
-  'NHS & HEALTH': [
-    {
-      url: 'https://images.unsplash.com/photo-1538332576228-eb5b4c4de6f5?auto=format&fit=crop&w=1200&q=80',
-      alt: 'British NHS hospital emergency ward corridor',
-      credit: 'Healthcare Audit Bureau',
-    },
-  ],
-  'ECONOMY & HOUSING': [
-    {
-      url: 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=1200&q=80',
-      alt: 'London residential skyline and Victorian terrace housing',
-      credit: 'Financial & Housing Ledger',
-    },
-  ],
-  'CIVIL LIBERTIES': [
-    {
-      url: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=1200&q=80',
-      alt: 'The Royal Courts of Justice statue of Lady Justice',
-      credit: 'Judiciary & Liberties Desk',
-    },
-  ],
-  MONARCHY: [
-    {
-      url: 'https://images.unsplash.com/photo-1577962917302-cd874c4e31d2?auto=format&fit=crop&w=1200&q=80',
-      alt: 'Buckingham Palace gates and royal crest',
-      credit: 'Crown & Sovereign Audit',
-    },
-  ],
+const THEMATIC_PHOTOS = {
+  MEDIA: {
+    url: 'https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=1200&q=80',
+    alt: 'BBC Radio broadcasting microphone and on-air production studio',
+    credit: 'Broadcasting & Media Archive / Gainleadx',
+  },
+  HEALTH: {
+    url: 'https://images.unsplash.com/photo-1538332576228-eb5b4c4de6f5?auto=format&fit=crop&w=1200&q=80',
+    alt: 'British NHS hospital emergency ward corridor',
+    credit: 'Healthcare Audit Bureau / Gainleadx',
+  },
+  POLITICS: {
+    url: 'https://images.unsplash.com/photo-1529655683826-aba9b3e77383?auto=format&fit=crop&w=1200&q=80',
+    alt: 'Palace of Westminster and Big Ben clock tower at dusk',
+    credit: 'Westminster Parliamentary Bureau',
+  },
+  WATER: {
+    url: 'https://images.unsplash.com/photo-1543783207-ec64e4d95325?auto=format&fit=crop&w=1200&q=80',
+    alt: 'River Thames cutting through central London',
+    credit: 'Environmental Ledger / Gainleadx',
+  },
+  IMMIGRATION: {
+    url: 'https://images.unsplash.com/photo-1577495508048-b635879837f1?auto=format&fit=crop&w=1200&q=80',
+    alt: 'White Cliffs of Dover overlooking the English Channel',
+    credit: 'Border Force Coastal Inquest',
+  },
+  ECONOMY: {
+    url: 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=1200&q=80',
+    alt: 'City of London financial district skyline and residential housing',
+    credit: 'Financial & Housing Ledger',
+  },
+  JUSTICE: {
+    url: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=1200&q=80',
+    alt: 'The Royal Courts of Justice statue of Lady Justice',
+    credit: 'Judiciary & Liberties Desk',
+  },
+  MONARCHY: {
+    url: 'https://images.unsplash.com/photo-1577962917302-cd874c4e31d2?auto=format&fit=crop&w=1200&q=80',
+    alt: 'Buckingham Palace gates and royal crest',
+    credit: 'Crown & Sovereign Audit',
+  },
 };
 
-function selectEditorialPhoto(category) {
-  const list = CATEGORY_EDITORIAL_PHOTOS[category] || CATEGORY_EDITORIAL_PHOTOS.POLITICS;
-  return list[Math.floor(Math.random() * list.length)];
+function selectEditorialPhoto(category, text = '') {
+  const lower = text.toLowerCase();
+
+  if (lower.match(/radio|bbc|broadcast|presenter|television|podcast|media|anchor/)) {
+    return THEMATIC_PHOTOS.MEDIA;
+  }
+  if (lower.match(/water|river|sewage|thames water|spill/)) {
+    return THEMATIC_PHOTOS.WATER;
+  }
+  if (lower.match(/nhs|hospital|doctor|nurse|healthcare|ambulance|medicine/)) {
+    return THEMATIC_PHOTOS.HEALTH;
+  }
+  if (lower.match(/court|police|judge|surveillance|facial recognition|libert/)) {
+    return THEMATIC_PHOTOS.JUSTICE;
+  }
+  if (lower.match(/royal|king|queen|prince|palace|crown|duchy/)) {
+    return THEMATIC_PHOTOS.MONARCHY;
+  }
+  if (lower.match(/migrat|asylum|border|channel|boat/)) {
+    return THEMATIC_PHOTOS.IMMIGRATION;
+  }
+  if (lower.match(/housing|rent|mortgage|inflation|tax|budget|debt|economy/)) {
+    return THEMATIC_PHOTOS.ECONOMY;
+  }
+
+  // Category fallback
+  if (category === 'NHS & HEALTH') return THEMATIC_PHOTOS.HEALTH;
+  if (category === 'IMMIGRATION') return THEMATIC_PHOTOS.IMMIGRATION;
+  if (category === 'ECONOMY & HOUSING') return THEMATIC_PHOTOS.ECONOMY;
+  if (category === 'CIVIL LIBERTIES') return THEMATIC_PHOTOS.JUSTICE;
+  if (category === 'MONARCHY') return THEMATIC_PHOTOS.MONARCHY;
+  return THEMATIC_PHOTOS.POLITICS;
 }
 
-async function fetchTopicEditorialPhoto(topicTitle, category) {
-  // 1. Try finding an authentic, topic-specific press photo via Wikimedia
-  try {
-    const cleanQuery = topicTitle
-      .replace(/['":]/g, '')
-      .replace(/\b(THE|HOW|WHY|WHAT|A|AN|IN|OF|ON|AND|TO|FOR)\b/gi, '')
-      .trim()
-      .split(/\s+/)
-      .slice(0, 4)
-      .join(' ');
+async function fetchTopicEditorialPhoto(taskKeyword, category, articleTitle = '') {
+  const combinedContext = `${taskKeyword || ''} ${articleTitle || ''}`.trim();
 
-    if (cleanQuery.length > 2) {
-      const url = `https://en.wikipedia.org/w/api.php?action=query&generator=search&gsrsearch=${encodeURIComponent(cleanQuery)}&gsrlimit=1&prop=pageimages&piprop=thumbnail&pithumbsize=1200&format=json`;
+  // 1. First, search Wikipedia for the EXACT entity (using the target keyword, e.g. "BBC Radio 2")
+  try {
+    const cleanKeyword = (taskKeyword || '')
+      .replace(/['":]/g, '')
+      .replace(/\b(THE|HOW|WHY|WHAT|A|AN|IN|OF|ON|AND|TO|FOR|PURGE)\b/gi, '')
+      .trim();
+
+    if (cleanKeyword.length > 2) {
+      const url = `https://en.wikipedia.org/w/api.php?action=query&generator=search&gsrsearch=${encodeURIComponent(cleanKeyword)}&gsrlimit=3&prop=pageimages&piprop=thumbnail&pithumbsize=1200&format=json`;
       const res = await fetch(url, {
         headers: { 'User-Agent': 'GainleadxEditorialBot/1.0 (editor@gainleadx.com)' },
       });
@@ -381,13 +402,26 @@ async function fetchTopicEditorialPhoto(topicTitle, category) {
         const data = await res.json();
         if (data.query && data.query.pages) {
           const pages = Object.values(data.query.pages);
-          if (pages[0] && pages[0].thumbnail && pages[0].thumbnail.source) {
-            console.log(`   ✓ Found topic-specific editorial photo for: "${pages[0].title}"`);
-            return {
-              url: pages[0].thumbnail.source,
-              alt: `Investigative dossier coverage of ${pages[0].title}`,
-              credit: `${pages[0].title} Archives / Gainleadx`,
-            };
+
+          // STRICT RELEVANCE VALIDATION:
+          // The page title must contain at least one meaningful word from the query
+          const significantWords = cleanKeyword
+            .toLowerCase()
+            .split(/\s+/)
+            .filter((w) => w.length > 2);
+
+          for (const page of pages) {
+            const pageTitleLower = page.title.toLowerCase();
+            const hasMatch = significantWords.some((w) => pageTitleLower.includes(w));
+
+            if (hasMatch && page.thumbnail && page.thumbnail.source) {
+              console.log(`   ✓ Found verified topic-specific photo for: "${page.title}"`);
+              return {
+                url: page.thumbnail.source,
+                alt: `Investigative dossier coverage of ${page.title}`,
+                credit: `${page.title} Archives / Gainleadx`,
+              };
+            }
           }
         }
       }
@@ -396,8 +430,9 @@ async function fetchTopicEditorialPhoto(topicTitle, category) {
     console.warn(`   Topic photo search note: ${err.message}`);
   }
 
-  // 2. High-contrast broadsheet editorial photo for this category
-  return selectEditorialPhoto(category);
+  // 2. High-precision Thematic Broadsheet fallback (Broadcast studio, Hospital ward, Courtroom, Parliament)
+  console.log(`   ✓ Selected matching thematic editorial photo for [${category}]`);
+  return selectEditorialPhoto(category, combinedContext);
 }
 
 // -------------------------------------------------------------
@@ -687,7 +722,7 @@ function convertToPortableText(articleData) {
   return blocks;
 }
 
-async function publishToSanity(articleData) {
+async function publishToSanity(articleData, task = null) {
   if (!SANITY_PROJECT_ID || !SANITY_WRITE_TOKEN) {
     console.warn(`\n⚠️  [Sanity CMS] Skipping live Sanity publish:`);
     console.warn(`   NEXT_PUBLIC_SANITY_PROJECT_ID or SANITY_API_WRITE_TOKEN not set in environment.`);
@@ -704,7 +739,7 @@ async function publishToSanity(articleData) {
 
   const docId = isDraft ? `drafts.post-${Date.now()}` : `post-${Date.now()}`;
   const portableTextBlocks = convertToPortableText(articleData);
-  const photo = await fetchTopicEditorialPhoto(articleData.title, articleData.category);
+  const photo = await fetchTopicEditorialPhoto(task?.keyword, articleData.category, articleData.title);
 
   const document = {
     _id: docId,
@@ -809,7 +844,7 @@ async function main() {
     console.log(`Excerpt: ${article.excerpt.slice(0, 120)}...`);
 
     // 4. Ingest to Sanity & purge cache
-    await publishToSanity(article);
+    await publishToSanity(article, task);
     await triggerRevalidation();
 
     console.log(`\n✨ Successfully finished! Article is published and live at:`);
