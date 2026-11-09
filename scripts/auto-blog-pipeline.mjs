@@ -120,6 +120,32 @@ async function getExistingSlugsAndTitles() {
 // -------------------------------------------------------------
 // 3. Live UK Trending Topic Scraper (Google Trends & Google News)
 // -------------------------------------------------------------
+// -------------------------------------------------------------
+// 3. Brand Safety & Compliance Shield (Anti-Ban Guardrails)
+// -------------------------------------------------------------
+const BANNED_TOPIC_PATTERNS = [
+  // 1. Adult, sexual, intimate scandals
+  /\b(sex|sexual|porn|nude|nudity|naked|affair|dating|romance|cheat|divorce|mistress|brothel|onlyfans|lewd|intimate|explicit|baillie)\b/i,
+  // 2. Graphic violence, bodily harm, suicide
+  /\b(murder|killed|stabbing|stabbed|blood|corpse|dead body|suicide|hanged|decapitat|mutilat|shooting|shooter|terror attack)\b/i,
+  // 3. Harassment, personal defamation, criminal accusations against private citizens
+  /\b(pedophile|paedophile|epstein|rapist|rape|assault|hate speech|racist|slur|grooming)\b/i,
+  // 4. Drugs, dangerous substances
+  /\b(overdose|cocaine|heroin|meth|fentanyl|drug dealer)\b/i,
+  // 5. Low-quality tabloid celebrity gossip
+  /\b(strictly|love island|celebrity big brother|kardashian|red carpet|wardrobe malfunction|wagatha)\b/i,
+];
+
+function isTopicBrandSafe(title, desc = '') {
+  const combined = `${title} ${desc}`.toLowerCase();
+  for (const pattern of BANNED_TOPIC_PATTERNS) {
+    if (pattern.test(combined)) {
+      return false;
+    }
+  }
+  return true;
+}
+
 function parseRssItems(xmlText) {
   const items = [];
   const itemMatches = xmlText.match(/<item>[\s\S]*?<\/item>/gi) || [];
@@ -188,7 +214,13 @@ async function fetchLiveTrendingUkTopic(existingSet) {
         const cleanedTitle = item.title.replace(/\s*-\s*[A-Za-z0-9\s]+$/, '').trim();
         const lower = cleanedTitle.toLowerCase();
 
-        // Skip if already published or matches existing
+        // 1. Brand Safety Check (Anti-Ban Guardrail)
+        if (!isTopicBrandSafe(cleanedTitle, item.desc)) {
+          console.log(`   🛡️ [Brand Safety Shield] Skipped non-compliant/tabloid topic: "${cleanedTitle}"`);
+          continue;
+        }
+
+        // 2. Skip if already published or matches existing
         let alreadyCovered = false;
         for (const existing of existingSet) {
           if (existing.includes(lower) || lower.includes(existing)) {
@@ -372,9 +404,19 @@ async function fetchTopicEditorialPhoto(topicTitle, category) {
 // 6. AI Generation (Google Gemini or Anthropic Claude)
 // -------------------------------------------------------------
 function buildPrompts(task) {
-  const systemPrompt = `You are the Senior Chief Investigative Reporter for "Gainleadx", a prominent British broadsheet publication investigating the most controversial topics, policy failures, financial paper trails, and institutional scandals across the United Kingdom.
-Your writing style is forensic, rigorous, authoritative, and unapologetic. You cite official statistics, parliamentary inquiries, National Audit Office findings, and corporate ledger realities.
-You must output ONLY valid, unescaped JSON matching the exact schema requested below, with no markdown code fences or conversational preamble.`;
+  const systemPrompt = `You are the Senior Chief Investigative Reporter for "Gainleadx", a premier British broadsheet publication modeled after the Financial Times, The Guardian In-Depth, and The Economist.
+
+CRITICAL EDITORIAL, LEGAL & BRAND SAFETY STANDARDS (STRICT COMPLIANCE MANDATORY):
+1. GOOGLE PUBLISHER & ADSENSE POLICY COMPLIANCE: 
+   - Never generate content involving sexually explicit themes, adult scandals, graphic bodily harm, suicide, slurs, harassment, or hate speech.
+   - Maintain the highest Google Search EEAT (Experience, Expertise, Authoritativeness, and Trustworthiness) standards.
+2. UK DEFAMATION ACT 2013 & JOURNALISTIC FAIRNESS:
+   - Never state unverified criminal allegations against living private individuals as established fact.
+   - Attribute all investigations strictly to documented sources: National Audit Office (NAO) audits, Office for National Statistics (ONS), Parliamentary Hansard records, High Court judgments, or corporate Companies House regulatory filings.
+3. FORENSIC BROADSHEET TONE:
+   - Sober, analytical, authoritative, and policy-focused. Examine systemic policy failures, public expenditure, fiscal allocations, institutional governance, and statutory reform.
+4. OUTPUT FORMAT:
+   - Output ONLY valid, unescaped JSON matching the exact schema requested below, with no markdown code fences or conversational preamble.`;
 
   const userPrompt = `Conduct an exhaustive investigative inquest on the following trending UK debate:
 Primary Keyword: "${task.keyword}"
