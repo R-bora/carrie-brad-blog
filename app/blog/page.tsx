@@ -1,5 +1,5 @@
 import { client, isSanityConfigured } from '@/sanity/lib/client';
-import { featuredPostQuery, postsGridQuery } from '@/sanity/lib/queries';
+import { allPostsQuery } from '@/sanity/lib/queries';
 import { fallbackFeaturedPost, fallbackGridPosts } from '@/lib/fallback-data';
 import { BlogView } from '@/components/BlogView';
 import { BlogPost } from '@/types/blog';
@@ -17,19 +17,11 @@ async function getBlogData() {
   }
 
   try {
-    const [sanityFeatured, sanityGrid] = await Promise.all([
-      client.fetch<BlogPost>(featuredPostQuery),
-      client.fetch<BlogPost[]>(postsGridQuery),
-    ]);
+    const allSanity = await client.fetch<BlogPost[]>(allPostsQuery);
 
-    const hasSanityPosts = Boolean(sanityFeatured) || (Boolean(sanityGrid) && sanityGrid.length > 0);
-
-    // If real Sanity posts exist, do NOT pollute the site with dummy fallback posts
-    if (hasSanityPosts) {
-      const featured = sanityFeatured || sanityGrid[0];
-      const grid = sanityFeatured
-        ? (sanityGrid || [])
-        : sanityGrid.slice(1);
+    if (allSanity && allSanity.length > 0) {
+      const featured = allSanity.find((p) => p.isFeatured) || allSanity[0];
+      const grid = allSanity.filter((p) => p._id !== featured._id);
 
       return {
         featuredPost: featured,
@@ -39,14 +31,14 @@ async function getBlogData() {
     }
 
     return {
-      featuredPost: fallbackFeaturedPost,
-      gridPosts: fallbackGridPosts,
+      featuredPost: null,
+      gridPosts: [],
       isSanityConnected: true,
     };
   } catch (error) {
     return {
-      featuredPost: fallbackFeaturedPost,
-      gridPosts: fallbackGridPosts,
+      featuredPost: null,
+      gridPosts: [],
       isSanityConnected: false,
     };
   }

@@ -14,7 +14,7 @@ import { Footer } from './Footer';
 import { ContactModal } from './ContactModal';
 
 interface BlogViewProps {
-  initialFeaturedPost: BlogPost;
+  initialFeaturedPost?: BlogPost | null;
   initialGridPosts: BlogPost[];
   isSanityConnected: boolean;
 }
@@ -25,7 +25,7 @@ export const BlogView: React.FC<BlogViewProps> = ({
   isSanityConnected,
 }) => {
   const [activeCategory, setActiveCategory] = useState<CategoryFilter>('ALL');
-  const [featuredPost] = useState<BlogPost>(initialFeaturedPost);
+  const [featuredPost] = useState<BlogPost | null>(initialFeaturedPost || null);
   const [gridPosts] = useState<BlogPost[]>(initialGridPosts);
 
   // Contact Modal State
@@ -63,9 +63,11 @@ export const BlogView: React.FC<BlogViewProps> = ({
       )}
 
       {/* 3. Trending Section: HiAnime-style Ranked Carousel */}
-      <Hero
-        posts={[...gridPosts, featuredPost]}
-      />
+      {((featuredPost ? 1 : 0) + gridPosts.length > 0) && (
+        <Hero
+          posts={featuredPost ? [featuredPost, ...gridPosts] : gridPosts}
+        />
+      )}
 
       {/* 4. Category Submenu ("Browse the blog :") */}
       <CategoryBar

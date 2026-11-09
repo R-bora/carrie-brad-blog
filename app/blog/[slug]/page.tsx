@@ -5,7 +5,6 @@ import { notFound } from 'next/navigation';
 import { PortableText } from '@portabletext/react';
 import { client, isSanityConfigured } from '@/sanity/lib/client';
 import { postBySlugQuery, allPostsQuery } from '@/sanity/lib/queries';
-import { fallbackFeaturedPost, fallbackGridPosts } from '@/lib/fallback-data';
 import { urlForImage } from '@/sanity/lib/image';
 import { BlogPost } from '@/types/blog';
 import { Header } from '@/components/Header';
@@ -23,12 +22,8 @@ async function getPostData(slug: string): Promise<{
   post: BlogPost | null;
   relatedPosts: BlogPost[];
 }> {
-  const allFallback = [fallbackFeaturedPost, ...fallbackGridPosts];
-
   if (!isSanityConfigured()) {
-    const post = allFallback.find((p) => p.slug === slug || p._id === slug) || null;
-    const relatedPosts = allFallback.filter((p) => p.slug !== slug).slice(0, 3);
-    return { post, relatedPosts };
+    return { post: null, relatedPosts: [] };
   }
 
   try {
@@ -37,16 +32,13 @@ async function getPostData(slug: string): Promise<{
       client.fetch<BlogPost[]>(allPostsQuery),
     ]);
 
-    const post = sanityPost || allFallback.find((p: BlogPost) => p.slug === slug || p._id === slug) || null;
-    const relatedSource = allSanity && allSanity.length > 0 ? allSanity : allFallback;
-    const relatedPosts = relatedSource.filter((p: BlogPost) => p.slug !== slug).slice(0, 3);
+    const post = sanityPost || null;
+    const relatedPosts = (allSanity || []).filter((p: BlogPost) => p.slug !== slug).slice(0, 3);
 
     return { post, relatedPosts };
   } catch (error) {
-    console.warn('Sanity fetch error in slug route, using fallback dataset:', error);
-    const post = allFallback.find((p: BlogPost) => p.slug === slug || p._id === slug) || null;
-    const relatedPosts = allFallback.filter((p: BlogPost) => p.slug !== slug).slice(0, 3);
-    return { post, relatedPosts };
+    console.warn('Sanity fetch error in slug route:', error);
+    return { post: null, relatedPosts: [] };
   }
 }
 

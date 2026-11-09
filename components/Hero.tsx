@@ -73,69 +73,15 @@ export const Hero: React.FC<HeroProps> = ({
     return () => cancelAnimationFrame(animId);
   }, [isHovered]);
 
-  const baseItems: BlogPost[] =
-    posts && posts.length > 0
-      ? posts
-      : [
-          {
-            _id: 'uk-trend-1',
-            slug: 'asylum-hotel-profiteers',
-            title: 'THE ASYLUM HOTEL PROFITEERS: WHERE THE BILLIONS ACTUALLY GO',
-            category: 'IMMIGRATION',
-            excerpt: 'How private contractors extract massive profit margins housing channel arrivals.',
-            mainImage: {
-              url: 'https://images.unsplash.com/photo-1577495508048-b635879837f1?auto=format&fit=crop&w=800&q=80',
-            },
-            estimatedReadTime: '6 MIN READ',
-          },
-          {
-            _id: 'uk-trend-2',
-            slug: 'london-councils-on-the-brink',
-            title: 'LONDON COUNCILS ON THE BRINK: WHY LOCAL AUTHORITIES ARE GOING BUST',
-            category: 'ECONOMY',
-            excerpt: 'Temporary accommodation and adult social care debts trigger unprecedented Section 114 notices.',
-            mainImage: {
-              url: 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=800&q=80',
-            },
-            estimatedReadTime: '8 MIN READ',
-          },
-          {
-            _id: 'uk-trend-3',
-            slug: 'the-royal-prerogative-secret-veto',
-            title: 'THE ROYAL PREROGATIVE: SECRET WINDSOR CONSENT OVER BRITISH LAWS',
-            category: 'MONARCHY',
-            excerpt: 'National Archives expose how Palace lawyers vetted over 1,000 parliamentary bills in secret.',
-            mainImage: {
-              url: 'https://images.unsplash.com/photo-1577962917302-cd874c4e31d2?auto=format&fit=crop&w=800&q=80',
-            },
-            estimatedReadTime: '7 MIN READ',
-          },
-          {
-            _id: 'uk-trend-4',
-            slug: 'junior-doctors-vs-downing-street',
-            title: 'JUNIOR DOCTORS VS DOWNING STREET: THE NHS STRIKE DEADLOCK',
-            category: 'NHS & HEALTH',
-            excerpt: 'Inside the bitter ideological war over full pay restoration and healthcare retention.',
-            mainImage: {
-              url: 'https://images.unsplash.com/photo-1538332576228-eb5b4c4de6f5?auto=format&fit=crop&w=800&q=80',
-            },
-            estimatedReadTime: '5 MIN READ',
-          },
-          {
-            _id: 'uk-trend-5',
-            slug: 'digital-id-cashless-britain',
-            title: 'DIGITAL ID & CASHLESS BRITAIN: THE WAR ON MONETARY FREEDOM',
-            category: 'CIVIL LIBERTIES',
-            excerpt: 'Bank branch closures, central bank digital currencies, and debanking scandals across the UK.',
-            mainImage: {
-              url: 'https://images.unsplash.com/photo-1590402494682-cd3fb53b1f70?auto=format&fit=crop&w=800&q=80',
-            },
-            estimatedReadTime: '6 MIN READ',
-          },
-        ];
+  if (!posts || posts.length === 0) {
+    return null;
+  }
 
-  // Duplicate items 3 times for seamless infinite ribbon
-  const trendingItems = [...baseItems, ...baseItems, ...baseItems];
+  const baseItems: BlogPost[] = posts.filter(Boolean);
+
+  // Duplicate items for smooth continuous scrolling ribbon
+  const repeatCount = baseItems.length < 3 ? 6 : 3;
+  const trendingItems = Array.from({ length: repeatCount }).flatMap(() => baseItems);
 
   return (
     <section className="w-full bg-[#f8f5ee] border-b border-[#e2dbcd] py-6 sm:py-10 md:py-12 overflow-hidden">
