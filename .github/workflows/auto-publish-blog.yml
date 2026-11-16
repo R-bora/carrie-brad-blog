@@ -55,6 +55,9 @@ jobs:
           NEXT_PUBLIC_SITE_URL: 'https://gainleadx.com'
         run: |
           CMD="node scripts/auto-blog-pipeline.mjs"
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            CMD="$CMD --force"
+          fi
           if [ -n "${{ inputs.keyword }}" ]; then
             CMD="$CMD --keyword '${{ inputs.keyword }}' --category '${{ inputs.category }}'"
           fi

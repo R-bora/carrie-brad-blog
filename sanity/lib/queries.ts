@@ -16,6 +16,7 @@ const postFields = groq`
       _id,
       url
     },
+    url,
     alt,
     caption,
     credit

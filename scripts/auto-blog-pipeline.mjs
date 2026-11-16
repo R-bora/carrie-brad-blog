@@ -447,6 +447,18 @@ EDITORIAL TONE & CONTROVERSIAL EDGE:
 - Expose the uncomfortable truths, the financial paper trails, the eye-watering taxpayer bills, and the ideological fault lines tearing through Parliament and public life.
 - Use hard-hitting, commanding headlines that pose urgent questions (e.g., "THE PRIVATISATION BETRAYAL", "WHO PROFITS FROM THE COLLAPSE?", "THE BILLION-POUND WHITEHALL COVERUP").
 
+AUTHENTIC HUMAN JOURNALISTIC CADENCE & NATURAL IMPERFECTIONS (ANTI-AI DETECTION):
+To ensure the article completely evades automated AI detectors (ZeroGPT, Copyleaks, Originality.ai) and algorithmic Google spam/AI penalties:
+1. VARIATION IN SENTENCE BURSTINESS: Strictly avoid monotonous sentence length. Alternate between sharp, staccato 3-to-6 word punches ("The public paid twice.", "Hardly reassuring.", "Far from it.") and intricate, multi-clause investigative analysis.
+2. NATURAL HUMAN IMPERFECTIONS & DEADLINE QUIRKS: Genuine broadsheet writers under tight print deadlines write with human rhythm, not sterile textbook perfection. Inject subtle, realistic human quirks and minor grammatical liberties throughout the article:
+   - Deliberate sentence fragments for dramatic emphasis ("A bitter pill for households to swallow.", "Hardly a coincidence.", "Or so ministers claimed.").
+   - Conjunction-led sentences ("And yet, behind closed doors...", "But the reality on the ground told a different story.").
+   - Conversational, slightly imperfect British idioms ("kicked firmly into the long grass", "sold down the river", "penny-pinching Whitehall bean-counters").
+   - Occasional minor grammatical/colloquial liberties typical of hurried Fleet Street columnists (e.g., split infinitives like "to quietly shelve", parenthetical asides with em-dashes "— and who could blame them? —", casual transitions like "Mind you," or "Make no mistake," and natural sentence flow variation).
+3. STRICT BAN ON ROBOTIC AI CLICHÉS:
+   - NEVER use dead giveaway AI phrases: "delve", "tapestry", "in conclusion", "furthermore", "testament to", "beacon of", "pivotal role", "realm", "it is crucial to remember", "a multifaceted issue", "navigating the complexities", "plays a crucial role".
+   - Do NOT write like an encyclopaedia or AI assistant. Write like an incensed, battle-hardened investigative reporter.
+
 LEGAL & BRAND SAFETY BOUNDARIES (STRICT ANTI-BAN GUARDRAILS):
 1. Focus the controversy on INSTITUTIONAL ACCOUNTABILITY, public expenditure, corporate governance, and parliamentary battles.
 2. Absolutely NO adult themes, sexual scandals, slurs, hate speech, or graphic violence.
@@ -461,6 +473,7 @@ Key Inquest Questions to address:
 ${task.targetQuestions ? task.targetQuestions.map((q) => `- ${q}`).join('\n') : ''}
 
 Deliver an explosive, forensic, broadsheet-grade report highlighting who bears the cost, who reaps the profit, and why this scandal is inflaming public fury across Britain.
+Ensure the writing style reflects natural human authorship: sharp, colloquial, slightly imperfect, varied sentence rhythms, and zero AI clichés.
 
 Return a JSON object with this EXACT structure:
 {
@@ -581,7 +594,7 @@ async function generateWithGemini(task) {
             system_instruction: { parts: [{ text: systemPrompt }] },
             contents: [{ parts: [{ text: userPrompt }] }],
             generationConfig: {
-              temperature: 0.3,
+              temperature: 0.55,
               response_mime_type: 'application/json',
             },
           }),
@@ -631,7 +644,7 @@ async function generateWithClaude(task) {
     body: JSON.stringify({
       model: 'claude-3-5-sonnet-latest',
       max_tokens: 3500,
-      temperature: 0.3,
+      temperature: 0.55,
       system: systemPrompt,
       messages: [{ role: 'user', content: userPrompt }],
     }),
@@ -741,6 +754,49 @@ async function publishToSanity(articleData, task = null) {
   const portableTextBlocks = convertToPortableText(articleData);
   const photo = await fetchTopicEditorialPhoto(task?.keyword, articleData.category, articleData.title);
 
+  // Upload image asset to Sanity CDN so asset reference is established
+  let assetRef = null;
+  try {
+    console.log(`   Uploading topic photo to Sanity CDN (${photo.url.slice(0, 60)}...)...`);
+    const imgRes = await fetch(photo.url);
+    if (imgRes.ok) {
+      const buffer = await imgRes.arrayBuffer();
+      const uploadUrl = `https://${SANITY_PROJECT_ID}.api.sanity.io/v${SANITY_API_VERSION}/assets/images/${SANITY_DATASET}?filename=editorial-${Date.now()}.jpg`;
+      const uploadRes = await fetch(uploadUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'image/jpeg',
+          Authorization: `Bearer ${SANITY_WRITE_TOKEN}`,
+        },
+        body: Buffer.from(buffer),
+      });
+
+      if (uploadRes.ok) {
+        const uploadData = await uploadRes.json();
+        if (uploadData.document && uploadData.document._id) {
+          assetRef = {
+            _type: 'reference',
+            _ref: uploadData.document._id,
+          };
+          console.log(`   ✓ Topic photo ingested into Sanity Asset CDN: ${uploadData.document._id}`);
+        }
+      }
+    }
+  } catch (err) {
+    console.warn(`   Notice: Asset CDN upload skipped (${err.message}). Using direct URL.`);
+  }
+
+  const mainImage = {
+    _type: 'image',
+    url: photo.url,
+    alt: photo.alt,
+    caption: `Investigative dossier coverage for ${articleData.title}`,
+    credit: photo.credit,
+  };
+  if (assetRef) {
+    mainImage.asset = assetRef;
+  }
+
   const document = {
     _id: docId,
     _type: 'post',
@@ -763,13 +819,7 @@ async function publishToSanity(articleData, task = null) {
     body: portableTextBlocks,
     seoTitle: articleData.seoTitle || articleData.title,
     seoDescription: articleData.seoDescription || articleData.excerpt,
-    mainImage: {
-      _type: 'image',
-      url: photo.url,
-      alt: photo.alt,
-      caption: `Investigative dossier coverage for ${articleData.title}`,
-      credit: photo.credit,
-    },
+    mainImage,
   };
 
   const endpoint = `https://${SANITY_PROJECT_ID}.api.sanity.io/v${SANITY_API_VERSION}/data/mutate/${SANITY_DATASET}`;
